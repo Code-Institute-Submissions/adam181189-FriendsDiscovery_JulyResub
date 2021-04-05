@@ -1,0 +1,29 @@
+html {
+    height: 100%;
+}
+
+body {
+    background: url('/media/friendsgroup.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: calc(100vh - 164px);
+}
+
+/* Home Page */
+
+.home-welcome {  
+  position: relative;
+  right:160px;
+  top:300px;
+}
+
+.subtitle {  
+    font-size:40px;  
+    color: #F2FA22;
+    text-shadow: 2px 2px black;
+    font-weight:bold;
+}
+
+.better-you-button {
+    background-color: #F2FA22;
+    color:black;
+}
