@@ -27,12 +27,21 @@ body {
     color:black;
 }
 
+/* Registration */
+.registrationCard {
+    font-size:1rem;
+    top: 6rem;
+    font: black;
+    padding:20px;
+    margin:10px;
+    background: rgb(204, 204, 204); /* Fallback for older browsers without RGBA-support */
+    background: rgba(155, 152, 152, 0.5);
+}
+
 
 /* Media Queries */
 
 @media (max-width: 1024px) {
-
-
     
   .home-welcome {
   right:40px;
@@ -42,6 +51,7 @@ body {
 .subtitle {  
     font-size:30px; 
 }
+
 
 }
 

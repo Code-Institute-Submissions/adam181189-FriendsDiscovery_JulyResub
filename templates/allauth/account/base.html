@@ -38,15 +38,17 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">FriendsDiscovery</a>
+                <a class="navbar-brand">FriendsDiscovery</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                
                 <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+                    {% if request.user.is_authenticated %}
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="#">
@@ -64,8 +66,7 @@
                             </a>
                         </li>
                     </ul>
-                </div>
-                <div class="collapse navbar-collapse justify-content-center" id="navbarAccount">
+                {% endif %}
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -83,11 +84,13 @@
                                 {% endif %}
                             </ul>
                         </li>
+                        {% if request.user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <div class="text-center">Membership</div>
                             </a>
                         </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -103,20 +106,8 @@
             {% endfor %}
         </ul>
     </div>
-    {% endif %}
 
-    <div>
-        <strong>Menu:</strong>
-        <ul>
-            {% if user.is_authenticated %}
-            <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-            <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-            {% else %}
-            <li><a href="{% url 'account_login' %}">Sign In</a></li>
-            <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
-            {% endif %}
-        </ul>
-    </div>
+    {% endif %}
     {% block content %}
     {% endblock %}
     {% block extra_body %}
