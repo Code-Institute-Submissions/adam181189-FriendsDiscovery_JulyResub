@@ -2,7 +2,72 @@
 {% load static %}
 
 {% block content %}
-<div class="profile-body">
+<div class="card profileCard">
+    <h2>{{ user.username }}'s Profile</h2><br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="card profileInfoCard profile-section align-items-center" style="margin: 10px 0px 10px 10px ">
+                    <h3 class="white-important p-2 profileTitle">
+                        Profile
+                    </h3>
+                    <article class="content-section" style="height: 140px; width: 100%">
+                        <div class="mt-2 d-flex full-width align-items-center">
+                            <img class="rounded-circle mr-3" style="width: 90px; height: 90px;"
+                                src="{{ user.profile.image.url }}"></div>
+                            <div>
+                                <h4 style="text-align: left" class="white-important">
+                                    {{ user.username }}
+                                </h4>
+                                <h6 style="text-align: left" class="email-profile">
+                                    {{ user.email }}
+                                </h6>
+                            
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card profileInfoCard profile-section align-items-center">
+                    <h3 class="white-important p-2">
+                        About Me
+                    </h3>
+                    <article class="content-section" style="height: 140px; width: 100%">
+                        <div class="mt-2 d-flex full-width align-items-center">
+
+                            <div class="align-items-center stats">
+                                <h4> Stats </h4>
+                                <h6 >
+                                    Age: <br>
+                                    Gender: <br>
+                                    Height: <br>
+                                    Hair: <br>
+                                    Ethnicity: <br>
+                                </h6>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+             <div class="col-lg-6 col-md-12">
+                <div class="card profileInfoCard profile-section align-items-center" style="margin: 10px">
+                    <h3 class="white-important p-2">
+                        Posts
+                    </h3>
+                    <article class="content-section" style="height: 140px; width: 100%">
+                        <div class="mt-2 d-flex full-width align-items-center">
+
+                            <div>
+                                <div style="text-align: center" class="card posts">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 {% endblock %}
