@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'users',
     'home',
     'profilepage',
 ]
@@ -61,6 +62,8 @@ AUTHENTICATION_BACKENDS = [
 
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+AUTH_PROFILE_MODULE = 'users.UserProfile'
 
 SITE_ID = 1
 
