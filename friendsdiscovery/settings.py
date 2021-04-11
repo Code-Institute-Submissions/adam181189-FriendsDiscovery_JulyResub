@@ -65,6 +65,8 @@ AUTHENTICATION_BACKENDS = [
 
 AUTH_PROFILE_MODULE = 'users.UserProfile'
 
+ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.SignupForm'
+
 SITE_ID = 1
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
