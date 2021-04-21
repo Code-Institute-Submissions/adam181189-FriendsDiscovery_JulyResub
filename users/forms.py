@@ -5,6 +5,14 @@ from .models import UserProfile
 
 
 class SignupForm(UserCreationForm):
+
+    def __init__(self, *args, **kwargs):
+            super(SignupForm, self).__init__(*args, **kwargs)
+
+            for fieldname in ['username', 'email', 'first_name', 'last_name',
+            'password1', 'password2']:
+                self.fields[fieldname].help_text = None
+
     email = forms.EmailField(required=True)
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=150)
@@ -14,6 +22,20 @@ class SignupForm(UserCreationForm):
         fields = [
             'username', 'email', 'first_name', 'last_name',
             'password1', 'password2']
+
+        def clean_email(self):
+        # Get the email
+            email = self.cleaned_data.get('email')
+
+        # Check to see if any users already exist with this email as a username.
+            try:
+                match = User.objects.get(email=email)
+            except User.DoesNotExist:
+                # Unable to find a user, this is fine
+                return email
+
+            # A user was found with this as a username, raise an error.
+            raise forms.ValidationError('This email address is already in use.')
 
     def signup(self, test, commit=True):
 
@@ -31,6 +53,5 @@ class SignupForm(UserCreationForm):
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
-        print("Meta:")
         model = UserProfile
         fields = ('gender', 'date_of_birth')

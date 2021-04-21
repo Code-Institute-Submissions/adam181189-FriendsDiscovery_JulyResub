@@ -40,7 +40,7 @@ def extendedSignup(request):
             user = authenticate(username=username, password=password)
             login(request, user)
 
-            return redirect('index')
+            return redirect('account_login')
     else:
         form = SignupForm()
         profile_form = UserProfileForm()
