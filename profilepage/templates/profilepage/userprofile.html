@@ -38,11 +38,11 @@
                             <div class="align-items-center stats">
                                 <h4> Stats </h4>
                                 <h6 >
-                                    Age: <br>
+                                    Age: {{ userprofiles.age }} <br>
                                     Gender: <br>
                                     Height: <br>
                                     Hair: <br>
-                                    Ethnicity: <br>
+                                    Nationality: <br>
                                 </h6>
                             </div>
                         </div>
@@ -54,6 +54,15 @@
                     <h3 class="white-important p-2">
                         Posts
                     </h3>
+                    <button type="button" id="blogFormButton">Make a new Post</button>
+
+                    <form id="blogPost" style="display:none">
+                        <textarea name="post" style="width: 40vw;">
+                            Add to blog here...
+                        </textarea>
+                        <br><br>
+                        <button type="button" id="submit">Submit Post</button>
+                    </form>
                     <article class="content-section" style="height: 140px; width: 100%">
                         <div class="mt-2 d-flex full-width align-items-center">
 
@@ -64,6 +73,7 @@
                             </div>
                         </div>
                     </article>
+                    
                 </div>
             </div>
         </div>
