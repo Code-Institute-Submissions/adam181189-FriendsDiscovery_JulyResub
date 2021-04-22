@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
 <div class="card profileCard">
     <h2>{{ user.username }}'s Profile</h2><br>
@@ -56,12 +58,14 @@
                     </h3>
                     <button type="button" id="blogFormButton">Make a new Post</button>
 
-                    <form id="blogPost" style="display:none">
-                        <textarea name="post" style="width: 40vw;">
-                            Add to blog here...
-                        </textarea>
+                    <form method="POST" id="blogPost"  style="display:none">
+                        {% csrf_token %}
+                        <fieldset class="form-group">                        
+                        {{ BlogPostForm | crispy }} 
                         <br><br>
-                        <button type="button" id="submit">Submit Post</button>
+                        <button type="submit">Submit Post</button>
+                        </fieldset>
+                        
                     </form>
                     <article class="content-section" style="height: 140px; width: 100%">
                         <div class="mt-2 d-flex full-width align-items-center">

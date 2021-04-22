@@ -18,7 +18,7 @@ def index(request):
 
 @login_required
 def profile(request):
-    return render(request, "profilepage/userprofile.html")
+    return render(request, "profilepage/blog.html")
 
 
 def extendedSignup(request):
