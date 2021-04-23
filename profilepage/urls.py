@@ -5,4 +5,5 @@ from . import views
 
 urlpatterns = [
     path('userprofile', views.userprofile, name='userprofile'),
+    path('newpost', views.newpost, name='newpost'),
 ]

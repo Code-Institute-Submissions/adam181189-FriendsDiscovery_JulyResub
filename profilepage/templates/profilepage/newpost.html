@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="col-lg-6 col-md-12">
+    <div class="card profileInfoCard profile-section align-items-center" style="margin: 10px">
+        <h3 class="white-important p-2">
+            Posts
+        </h3>
+
+        <form method="POST" id="blogPost">
+            {% csrf_token %}
+            <fieldset class="form-group">                        
+            {{ BlogPostForm | crispy }} 
+            <br><br>
+            <button type="submit">Submit Post</button>
+            </fieldset>
+            
+        </form>
+        
+        <a href="{% url 'userprofile' %}" type="button">Back to Profile</a>
+        
+    </div>
+</div>
+
+{% endblock %}

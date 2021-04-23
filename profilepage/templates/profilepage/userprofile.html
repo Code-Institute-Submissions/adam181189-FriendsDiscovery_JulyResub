@@ -9,22 +9,24 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3 col-md-6">
-                <div class="card profileInfoCard profile-section align-items-center" style="margin: 10px 0px 10px 10px ">
+                <div class="card profileInfoCard profile-section align-items-center"
+                    style="margin: 10px 0px 10px 10px ">
                     <h3 class="white-important p-2 profileTitle">
                         Profile
                     </h3>
                     <article class="content-section" style="height: 140px; width: 100%">
                         <div class="mt-2 d-flex full-width align-items-center">
                             <img class="rounded-circle mr-3" style="width: 90px; height: 90px;"
-                                src="{{ user.profile.image.url }}"></div>
-                            <div>
-                                <h4 style="text-align: left" class="white-important">
-                                    {{ user.username }}
-                                </h4>
-                                <h6 style="text-align: left" class="email-profile">
-                                    {{ user.email }}
-                                </h6>
-                            
+                                src="{{ user.profile.image.url }}">
+                        </div>
+                        <div>
+                            <h4 style="text-align: left" class="white-important">
+                                {{ user.username }}
+                            </h4>
+                            <h6 style="text-align: left" class="email-profile">
+                                {{ user.email }}
+                            </h6>
+
                         </div>
                     </article>
                 </div>
@@ -39,45 +41,71 @@
 
                             <div class="align-items-center stats">
                                 <h4> Stats </h4>
-                                <h6 >
-                                    Age: {{ userprofiles.age }} <br>
-                                    Gender: <br>
+                                <h6>
+                                    Age:  <br>
+                                    Gender: {{ UserProfile.gender }} <br>
                                     Height: <br>
                                     Hair: <br>
                                     Nationality: <br>
+                                </h6>
+                                <br><br>
+                                <h4> Profile Tagline </h4>
+                                <h6>
+                                    
                                 </h6>
                             </div>
                         </div>
                     </article>
                 </div>
             </div>
-             <div class="col-lg-6 col-md-12">
+            <div class="col-lg-6 col-md-12">
                 <div class="card profileInfoCard profile-section align-items-center" style="margin: 10px">
                     <h3 class="white-important p-2">
                         Posts
                     </h3>
-                    <button type="button" id="blogFormButton">Make a new Post</button>
+                    <a href="{% url 'newpost' %}" type="button" id="blogFormButton">Make a new Post</a>
 
-                    <form method="POST" id="blogPost"  style="display:none">
-                        {% csrf_token %}
-                        <fieldset class="form-group">                        
-                        {{ BlogPostForm | crispy }} 
-                        <br><br>
-                        <button type="submit">Submit Post</button>
-                        </fieldset>
-                        
-                    </form>
-                    <article class="content-section" style="height: 140px; width: 100%">
-                        <div class="mt-2 d-flex full-width align-items-center">
-
-                            <div>
-                                <div style="text-align: center" class="card posts">
-                                    
+                    {% for post in data %}
+                        <article class="card" style="background-color: black; width: 80%; margin-bottom: 10px">
+                            <div class="pb-2 row m-0" style="width: 100%; margin-right: 0 !important;">
+                                <div
+                                        style="padding-left: 0px !important;"
+                                        class="col-8 no-padding d-flex align-items-center">
+                                    <img
+                                        class="rounded-circle mr-2"
+                                        style="width: 20px; height: 20px;"
+                                        src="">
+                                    <a class="mr-2 white-important" href="">
+                                        {{ post.user }}
+                                    </a>
+                                </div>
+                                <div class="col-4 d-flex flex-row-reverse no-padding align-items-center"
+                                     style="padding-right: 0 !important;">
+                                    {% if post.user == user %}
+                                         <a class="material-icons ml-2"
+                                            style="font-size: 14px"
+                                                 href="">clear</a>
+                                         <a class="material-icons ml-2"
+                                            style="font-size: 14px"
+                                                 href="">update</a>
+                                     {%  endif %}
+                                     
                                 </div>
                             </div>
-                        </div>
-                    </article>
-                    
+                            <div
+                                class="mb-2"
+                                style="width: 100%; height: 1px; background-color: rgba(255, 255, 255, 0.1)">
+                            </div>
+                            <p class="mb-4">
+                                {{ post.new_post }}
+                            </p>
+                            <p class="mb-2">
+                                {{ post.date_posted }}
+                            </p>
+
+
+                        </article>
+                        {% endfor %}
                 </div>
             </div>
         </div>
