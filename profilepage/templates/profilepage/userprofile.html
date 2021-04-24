@@ -4,6 +4,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+
 <div class="card profileCard">
     <h2>{{ user.username }}'s Profile</h2><br>
     <div class="container-fluid">
@@ -17,7 +18,7 @@
                     <article class="content-section" style="height: 140px; width: 100%">
                         <div class="mt-2 d-flex full-width align-items-center">
                             <img class="rounded-circle mr-3" style="width: 90px; height: 90px;"
-                                src="{{ user.profile.image.url }}">
+                                src="{{ userinfo.profile_pic.url }}">
                         </div>
                         <div>
                             <h4 style="text-align: left" class="white-important">
@@ -26,6 +27,7 @@
                             <h6 style="text-align: left" class="email-profile">
                                 {{ user.email }}
                             </h6>
+                            <a href="{% url 'update_image' %}" type="button" id="updateButton">Update Profile Image</a>
 
                         </div>
                     </article>
@@ -38,12 +40,12 @@
                     </h3>
                     <article class="content-section" style="height: 140px; width: 100%">
                         <div class="mt-2 d-flex full-width align-items-center">
-
+                            
                             <div class="align-items-center stats">
                                 <h4> Stats </h4>
                                 <h6>
                                     Age:  <br>
-                                    Gender: {{ UserProfile.gender }} <br>
+                                    Gender: {{ userinfo.gender}} <br> 
                                     Height: <br>
                                     Hair: <br>
                                     Nationality: <br>
@@ -53,7 +55,9 @@
                                 <h6>
                                     
                                 </h6>
+                                
                             </div>
+                            <a href="{% url 'update_info' %}" type="button" id="updateButton">Change person Information</a>
                         </div>
                     </article>
                 </div>
@@ -74,7 +78,7 @@
                                     <img
                                         class="rounded-circle mr-2"
                                         style="width: 20px; height: 20px;"
-                                        src="">
+                                        src="{{ post.userinfo.profile_pic.url }}">
                                     <a class="mr-2 white-important" href="">
                                         {{ post.user }}
                                     </a>

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 
 
-class addPost(models.Model):
+class Post(models.Model):
     #fields here
     new_post = models.TextField(max_length=1000)
     date_posted = models.DateTimeField(default=timezone.now)

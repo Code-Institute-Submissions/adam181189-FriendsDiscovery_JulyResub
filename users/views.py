@@ -25,7 +25,7 @@ def extendedSignup(request):
 
     if request.method == 'POST':
         form = SignupForm(request.POST)
-        profile_form = UserProfileForm(request.POST)
+        profile_form = Form(request.POST)
 
         if form.is_valid() and profile_form.is_valid():
             user = form.save()

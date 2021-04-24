@@ -8,15 +8,15 @@
 <div class="col-lg-6 col-md-12">
     <div class="card profileInfoCard profile-section align-items-center" style="margin: 10px">
         <h3 class="white-important p-2">
-            Posts
+            Update profile information
         </h3>
 
-        <form method="POST" id="blogPost">
+        <form method="POST" id="updatingInformation">
             {% csrf_token %}
-            <fieldset class="form-group">                       
-            {{ BlogPostForm | crispy }} 
+            <fieldset class="form-group">                        
+            {{ update_information | crispy }} 
             <br><br>
-            <button type="submit">Submit Post</button>
+            <button type="submit">Update Information</button>
             </fieldset>
             
         </form>
