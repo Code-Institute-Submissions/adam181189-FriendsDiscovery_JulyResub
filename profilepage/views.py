@@ -11,7 +11,6 @@ def userprofile(request):
 
     userinfo = UserDetails.objects.get(user=User.objects.get(
         username=request.user.username))
-    print(userinfo)
 
     data = Post.objects.all().order_by('date_posted').reverse()
 
@@ -27,7 +26,6 @@ def update_info(request):
 def update_image(request):
     
     return render(request, "profilepage/update_image.html")
-
 
 
 def newpost(request):

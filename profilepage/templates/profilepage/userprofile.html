@@ -75,10 +75,11 @@
                                 <div
                                         style="padding-left: 0px !important;"
                                         class="col-8 no-padding d-flex align-items-center">
+                                    <span>!!! {{ post.user.last_name }}</span>
                                     <img
                                         class="rounded-circle mr-2"
                                         style="width: 20px; height: 20px;"
-                                        src="{{ post.userinfo.profile_pic.url }}">
+                                        src="{{ post.user.userdetails.profile_pic.url }}">
                                     <a class="mr-2 white-important" href="">
                                         {{ post.user }}
                                     </a>
@@ -106,8 +107,6 @@
                             <p class="mb-2">
                                 {{ post.date_posted }}
                             </p>
-
-
                         </article>
                         {% endfor %}
                 </div>

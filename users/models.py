@@ -23,7 +23,8 @@ class UserDetails(models.Model):
     date_of_birth = models.DateField()
     gender = models.CharField(
         max_length=13, choices=GENDER_CHOICES, default='male')
-    profile_pic = models.ImageField(null=True, blank=True)
+    profile_pic = models.ImageField(
+        default='default.png', blank=True)
 
     def __str__(self):
-        return self.user.username
+        return f'{self.user.username}'
