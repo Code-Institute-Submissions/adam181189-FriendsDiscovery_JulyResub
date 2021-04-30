@@ -5,8 +5,10 @@
 
 {% block content %}
 
-<div class="card profileCard">
-    <h2>{{ user.username }}'s Profile</h2><br>
+
+<div class="card profileCard align-items-center">
+    <br>
+    <h2 class="d-flex align-items-center">{{ user.username }}'s Profile</h2><br>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3 col-md-6">
@@ -17,18 +19,17 @@
                     </h3>
                     <article class="content-section" style="height: 140px; width: 100%">
                         <div class="mt-2 d-flex full-width align-items-center">
-                            <img class="rounded-circle mr-3" style="width: 90px; height: 90px;"
+                            <img class="rounded-circle mr-3" style="width: 190px; height: 190px;"
                                 src="{{ userinfo.profile_pic.url }}">
                         </div>
                         <div>
-                            <h4 style="text-align: left" class="white-important">
+                            <h4 class="white-important">
                                 {{ user.username }}
                             </h4>
-                            <h6 style="text-align: left" class="email-profile">
+                            <h6 class="email-profile">
                                 {{ user.email }}
                             </h6>
-                            <a href="{% url 'update_image' %}" type="button" id="updateButton">Update Profile Image</a>
-
+                            <a href="{% url 'update_image' %}" type="button" id="updateButton" class="updateButton">Update Profile Image</a>
                         </div>
                     </article>
                 </div>
@@ -48,7 +49,7 @@
                                     Gender: {{ userinfo.gender}} <br>
                                     Height: <br>
                                     Hair: <br>
-                                    Nationality: <br>
+                                    Nationality: {{ userinfo.nationality.name }} <br>
                                 </h6>
                                 <br><br>
                                 <h4> Bio: </h4>
@@ -57,7 +58,7 @@
                                 </h6>
 
                             </div>
-                            <a href="{% url 'update_info' %}" type="button" id="updateButton">Change person
+                            <a href="{% url 'update_info' %}" type="button" class="updateButton">Change person
                                 Information</a>
                         </div>
                     </article>
@@ -67,14 +68,15 @@
             <div class="col-lg-6 col-md-12">
 
                 <div class="card profileInfoCard profile-section align-items-center" style="margin: 10px">
+                    <a href="{% url 'newpost' %}" type="button" id="blogFormButton" class="newpostButton">Make a new Post</a>
                     <h3 class="white-important p-2">
                         Posts
-                    </h3>
+                    </h3>                    
                     <h6 class="white-important mb-3">
                         {{ page_obj.start_index }} - {{ page_obj.end_index }} of
                         {{ data.count }}
                     </h6>
-                    <a href="{% url 'newpost' %}" type="button" id="blogFormButton">Make a new Post</a>
+                    
                     
                         
                         {% for post in page_obj %}                       

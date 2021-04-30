@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from .forms import PostForm
-from .models import Post
+from .forms import PostForm, updateprofileinfo
+from django.contrib.auth import authenticate
+from .models import Post, updateInfo
 from users.models import UserDetails
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
@@ -26,12 +27,27 @@ def userprofile(request):
 
 
 def update_info(request):
+    if request.method == 'POST':
+        user = UserDetails.objects.get(user=User.objects.get(
+            username=request.user.username))
+        update_information = updateprofileinfo(request.POST, instance=user)
 
-    return render(request, "profilepage/update_info.html")
+        if update_information.is_valid():
+
+            profile = update_information.save(commit=False)
+
+            profile.save()
+
+            return redirect('userprofile')
+
+    else:
+        update_information = updateprofileinfo()
+
+    context = {'update_information': update_information}
+    return render(request, "profilepage/update_info.html", context)
 
 
 def update_image(request):
-    
     return render(request, "profilepage/update_image.html")
 
 

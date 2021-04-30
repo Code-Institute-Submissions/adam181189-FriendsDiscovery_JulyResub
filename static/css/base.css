@@ -55,6 +55,17 @@ body {
     padding:10px;
 }
 
+.newpostButton{
+    position:absolute;
+    right:5px;
+    top:5px;
+}
+
+.updateButton {
+    position:absolute;
+    bottom:5px;
+}
+
 /* Media Queries */
 
 @media (max-width: 1024px) {
