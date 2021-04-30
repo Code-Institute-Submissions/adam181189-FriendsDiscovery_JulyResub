@@ -41,7 +41,9 @@ def update_info(request):
             return redirect('userprofile')
 
     else:
-        update_information = updateprofileinfo()
+        userinfo = UserDetails.objects.get(user=User.objects.get(
+            username=request.user.username))
+        update_information = updateprofileinfo(instance=userinfo)
 
     context = {'update_information': update_information}
     return render(request, "profilepage/update_info.html", context)
