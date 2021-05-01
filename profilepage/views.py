@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import PostForm, updateprofileinfo
+from .forms import PostForm, updateprofileinfo, updateprofileimage
 from django.contrib.auth import authenticate
 from .models import Post, updateInfo
 from users.models import UserDetails
@@ -50,7 +50,27 @@ def update_info(request):
 
 
 def update_image(request):
-    return render(request, "profilepage/update_image.html")
+    if request.method == 'POST':
+        user = UserDetails.objects.get(user=User.objects.get(
+            username=request.user.username))
+        update_image = updateprofileimage(
+            request.POST, request.FILES, instance=user)
+
+        if update_image.is_valid():
+
+            profile_picture = update_image.save(commit=False)
+
+            profile_picture.save()
+
+            return redirect('userprofile')
+
+    else:
+        userinfo = UserDetails.objects.get(user=User.objects.get(
+            username=request.user.username))
+        update_image = updateprofileimage(instance=userinfo)
+
+    context = {'updateprofileimage': updateprofileimage}
+    return render(request, "profilepage/update_image.html", context)
 
 
 def newpost(request):

@@ -14,3 +14,9 @@ class updateprofileinfo(forms.ModelForm):
     class Meta:
         model = UserDetails
         fields = ('gender', 'date_of_birth', 'bio', 'nationality')
+
+
+class updateprofileimage(forms.ModelForm):
+    class Meta:
+        model = UserDetails
+        fields = ('profile_pic',)

@@ -31,7 +31,7 @@ class UserDetails(models.Model):
     nationality = CountryField(
         blank_label='(select country)', default="Where are you from?")
     profile_pic = models.ImageField(
-        default='default.png', blank=True)
+        upload_to="profile-image/", default='default.png', blank=True)
 
     def __str__(self):
         return f'{self.user.username}'

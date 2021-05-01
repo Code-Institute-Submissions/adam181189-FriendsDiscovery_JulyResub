@@ -11,10 +11,10 @@
             Update Profile Image
         </h3>
 
-        <form method="POST" id="updatingInformation">
+        <form method="POST" id="updatingInformation" action="{{ update_image }}" enctype="multipart/form-data">
             {% csrf_token %}
             <fieldset class="form-group">                        
-            {{ update_information | crispy }} 
+            {{ updateprofileimage | crispy }} 
             <br><br>
             <button type="submit">Update Profile Picture</button>
             </fieldset>
