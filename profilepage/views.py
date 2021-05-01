@@ -27,6 +27,9 @@ def userprofile(request):
 
 
 def update_info(request):
+
+    """ A view to be able to change user info on the profile page """
+
     if request.method == 'POST':
         user = UserDetails.objects.get(user=User.objects.get(
             username=request.user.username))
@@ -50,6 +53,9 @@ def update_info(request):
 
 
 def update_image(request):
+
+    """ A view to be able to change users image on the profile page """
+
     if request.method == 'POST':
         user = UserDetails.objects.get(user=User.objects.get(
             username=request.user.username))
@@ -74,7 +80,9 @@ def update_image(request):
 
 
 def newpost(request):
-    """ A view to return the users profile page """
+
+    """ A view to add a new blog post  """
+
     if request.method == 'POST':
         BlogPostForm = PostForm(request.POST)
 

@@ -19,7 +19,7 @@
                     </h3>
                     <article class="content-section" style="height: 140px; width: 100%">
                         <div class="mt-2 d-flex full-width align-items-center">
-                            <img class="rounded-circle mr-3" style="width: 190px; height: 190px;"
+                            <img class="rounded-circle mr-3 profileImage"
                                 src="{{ userinfo.profile_pic.url }}">
                         </div>
                         <div>
@@ -31,7 +31,17 @@
                             </h6>
                             <a href="{% url 'update_image' %}" type="button" id="updateButton" class="updateButton">Update Profile Image</a>
                         </div>
+                        <div style="height: 50px"></div>
+                        <div class="row ">
+                            <img class="mr-3 col-3 heartsReceived"
+                                src="/media/heart.png">
+                        
+                        <h4 class="col-9 white-important">
+                            Hearts Received : {{ userinfo.received_hearts }}
+                        </h4>
+                        </div>
                     </article>
+                    
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">

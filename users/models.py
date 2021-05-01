@@ -3,10 +3,20 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django_countries.fields import CountryField
 
-# https://www.youtube.com/watch?v=Tja4I_rgspI
-# (used to understand how to change allauth as extended user)
+    # https://www.youtube.com/watch?v=Tja4I_rgspI
+    # (used to understand how to change allauth as extended user)
+
+  # https://stackoverflow.com/questions/31130706/dropdown-in-django-model
+    # (used to understand dropdown)
+
+    # https://pypi.org/project/django-countries/#countryfield
+    # (used to understand built in nationality dropdown system)
+
+    # https://www.geeksforgeeks.org/imagefield-django-models/?ref=rp
+    # (used to understand how to add images)
 
 
+    # This is the database model for all users personal information
 class UserDetails(models.Model):
     GENDER_CHOICES = (
         ('male', 'Male'),
@@ -14,13 +24,8 @@ class UserDetails(models.Model):
         ('not_disclosed', 'Not Disclosed'),
     )
 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
-
-    # https://stackoverflow.com/questions/31130706/dropdown-in-django-model
-    # (used to understand dropdown)
-
-    # https://pypi.org/project/django-countries/#countryfield
-    # (used to understand built in nationality dropdown system)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE) 
 
     # Other fields here
     premium_member = models.BooleanField(default=False)
@@ -32,6 +37,7 @@ class UserDetails(models.Model):
         blank_label='(select country)', default="Where are you from?")
     profile_pic = models.ImageField(
         upload_to="profile-image/", default='default.png', blank=True)
+    received_hearts = models.IntegerField(default=0)
 
     def __str__(self):
         return f'{self.user.username}'
