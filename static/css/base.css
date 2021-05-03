@@ -77,6 +77,12 @@ body {
     bottom:5px;
 }
 
+/* List of profiles */
+.profileListCards {
+    margin-top:10px;
+    width:70%;
+}
+
 /* Media Queries */
 
 @media (max-width: 1024px) {
@@ -99,6 +105,11 @@ body {
     margin-left:5px;
     width: 60px; 
     height: 40px;
+}
+
+.profileListCards {
+    margin-top:10px;
+    width:100%;
 }
 
 }

@@ -96,3 +96,18 @@ def newpost(request):
 
     context = {'BlogPostForm': BlogPostForm}
     return render(request, 'profilepage/newpost.html', context)
+
+
+def profile_list(request):
+
+    userinfo = UserDetails.objects.get(user=User.objects.get(
+        username=request.user.username))
+
+    data = UserDetails.objects.all()
+    paginator = Paginator(data, 3)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {'userinfo': userinfo, 'data': data, 'page_obj': page_obj}
+    return render(request, 'profilepage/profile-list.html', context)
