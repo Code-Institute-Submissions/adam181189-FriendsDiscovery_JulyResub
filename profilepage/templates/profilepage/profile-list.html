@@ -21,9 +21,16 @@
                     <img class="rounded-circle mr-2" style="width: 150px; height: 150px;"
                         src="{{ profiles.user.userdetails.profile_pic.url }}">
                     &nbsp;
-                    <a class="white-important" href="">
+                    {% if user == profiles.user %}
+                    <a class="white-important" href="{% url 'userprofile' %}">
                         {{ profiles.user }}
                     </a>
+                    {% else %}
+                    <a class="white-important" href="{% url 'others_profile' profiles.user.username %}">
+                        {{ profiles.user }}
+                    </a>
+                    {% endif %}
+
                 </div>
                 <div class="col-9">
                     <p class="white-important" style="width:75%;">

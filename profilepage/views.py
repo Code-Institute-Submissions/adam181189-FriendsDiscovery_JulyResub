@@ -5,6 +5,7 @@ from .models import Post, updateInfo
 from users.models import UserDetails
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
+from django.views.generic import DetailView
 
 
 # Create your views here.
@@ -111,3 +112,20 @@ def profile_list(request):
 
     context = {'userinfo': userinfo, 'data': data, 'page_obj': page_obj}
     return render(request, 'profilepage/profile-list.html', context)
+
+
+def others_profile(request, username):
+    """ A view to return the users profile page """
+
+    userinfo = UserDetails.objects.get(user=User.objects.get(
+        username=username))
+
+    data = Post.objects.all().order_by('date_posted').reverse()
+    paginator = Paginator(data, 3)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'userinfo': userinfo, 'data': data, 'page_obj': page_obj}
+    return render(request, "profilepage/others-profile.html", context)
