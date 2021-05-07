@@ -3,6 +3,8 @@
 
 {% load crispy_forms_tags %}
 
+{% load friendshiptags %}
+
 {% block content %}
 
 
@@ -29,7 +31,6 @@
                             <h6 class="email-profile">
                                 {{ userinfo.user.email }}
                             </h6>
-                            <a href="{% url 'update_image' %}" type="button" id="updateButton" class="updateButton">Update Profile Image</a>
                         </div>
                         <div style="height: 50px"></div>
                         <div class="row ">
@@ -39,6 +40,15 @@
                         <h4 class="col-9 white-important">
                             Hearts Received : {{ userinfo.received_hearts }}
                         </h4>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <a href="{% url 'friendship_add_friend' userinfo.user.username %}" style="margin-left: 18px" class="btn btn-sm btn-outline-primary"
+                                    name="{% if friend %}removeFriend{% else %}addFriend{% endif %}"
+                                    type="submit">Send {{userinfo.user}} a friend request    
+                            </a>                        
+                        </div>
+                    </form>
                         </div>
                     </article>
                     
@@ -68,8 +78,6 @@
                                 </h6>
 
                             </div>
-                            <a href="{% url 'update_info' %}" type="button" class="updateButton">Change person
-                                Information</a>
                         </div>
                     </article>
                 </div>
@@ -78,7 +86,6 @@
             <div class="col-lg-6 col-md-12">
 
                 <div class="card profileInfoCard profile-section align-items-center" style="margin: 10px">
-                    <a href="{% url 'newpost' %}" type="button" id="blogFormButton" class="newpostButton">Make a new Post</a>
                     <h3 class="white-important p-2">
                         Posts
                     </h3>                    

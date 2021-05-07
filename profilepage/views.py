@@ -6,6 +6,8 @@ from users.models import UserDetails
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.views.generic import DetailView
+from friendship.models import Friend, Follow, Block
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -100,6 +102,7 @@ def newpost(request):
 
 
 def profile_list(request):
+    """ A view to return a list of all user profile pages """
 
     userinfo = UserDetails.objects.get(user=User.objects.get(
         username=request.user.username))
@@ -115,7 +118,7 @@ def profile_list(request):
 
 
 def others_profile(request, username):
-    """ A view to return the users profile page """
+    """ A view to return other users profile page """
 
     userinfo = UserDetails.objects.get(user=User.objects.get(
         username=username))
@@ -129,3 +132,23 @@ def others_profile(request, username):
     context = {
         'userinfo': userinfo, 'data': data, 'page_obj': page_obj}
     return render(request, "profilepage/others-profile.html", context)
+
+
+@login_required
+def friendship_add_friend(
+    request, to_username, template_name="friendship/friend/add.html"
+):
+    """ Create a FriendshipRequest """
+    ctx = {"to_username": to_username}
+
+    if request.method == "POST":
+        to_user = user_model.objects.get(username=to_username)
+        from_user = request.user
+        try:
+            Friend.objects.add_friend(from_user, to_user)
+        except AlreadyExistsError as e:
+            ctx["errors"] = ["%s" % e]
+        else:
+            return redirect("friendship_request_list")
+
+    return render(request, "friendship/friend/add.html", ctx)
