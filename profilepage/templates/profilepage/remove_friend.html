@@ -10,7 +10,7 @@
 <form method="post">
 {% csrf_token %}
 <input type="hidden" name="to_username" value="{{ to_username }}" />
-<input type="submit" value="add {{ to_username }} as a friend" />
+<input type="submit" value="remove {{ other_user }} from friend list" />
 </form>
 {% endif %}
 

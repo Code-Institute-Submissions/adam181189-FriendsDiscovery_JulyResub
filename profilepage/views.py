@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from .forms import PostForm, updateprofileinfo, updateprofileimage
 from django.contrib.auth import authenticate
 from .models import Post, updateInfo
@@ -6,13 +6,31 @@ from users.models import UserDetails
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.views.generic import DetailView
-from friendship.models import Friend, Follow, Block
+from friendship.models import Friend, Follow, Block, FriendshipRequest
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django import template
+
+try:
+    from django.contrib.auth import get_user_model
+
+    user_model = get_user_model()
+except ImportError:
+    from django.contrib.auth.models import User
+
+    user_model = User
+
+
+def get_friendship_context_object_name():
+    return getattr(settings, "FRIENDSHIP_CONTEXT_OBJECT_NAME", "user")
+
+
+def get_friendship_context_object_list_name():
+    return getattr(settings, "FRIENDSHIP_CONTEXT_OBJECT_LIST_NAME", "users")
 
 
 # Create your views here.
 def userprofile(request):
-
     """ A view to return the users profile page """
 
     userinfo = UserDetails.objects.get(user=User.objects.get(
@@ -30,7 +48,6 @@ def userprofile(request):
 
 
 def update_info(request):
-
     """ A view to be able to change user info on the profile page """
 
     if request.method == 'POST':
@@ -56,7 +73,6 @@ def update_info(request):
 
 
 def update_image(request):
-
     """ A view to be able to change users image on the profile page """
 
     if request.method == 'POST':
@@ -83,7 +99,6 @@ def update_image(request):
 
 
 def newpost(request):
-
     """ A view to add a new blog post  """
 
     if request.method == 'POST':
@@ -117,11 +132,36 @@ def profile_list(request):
     return render(request, 'profilepage/profile-list.html', context)
 
 
+def friend_list(request):
+    """ A view to return a list of all user profile pages """
+
+    userinfo = UserDetails.objects.get(user=User.objects.get(
+        username=request.user.username))
+
+    user = get_object_or_404(user_model, username=request.user.username)
+
+    friends = Friend.objects.friends(user)
+
+    friendship_requests = Friend.objects.requests(user)
+
+    context = {'userinfo': userinfo, 'requests': friendship_requests,
+               "friends": friends, get_friendship_context_object_name(): user,
+               "friendship_context_object_name": get_friendship_context_object_name()}
+    return render(request, 'profilepage/friend-list.html', context)
+
+
+register = template.Library()
+
+
 def others_profile(request, username):
     """ A view to return other users profile page """
 
     userinfo = UserDetails.objects.get(user=User.objects.get(
         username=username))
+
+    user = get_object_or_404(user_model, username=request.user.username)
+    friendship_requests = Friend.objects.requests(user)
+    friends = Friend.objects.friends(user)
 
     data = Post.objects.all().order_by('date_posted').reverse()
     paginator = Paginator(data, 3)
@@ -130,14 +170,13 @@ def others_profile(request, username):
     page_obj = paginator.get_page(page_number)
 
     context = {
-        'userinfo': userinfo, 'data': data, 'page_obj': page_obj}
+        'userinfo': userinfo, 'data': data, 'requests': friendship_requests, 'friends': friends, 'page_obj': page_obj}
     return render(request, "profilepage/others-profile.html", context)
 
 
 @login_required
-def friendship_add_friend(
-    request, to_username, template_name="friendship/friend/add.html"
-):
+def add_friend(request, to_username,  template_name="profilepage/friend_request.html"
+               ):
     """ Create a FriendshipRequest """
     ctx = {"to_username": to_username}
 
@@ -151,4 +190,70 @@ def friendship_add_friend(
         else:
             return redirect("friendship_request_list")
 
-    return render(request, "friendship/friend/add.html", ctx)
+    return render(request, template_name, ctx)
+
+
+@login_required
+def remove_friend(request, to_username, template_name="profilepage/remove_friend.html"):
+
+    ctx = {"to_username": to_username}
+
+    if request.method == "POST":
+        to_user = user_model.objects.get(username=to_username)
+        from_user = request.user
+        Friend.objects.remove_friend(to_user, from_user)
+        return redirect("friend_list")
+
+    return render(request, template_name)
+
+
+@login_required
+def friendship_cancel(request, friendship_request_id):
+    """ Cancel a previously created friendship_request_id """
+    if request.method == "POST":
+        f_request = get_object_or_404(
+            request.user.friendship_requests_sent, id=friendship_request_id
+        )
+        f_request.cancel()
+        return redirect("friendship_request_list")
+
+    return redirect(
+        "friendship_requests_detail", friendship_request_id=friendship_request_id
+    )
+
+
+@login_required
+def received_friend_requests(
+    request, friendship_request_id, template_name="profilepage/received_friendship_requests.html"):   
+
+    f_request = get_object_or_404(FriendshipRequest,id =friendship_request_id)
+    print("!!!!!!!!!!!!!!")
+    print(f_request)
+
+    return render(request, template_name, {"friendship_request": f_request})
+
+
+@login_required
+def friendship_accept(request, to_username, template_name="profilepage/received_friendship_requests.html"):
+    """ Accept a friendship request """
+    if request.method == "POST":
+        f_request = get_object_or_404(
+            request.user.friendship_requests_received, id=to_username
+        )
+        f_request.accept()
+        return redirect("friend_list", username=request.user.username)
+
+    return render(request, template_name)
+
+
+@login_required
+def friendship_reject(request, friendship_request_id, template_name="profilepage/received_friendship_requests.html"):
+    """ Reject a friendship request """
+    if request.method == "POST":
+        f_request = get_object_or_404(
+            request.user.friendship_requests_received, friendship_request_id=id
+        )
+        f_request.reject()
+        return redirect("friend_list")
+
+    return render(request, template_name, friendship_request_id=friendship_request_id)

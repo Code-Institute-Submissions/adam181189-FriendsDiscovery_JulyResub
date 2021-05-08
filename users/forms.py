@@ -55,3 +55,4 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserDetails
         fields = ('gender', 'date_of_birth')
+

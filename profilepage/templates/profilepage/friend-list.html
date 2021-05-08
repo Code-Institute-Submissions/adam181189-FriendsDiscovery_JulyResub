@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load friendshiptags %}
+
+{% block content %}
+
+<div class="card profileCard align-items-center">
+    <br>
+    <h2 class="d-flex align-items-center">Your Friends and Friend Requests</h2><br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="card profileInfoCard profile-section align-items-center">
+                    <h3 class="white-important p-2 profileTitle">
+                        Friends
+                    </h3>
+                    <article class="content-section align-items-center" style="height: 140px; width: 100%">
+                        {% for friend in friends %}                      
+                                <a href="{% url 'others_profile' friend.username %}">
+                                <img class="rounded-circle mr-2" style="width: 150px; height: 150px;"
+                                src="{{ friend.userdetails.profile_pic.url }}"></a> 
+                                <br>{{ friend.username }}<br>                             
+                        {% endfor %} 
+                    </article>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="card profileInfoCard profile-section align-items-center " style="overflow:scroll; overflow-x: hidden;">
+                    <h3 class="white-important p-2 profileTitle">
+                        Friend Requests
+                    </h3>
+                    <article class="content-section" style="height: 140px; width: 100%">
+                        
+                        <ul>
+                            {% for friendship_request in requests %}
+                             You have received a friend request from 
+                                <a href="{% url 'others_profile' friendship_request.from_user %}">
+                                    <br>
+                                    <img class="rounded-circle mr-2 " style="width: 50px; height: 50px;"
+                                            src="{{ friendship_request.from_user.userdetails.profile_pic.url }}"></a>
+                                            <br>{{ friendship_request.from_user }} 
+                                    <br><a href="{% url 'received_friend_requests' friendship_request.id %}" type="button"> view request</a>
+                            {% empty %}
+                        </ul>
+                        <div>No new Friend Requests</div>
+                            {% endfor %}
+                    </article>
+                    
+                </div>
+            </div>
+        </div>
+
+        {% endblock %}
