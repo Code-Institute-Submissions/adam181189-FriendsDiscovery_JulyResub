@@ -81,7 +81,7 @@ def update_image(request):
         update_image = updateprofileimage(
             request.POST, request.FILES, instance=user)
 
-        if update_image.is_valid():
+        if update_image.is_valid112233():
 
             profile_picture = update_image.save(commit=False)
 
@@ -158,6 +158,15 @@ def others_profile(request, username):
 
     userinfo = UserDetails.objects.get(user=User.objects.get(
         username=username))
+    print(userinfo.user.id)
+
+    currentUserInfo = UserDetails.objects.get(user=User.objects.get(
+        username=request.user.username))
+    print(currentUserInfo.user.id)
+
+    check_friendship= Friend.objects.are_friends(userinfo.user, currentUserInfo.user) == True
+
+    request_sent = Friend.objects.sent_requests(user=request.user)
 
     user = get_object_or_404(user_model, username=request.user.username)
     friendship_requests = Friend.objects.requests(user)
@@ -170,7 +179,7 @@ def others_profile(request, username):
     page_obj = paginator.get_page(page_number)
 
     context = {
-        'userinfo': userinfo, 'data': data, 'requests': friendship_requests, 'friends': friends, 'page_obj': page_obj}
+        'userinfo': userinfo, 'currentUserInfo': currentUserInfo, 'request_sent': request_sent, 'check_friendship': check_friendship, 'data': data, 'requests': friendship_requests, 'friends': friends, 'page_obj': page_obj}
     return render(request, "profilepage/others-profile.html", context)
 
 
@@ -188,7 +197,7 @@ def add_friend(request, to_username,  template_name="profilepage/friend_request.
         except AlreadyExistsError as e:
             ctx["errors"] = ["%s" % e]
         else:
-            return redirect("friendship_request_list")
+            return redirect("friend_list")
 
     return render(request, template_name, ctx)
 
@@ -201,10 +210,11 @@ def remove_friend(request, to_username, template_name="profilepage/remove_friend
     if request.method == "POST":
         to_user = user_model.objects.get(username=to_username)
         from_user = request.user
-        Friend.objects.remove_friend(to_user, from_user)
-        return redirect("friend_list")
 
-    return render(request, template_name)
+        Friend.objects.remove_friend(from_user, to_user)
+        return redirect("friend_list", username=to_user.username)
+
+    return render(request, template_name, ctx)
 
 
 @login_required
@@ -215,7 +225,7 @@ def friendship_cancel(request, friendship_request_id):
             request.user.friendship_requests_sent, id=friendship_request_id
         )
         f_request.cancel()
-        return redirect("friendship_request_list")
+        return redirect("friend_list")
 
     return redirect(
         "friendship_requests_detail", friendship_request_id=friendship_request_id
@@ -243,8 +253,6 @@ def friendship_accept(request, to_username, template_name="profilepage/received_
         f_request.accept()
         return redirect("friend_list", username=request.user.username)
 
-    return render(request, template_name)
-
 
 @login_required
 def friendship_reject(request, friendship_request_id, template_name="profilepage/received_friendship_requests.html"):
@@ -255,5 +263,3 @@ def friendship_reject(request, friendship_request_id, template_name="profilepage
         )
         f_request.reject()
         return redirect("friend_list")
-
-    return render(request, template_name, friendship_request_id=friendship_request_id)
