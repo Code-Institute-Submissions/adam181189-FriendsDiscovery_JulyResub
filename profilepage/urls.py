@@ -38,7 +38,7 @@ urlpatterns = [
     path('received_friend_requests/<int:friendship_request_id>', views.received_friend_requests, name='received_friend_requests'),
     path('friendship_accept/<str:to_username>', views.friendship_accept, name='friendship_accept'),
     path('remove_friend/<str:to_username>', views.remove_friend, name='remove_friend'),
-    path('friendship_cancel/<str:to_username>/', views.friendship_cancel, name='friendship_cancel'),
+    path('request_cancel/<int:friendship_request_id>/', views.request_cancel, name='request_cancel'),
     path('others-profile/<str:username>/', views.others_profile, name='others_profile'),
     # friendship-django
     url(regex=r"^users/$", view=all_users, name="friendship_view_users"),

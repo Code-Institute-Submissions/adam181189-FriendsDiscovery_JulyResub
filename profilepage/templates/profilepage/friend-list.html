@@ -27,9 +27,9 @@
             </div>
 
             <div class="col-lg-3">
-                <div class="card profileInfoCard profile-section align-items-center " style="overflow:scroll; overflow-x: hidden;">
+                <div class="row card profileInfoCard profile-section align-items-center " style="overflow:scroll; overflow-x: hidden;">
                     <h3 class="white-important p-2 profileTitle">
-                        Friend Requests
+                        Friend Requests Received
                     </h3>
                     <article class="content-section" style="height: 140px; width: 100%">
                         
@@ -45,6 +45,30 @@
                             {% empty %}
                         </ul>
                         <div>No new Friend Requests</div>
+                            {% endfor %}
+                    </article>
+                    
+                </div>
+                <div class="row card profileInfoCard profile-section align-items-center " style="overflow:scroll; overflow-x: hidden;">
+                    <h3 class="white-important p-2 profileTitle">
+                        Friend Requests Sent <br>
+                        and awaiting reply
+                    </h3>
+                    <article class="content-section" style="height: 140px; width: 100%">
+                        
+                        <ul>
+                            {% for sent in request_sent %}
+                                <a href="">
+                                    <br>
+                                    <img class="rounded-circle mr-2 " style="width: 50px; height: 50px;"
+                                            src="{{ sent.to_user.userdetails.profile_pic.url }}"></a>
+                                            <br>{{ sent.to_user }} 
+                                    <br><a href="{% url 'request_cancel' sent.to_user.id %}" type="button"> cancel request</a>
+                                    <br>
+                                    <br>
+                            {% empty %}
+                        </ul>
+                        <div>No Friend Requests Sent</div>
                             {% endfor %}
                     </article>
                     

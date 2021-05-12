@@ -40,6 +40,9 @@
                         <h4 class="col-9 white-important">
                             Hearts Received : {{ userinfo.received_hearts }}
                         </h4>
+                        <h5 class="col-9 white-important">
+                            Give a heart to {{ userinfo.user.username }}? 
+                        </h5>
                     <form method="POST">
                         {% csrf_token %}
                         <div class="form-group">
@@ -49,7 +52,7 @@
                                             type="submit">You are already friends with {{userinfo.user}}. Remove as Friend.   
                                     </a> 
                                 {% elif request_sent %}
-                                    <a href="{% url 'friendship_cancel' userinfo.user.username %}" style="margin-left: 18px" class="btn btn-sm btn-warning"
+                                    <a href="{% url 'request_cancel' userinfo.user.id %}" style="margin-left: 18px" class="btn btn-sm btn-warning"
                                             type="button">You are waiting for {{userinfo.user}}'s response to your friend request. Click to cancel request.    
                                     </a> 
                                 {% else %}
@@ -96,6 +99,7 @@
 
             <div class="col-lg-6 col-md-12">
 
+                {% if check_friendship or currentUserInfo.premium_member == True %}
                 <div class="card profileInfoCard profile-section align-items-center" style="margin: 10px">
                     <h3 class="white-important p-2">
                         Posts
@@ -147,6 +151,16 @@
                             {% endif %}
                         </span>
                     </div>
+                    {% else %} 
+                    <div class="card profileInfoCard profile-section align-items-center" style="margin: 10px">
+                        <h3 class="white-important p-2">
+                            Posts
+                        </h3>
+                        <h4 class="white-important p-2">
+                            You cannot see this users posts as you are not friends.
+                        </h4>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

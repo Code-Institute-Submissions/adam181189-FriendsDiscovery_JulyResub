@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="card profileCard align-items-center">
+
+<form method="post">
+    {% csrf_token %}
+        <h1> Are you sure you wish to cancel your friend request to {{ to_username }}</h1>
+        <input type="hidden" name="to_username" value="{{ friendship_request_id.username }}" />
+        <input type="submit" value="Yes cancel friend request to {{ friendship_request_id.username }}"/>
+    </form>
+
+</div>
+
+{% endblock %}

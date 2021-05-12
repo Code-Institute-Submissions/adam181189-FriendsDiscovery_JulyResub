@@ -144,7 +144,10 @@ def friend_list(request):
 
     friendship_requests = Friend.objects.requests(user)
 
+    request_sent = Friend.objects.sent_requests(user)
+
     context = {'userinfo': userinfo, 'requests': friendship_requests,
+               'request_sent': request_sent,
                "friends": friends, get_friendship_context_object_name(): user,
                "friendship_context_object_name": get_friendship_context_object_name()}
     return render(request, 'profilepage/friend-list.html', context)
@@ -162,9 +165,10 @@ def others_profile(request, username):
 
     currentUserInfo = UserDetails.objects.get(user=User.objects.get(
         username=request.user.username))
-    print(currentUserInfo.user.id)
+    print(currentUserInfo.premium_member)
 
-    check_friendship= Friend.objects.are_friends(userinfo.user, currentUserInfo.user) == True
+    check_friendship = Friend.objects.are_friends(
+        userinfo.user, currentUserInfo.user) == True
 
     request_sent = Friend.objects.sent_requests(user=request.user)
 
@@ -172,7 +176,7 @@ def others_profile(request, username):
     friendship_requests = Friend.objects.requests(user)
     friends = Friend.objects.friends(user)
 
-    data = Post.objects.all().order_by('date_posted').reverse()
+    data = Post.objects.filter(user=User.objects.get(username=username)).order_by('date_posted').reverse()
     paginator = Paginator(data, 3)
 
     page_number = request.GET.get('page')
@@ -218,23 +222,23 @@ def remove_friend(request, to_username, template_name="profilepage/remove_friend
 
 
 @login_required
-def friendship_cancel(request, friendship_request_id):
+def request_cancel(request, friendship_request_id, template_name="profilepage/request_cancel.html"):
     """ Cancel a previously created friendship_request_id """
+    
     if request.method == "POST":
         f_request = get_object_or_404(
             request.user.friendship_requests_sent, id=friendship_request_id
         )
+        print(f_request.id)
         f_request.cancel()
-        return redirect("friend_list")
+        return redirect("friend_list", {f_request:"f_request"})
 
-    return redirect(
-        "friendship_requests_detail", friendship_request_id=friendship_request_id
-    )
+    return render(request, template_name)
 
 
 @login_required
 def received_friend_requests(
-    request, friendship_request_id, template_name="profilepage/received_friendship_requests.html"):   
+    request, friendship_request_id, template_name="profilepage/received_friendship_requests.html"):
 
     f_request = get_object_or_404(FriendshipRequest,id =friendship_request_id)
     print("!!!!!!!!!!!!!!")
