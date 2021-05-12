@@ -55,7 +55,7 @@
                                     <a href="{% url 'request_cancel' userinfo.user.id %}" style="margin-left: 18px" class="btn btn-sm btn-warning"
                                             type="button">You are waiting for {{userinfo.user}}'s response to your friend request. Click to cancel request.    
                                     </a> 
-                                {% else %}
+                                {% elif not check_friendship and not request_sent %}
                                     <a href="{% url 'add_friend' userinfo.user.username %}" style="margin-left: 18px" class="btn btn-sm btn-outline-primary"
                                             name="{% if friend %}removeFriend{% else %}addFriend{% endif %}"
                                             type="submit">Send {{userinfo.user}} a friend request.    

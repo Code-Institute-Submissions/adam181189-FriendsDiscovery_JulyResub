@@ -81,7 +81,7 @@ def update_image(request):
         update_image = updateprofileimage(
             request.POST, request.FILES, instance=user)
 
-        if update_image.is_valid112233():
+        if update_image.is_valid():
 
             profile_picture = update_image.save(commit=False)
 
@@ -170,7 +170,8 @@ def others_profile(request, username):
     check_friendship = Friend.objects.are_friends(
         userinfo.user, currentUserInfo.user) == True
 
-    request_sent = Friend.objects.sent_requests(user=request.user)
+    request_sent = Friend.objects.requests(userinfo.user)
+    print(request_sent)
 
     user = get_object_or_404(user_model, username=request.user.username)
     friendship_requests = Friend.objects.requests(user)
