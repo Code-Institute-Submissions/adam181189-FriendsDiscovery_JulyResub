@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from .forms import PostForm, updateprofileinfo, updateprofileimage
+from .forms import PostForm, updateprofileinfo, updateprofileimage, addheartForm
 from django.contrib.auth import authenticate
 from .models import Post, updateInfo
 from users.models import UserDetails
@@ -183,9 +183,24 @@ def others_profile(request, username):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
+
     context = {
-        'userinfo': userinfo, 'currentUserInfo': currentUserInfo, 'request_sent': request_sent, 'check_friendship': check_friendship, 'data': data, 'requests': friendship_requests, 'friends': friends, 'page_obj': page_obj}
+        'userinfo': userinfo,  'currentUserInfo': currentUserInfo,
+        'request_sent': request_sent,
+        'check_friendship': check_friendship, 'data': data,
+        'requests': friendship_requests, 'friends': friends,
+        'page_obj': page_obj}
     return render(request, "profilepage/others-profile.html", context)
+
+
+def record_hearts_view(request, to_username):
+    if request.method == 'POST':
+        user_hearts = UserDetails.objects.get(user=User.objects.get(
+        username=to_username))
+        user_hearts.received_hearts += 1
+        user_hearts.save()
+    context = {'user_hearts': user_hearts}
+    return redirect("/friend_list", context)
 
 
 @login_required

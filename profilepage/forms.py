@@ -4,7 +4,7 @@ from users.models import UserDetails
 from django.contrib.auth.models import User
 
 
-# Add a new blog post 
+# Add a new blog post
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
@@ -23,3 +23,11 @@ class updateprofileimage(forms.ModelForm):
     class Meta:
         model = UserDetails
         fields = ('profile_pic',)
+
+
+# form for adding a heart to the user
+
+class addheartForm(forms.ModelForm):
+    class Meta:
+        model = UserDetails
+        fields = ("received_hearts",)
