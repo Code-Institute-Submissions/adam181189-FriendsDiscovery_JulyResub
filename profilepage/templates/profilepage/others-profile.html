@@ -40,13 +40,24 @@
                         <h4 class="col-9 white-important">
                             Hearts Received : {{ userinfo.received_hearts }}
                         </h4>
-                        {% if check_friendship %}
-                        <form action="{% url 'record_hearts_view' userinfo.user.username %}" method="POST">
-                            {% csrf_token %}
-                            <h5 class="col-9 white-important">
-                                Give a heart to {{ userinfo.user.username }}? <button type="submit">Give</button>
-                            </h5>
-                        </form>
+                        {% if check_friendship and currentUserInfo.daily_given_hearts == 0 %}
+                            <form action="{% url 'record_hearts_view' userinfo.user.username %}" method="POST">
+                                {% csrf_token %}
+                                <h5 class="col-9 white-important">
+                                    Give a heart to {{ userinfo.user.username }}? <button type="submit">Give</button>
+                                </h5>
+                            </form>
+                        {% elif check_friendship and currentUserInfo.premium_member == True and currentUserInfo.daily_given_hearts <= 5 %}
+                            <form action="{% url 'record_hearts_view' userinfo.user.username %}" method="POST">
+                                {% csrf_token %}
+                                <h5 class="col-9 white-important">
+                                    Give a heart to {{ userinfo.user.username }}? <button type="submit">Give</button>
+                                </h5>
+                            </form>
+                        {% else %}
+                        <h5 class="col-9 white-important">
+                            You cannot give anymore hearts to friends today.
+                        </h5>
                         {% endif %}
                     <form method="POST">
                         {% csrf_token %}

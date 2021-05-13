@@ -38,6 +38,7 @@ class UserDetails(models.Model):
     profile_pic = models.ImageField(
         upload_to="profile-image/", default='default.png', blank=True)
     received_hearts = models.IntegerField(default=0)
+    daily_given_hearts = models.IntegerField(default=0)
 
     def __str__(self):
         return f'{self.user.username}'

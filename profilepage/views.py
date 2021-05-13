@@ -196,9 +196,13 @@ def others_profile(request, username):
 def record_hearts_view(request, to_username):
     if request.method == 'POST':
         user_hearts = UserDetails.objects.get(user=User.objects.get(
-        username=to_username))
+            username=to_username))
+        given_hearts = UserDetails.objects.get(user=User.objects.get(
+            username=request.user.username))
         user_hearts.received_hearts += 1
+        given_hearts.daily_given_hearts += 1
         user_hearts.save()
+        given_hearts.save()
     context = {'user_hearts': user_hearts}
     return redirect("/friend_list", context)
 
