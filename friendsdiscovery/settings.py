@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'home',
     'profilepage',
     'crispy_forms',
-    'friendship'
+    'friendship',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [

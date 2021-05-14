@@ -7,7 +7,6 @@
 
 {% block content %}
 
-
 <div class="card profileCard align-items-center">
     <br>
     <h2 class="d-flex align-items-center">{{ userinfo.user.username }}'s Profile</h2><br>
@@ -47,17 +46,23 @@
                                     Give a heart to {{ userinfo.user.username }}? <button type="submit">Give</button>
                                 </h5>
                             </form>
-                        {% elif check_friendship and currentUserInfo.premium_member == True and currentUserInfo.daily_given_hearts <= 5 %}
+                        {% elif check_friendship and currentUserInfo.premium_member == True and currentUserInfo.daily_given_hearts <= 4 %}
                             <form action="{% url 'record_hearts_view' userinfo.user.username %}" method="POST">
                                 {% csrf_token %}
                                 <h5 class="col-9 white-important">
                                     Give a heart to {{ userinfo.user.username }}? <button type="submit">Give</button>
                                 </h5>
                             </form>
+                        {% elif check_friendship and currentUserInfo.premium_member == True and currentUserInfo.daily_given_hearts == 5 %}
+                            <h5 class="col-9 white-important">
+                                You cannot give anymore hearts to friends today.
+                            </h5>
+                        {% elif check_friendship and currentUserInfo.premium_member == False and currentUserInfo.daily_given_hearts == 1 %}
+                            <h5 class="col-9 white-important">
+                                You cannot give anymore hearts to friends today.
+                            </h5>
                         {% else %}
-                        <h5 class="col-9 white-important">
-                            You cannot give anymore hearts to friends today.
-                        </h5>
+                        
                         {% endif %}
                     <form method="POST">
                         {% csrf_token %}
