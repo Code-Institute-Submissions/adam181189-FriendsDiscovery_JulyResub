@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django_countries.fields import CountryField
+from djstripe.models import Customer, Subscription
 
     # https://www.youtube.com/watch?v=Tja4I_rgspI
     # (used to understand how to change allauth as extended user)
@@ -43,3 +44,6 @@ class UserDetails(models.Model):
     def __str__(self):
         return f'{self.user.username}'
 
+    #class User(AbstractUser):
+        #customer = models.ForeignKey(Customer, null=True, blank=True, on_delete=models.SET_NULL)
+        #subscription = models.ForeignKey(Subscription, null=True, blank=True, on_delete=models.SET_NULL)

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block extra_js %}
+<script src="https://js.stripe.com/v3/"></script>
+{% endblock %}
+
+{% block content %}
+
+<br><br>
+
+  
+<h1> You're Subscribed. </h1>
+
+<a class="dropdown-item" href="{% url 'userprofile' %}"> Return to Profile Page</a>
+
+{% endblock %}

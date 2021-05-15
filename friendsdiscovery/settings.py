@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$qd9pn(7wwmtjz8_mrc03u3d&@oi21zccz+3vn1f$4#d)cn^(t'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -48,7 +49,15 @@ INSTALLED_APPS = [
     'crispy_forms',
     'friendship',
     'django_celery_beat',
-]
+    'djstripe',
+    ]
+
+STRIPE_TEST_PUBLIC_KEY = config('STRIPE_PUBLISHABLE_KEY')
+STRIPE_TEST_SECRET_KEY = config('STRIPE_SECRET_KEY')
+STRIPE_LIVE_MODE = False  # Change to True in production
+DJSTRIPE_WEBHOOK_SECRET = "whsec_xxx"
+DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -158,3 +167,4 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
