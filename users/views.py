@@ -2,15 +2,18 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 import djstripe
 from django.contrib.auth import authenticate, login
+from .models import UserDetails
 import stripe
 import json
 from django.http import JsonResponse
 from djstripe.models import Product
 from .forms import SignupForm, UserProfileForm
 from django.http import HttpResponse
+from pprint import pprint
 
-# https://www.youtube.com/watch?v=Tja4I_rgspI 
+# https://www.youtube.com/watch?v=Tja4I_rgspI
 # (Followed this tutorial to make a custom signup sheet work)
+
 
 def index(request):
     if request.user.is_authenticated:
@@ -57,8 +60,21 @@ def extendedSignup(request):
 
 @login_required
 def checkout(request):
-    
+
     if request.method == 'GET':
+        #print("USER")
+        #print(request.user)
+        #print("USER.userprofile")
+        #print(request.user.userprofile)
+        #print("USER.userprofile.subscription")
+        #print(request.user.userprofile.subscription)
+
+        if request.user.userprofile.subscription is None:
+            print("NO SUBSCRIPTION")
+        else:
+            print("SUBSCRIBED")
+            print(request.user.userprofile.subscription.id)
+
         products = Product.objects.all()
 
         context = {"products": products}
@@ -66,66 +82,70 @@ def checkout(request):
     if request.method == 'POST':
         print("CHECKOUT POST")
 
+# https://www.ordinarycoders.com/blog/article/django-stripe-monthly-subscription used to get subscription with stripe
+
+
 @login_required
 def create_sub(request):
-  if request.method == 'POST':
-    print("CREATE_SUB POST")
-    # Reads application/json and returns a response
-    data = json.loads(request.body)
-    payment_method = data['payment_method']
-    stripe.api_key = djstripe.settings.STRIPE_SECRET_KEY
 
-    print(payment_method)
-    print(stripe.api_key)
-    
-    payment_method_obj = stripe.PaymentMethod.retrieve(payment_method)
-    djstripe.models.PaymentMethod.sync_from_stripe_data(payment_method_obj)
+    if request.method == 'POST':
+        print("CREATE_SUB POST")
+        # Reads application/json and returns a response
+        data = json.loads(request.body)
+        payment_method = data['payment_method']
+        stripe.api_key = djstripe.settings.STRIPE_SECRET_KEY
 
-    print(payment_method_obj)
+        payment_method_obj = stripe.PaymentMethod.retrieve(payment_method)
+        djstripe.models.PaymentMethod.sync_from_stripe_data(payment_method_obj)
 
-    try:
-        # This creates a new Customer and attaches the PaymentMethod in one API call.
-        customer = stripe.Customer.create(
-            payment_method=payment_method,
-            email=request.user.email,
-            invoice_settings={
-                 'default_payment_method': payment_method
-            }
-        )
+        try:
+            # This creates a new Customer and attaches
+            # the PaymentMethod in one API call.
+            customer = stripe.Customer.create(
+                payment_method=payment_method,
+                email=request.user.email,
+                invoice_settings={
+                    'default_payment_method': payment_method
+                }
+            )
 
-        djstripe_customer = djstripe.models.Customer.sync_from_stripe_data(customer)
-        request.user.customer = djstripe_customer
+            djstripe_customer = djstripe.models.Customer.sync_from_stripe_data(
+                customer)
+            request.user.customer = djstripe_customer
 
-        # At this point, associate the ID of the Customer object with your
-        # own internal representation of a customer, if you have one.
-        # print(customer)
+            # At this point, associate the ID of the Customer object with your
+            # own internal representation of a customer, if you have one.
 
-        # Subscribe the user to the subscription created
-        subscription = stripe.Subscription.create(
-            customer=customer.id,
-            items=[
-                {
-                    "price": data["price_id"],
-                },
-            ],
-            expand=["latest_invoice.payment_intent"]
-        )
+            # Subscribe the user to the subscription created
+            subscription = stripe.Subscription.create(
+                customer=customer.id,
+                items=[
+                    {
+                        "price": data["price_id"],
+                    },
+                ],
+                expand=["latest_invoice.payment_intent"]
+            )
 
-        djstripe_subscription = djstripe.models.Subscription.sync_from_stripe_data(subscription)
-        request.user.subscription = djstripe_subscription
-        request.user.save()
+            djstripe_subscription = djstripe.models.Subscription.sync_from_stripe_data(
+                subscription
+            )
 
-        print("SUCCESS")
-        print(subscription)
+            #print("########## djstripe_subscription")
+            #pprint(vars(djstripe_subscription))
 
-        return JsonResponse(subscription)
-    except Exception as e:
-        print("EXCEPTION")
-        print(e.args[0])
-        return JsonResponse({'error': (e.args[0])}, status =403)
-    else:
-        print("REQUEST METHOD NOT ALLOWED")
-        return HTTPresponse('request method not allowed')
+            request.user.userprofile.subscription = djstripe_subscription
+            request.user.userprofile.save()
+
+            return JsonResponse(subscription)
+        except Exception as e:
+            print("EXCEPTION")
+            print(e.args[0])
+            return JsonResponse({'error': (e.args[0])}, status=403)
+        else:
+            print("REQUEST METHOD NOT ALLOWED")
+            return HTTPresponse('request method not allowed')
+
 
 def complete(request):
     return render(request, "payment_method/complete.html")

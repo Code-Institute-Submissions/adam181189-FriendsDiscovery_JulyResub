@@ -99,7 +99,7 @@
             if (paymentForm) {
 
                 paymentForm.addEventListener('submit', function (evt) {
-                    alert('payment submit');
+                    //alert('payment submit');
                     evt.preventDefault();
                     changeLoadingState(true);
 
@@ -111,7 +111,7 @@
 
             function createPaymentMethod({ card }) {
 
-                alert("CSRF Token: " + "{{ csrf_token }}");
+                //alert("CSRF Token: " + "{{ csrf_token }}");
 
                 // Set up payment method for recurring usage
                 let billingName = '{{user.username}}';
@@ -165,11 +165,11 @@
             var changeLoadingState = function (isLoading) {
                 if (isLoading) {
                     document.getElementById("submit").disabled = true;
-                    document.querySelector("#spinner").classList.remove("hidden");
+                    //document.querySelector("#spinner").classList.remove("hidden");
                     document.querySelector("#button-text").classList.add("hidden");
                 } else {
                     document.getElementById("submit").disabled = false;
-                    document.querySelector("#spinner").classList.add("hidden");
+                    //document.querySelector("#spinner").classList.add("hidden");
                     document.querySelector("#button-text").classList.remove("hidden");
                 }
             };

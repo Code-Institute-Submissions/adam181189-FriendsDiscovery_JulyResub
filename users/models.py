@@ -4,30 +4,33 @@ from django.conf import settings
 from django_countries.fields import CountryField
 from djstripe.models import Customer, Subscription
 
-    # https://www.youtube.com/watch?v=Tja4I_rgspI
-    # (used to understand how to change allauth as extended user)
+# https://www.youtube.com/watch?v=Tja4I_rgspI
+# (used to understand how to change allauth as extended user)
 
-  # https://stackoverflow.com/questions/31130706/dropdown-in-django-model
-    # (used to understand dropdown)
+# https://stackoverflow.com/questions/31130706/dropdown-in-django-model
+# (used to understand dropdown)
 
-    # https://pypi.org/project/django-countries/#countryfield
-    # (used to understand built in nationality dropdown system)
+# https://pypi.org/project/django-countries/#countryfield
+# (used to understand built in nationality dropdown system)
 
-    # https://www.geeksforgeeks.org/imagefield-django-models/?ref=rp
-    # (used to understand how to add images)
+# https://www.geeksforgeeks.org/imagefield-django-models/?ref=rp
+# (used to understand how to add images)
 
 
-    # This is the database model for all users personal information
+# This is the database model for all users personal information
 class UserDetails(models.Model):
     GENDER_CHOICES = (
         ('male', 'Male'),
         ('female', 'Female'),
         ('not_disclosed', 'Not Disclosed'),
     )
-
     user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE) 
-
+        settings.AUTH_USER_MODEL, null=True,
+        blank=True, on_delete=models.CASCADE,
+        related_name='userprofile')
+    subscription = models.ForeignKey(
+        Subscription, null=True, blank=True,
+        on_delete=models.SET_NULL)
     # Other fields here
     premium_member = models.BooleanField(default=False)
     date_of_birth = models.DateField()
@@ -43,7 +46,3 @@ class UserDetails(models.Model):
 
     def __str__(self):
         return f'{self.user.username}'
-
-    #class User(AbstractUser):
-        #customer = models.ForeignKey(Customer, null=True, blank=True, on_delete=models.SET_NULL)
-        #subscription = models.ForeignKey(Subscription, null=True, blank=True, on_delete=models.SET_NULL)
