@@ -8,9 +8,13 @@
 
 <br><br>
 
-  
+<div class="container text-center card profileCard"> 
 <h1> You're Subscribed. </h1>
 
-<a class="dropdown-item" href="{% url 'userprofile' %}"> Return to Profile Page</a>
+<a class="btn btn-warning text-light" href="{% url 'userprofile' %}"> Return to Profile Page</a>
+
+<br><br>
+<a class="btn btn-danger text-light" href="{% url 'cancel' %}">Cancel Subscription</a>
+</div>
 
 {% endblock %}

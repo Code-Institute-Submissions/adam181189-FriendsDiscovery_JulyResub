@@ -19,7 +19,7 @@
                         {% for friend in friends %}                      
                                 <a href="{% url 'others_profile' friend.username %}">
                                 <img class="rounded-circle mr-2" style="width: 150px; height: 150px;"
-                                src="{{ friend.userdetails.profile_pic.url }}"></a> 
+                                src="{{ friend.userprofile.profile_pic.url }}"></a> 
                                 <br>{{ friend.username }}<br>                             
                         {% endfor %} 
                     </article>

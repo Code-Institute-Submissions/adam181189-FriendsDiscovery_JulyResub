@@ -10,6 +10,7 @@ from djstripe.models import Product
 from .forms import SignupForm, UserProfileForm
 from django.http import HttpResponse
 from pprint import pprint
+from profilepage.views import userprofile
 
 # https://www.youtube.com/watch?v=Tja4I_rgspI
 # (Followed this tutorial to make a custom signup sheet work)
@@ -57,6 +58,7 @@ def extendedSignup(request):
     context = {'form': form, 'profile_form': profile_form}
     return render(request, 'account/signup.html', context)
 
+# https://www.ordinarycoders.com/blog/article/django-stripe-monthly-subscription used to get subscription with stripe
 
 @login_required
 def checkout(request):
@@ -70,19 +72,13 @@ def checkout(request):
         #print(request.user.userprofile.subscription)
 
         if request.user.userprofile.subscription is None:
-            print("NO SUBSCRIPTION")
+            products = Product.objects.all()
+
+            context = {"products": products}
+            return render(request, "payment_method/checkout.html", context)
         else:
-            print("SUBSCRIBED")
-            print(request.user.userprofile.subscription.id)
 
-        products = Product.objects.all()
-
-        context = {"products": products}
-        return render(request, "payment_method/checkout.html", context)
-    if request.method == 'POST':
-        print("CHECKOUT POST")
-
-# https://www.ordinarycoders.com/blog/article/django-stripe-monthly-subscription used to get subscription with stripe
+            return redirect(complete)
 
 
 @login_required
@@ -149,3 +145,29 @@ def create_sub(request):
 
 def complete(request):
     return render(request, "payment_method/complete.html")
+
+
+def cancel(request):
+    if request.user.is_authenticated:
+
+        stripe.api_key = djstripe.settings.STRIPE_SECRET_KEY
+        sub_num = request.user.userprofile.subscription
+        print(sub_num.cancel_at_period_end)
+
+        try:
+            sub_num.update(cancel_at_period_end = True)
+            sub_num.save
+
+        except Exception as e:
+            print("ERROR")
+            print(e.args[0])
+            return JsonResponse({'error': (e.args[0])}, status =403)
+
+       #     if request.user.is_authenticated:
+        #stripe.api_key = djstripe.settings.STRIPE_SECRET_KEY
+
+       # stripe_subscription = stripe.Subscription.retrieve(request.user.userprofile.subscription.id)
+        #stripe_subscription.id.cancel_at_period_end = True
+       # stripe_subscription.save()
+
+    return redirect("userprofile")
