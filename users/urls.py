@@ -10,4 +10,6 @@ urlpatterns = [
     path('create_sub', views.create_sub, name='create_sub'),
     path('complete', views.complete, name='complete'),
     path('cancel', views.cancel, name='cancel'),
+    path('cancelledSubscription', views.cancelledSubscription, name='cancelledSubscription'),
+    path('resubscribe', views.resubscribe, name='resubscribe'),
 ]

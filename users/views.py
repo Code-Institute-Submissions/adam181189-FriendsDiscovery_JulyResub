@@ -71,11 +71,13 @@ def checkout(request):
         #print("USER.userprofile.subscription")
         #print(request.user.userprofile.subscription)
 
-        if request.user.userprofile.subscription is None:
+        if request.user.userprofile.subscription.cancel_at_period_end:
+            return redirect(cancelledSubscription)
+        elif request.user.userprofile.subscription is None:
             products = Product.objects.all()
 
             context = {"products": products}
-            return render(request, "payment_method/checkout.html", context)
+            return render(request, "payment_method/checkout.html", context)        
         else:
 
             return redirect(complete)
@@ -146,6 +148,9 @@ def create_sub(request):
 def complete(request):
     return render(request, "payment_method/complete.html")
 
+def cancelledSubscription(request):
+    return render(request, "payment_method/resubscribe.html")
+
 
 def cancel(request):
     if request.user.is_authenticated:
@@ -169,5 +174,26 @@ def cancel(request):
        # stripe_subscription = stripe.Subscription.retrieve(request.user.userprofile.subscription.id)
         #stripe_subscription.id.cancel_at_period_end = True
        # stripe_subscription.save()
+
+    return redirect("userprofile")
+
+
+def resubscribe(request):
+    if request.user.is_authenticated:
+
+        stripe.api_key = djstripe.settings.STRIPE_SECRET_KEY
+        sub_num = request.user.userprofile.subscription
+        print(sub_num.cancel_at_period_end)
+
+        try:
+            sub_num.update(cancel_at_period_end = False)
+            sub_num.save
+
+
+
+        except Exception as e:
+            print("ERROR")
+            print(e.args[0])
+            return JsonResponse({'error': (e.args[0])}, status =403)
 
     return redirect("userprofile")
