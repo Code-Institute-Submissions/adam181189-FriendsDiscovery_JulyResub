@@ -10,7 +10,7 @@
 
 <div class="container text-center card profileCard"> 
 <h1> You're Subscribed. </h1>
-
+<h2>Your subscrition ends {{ request.user.userprofile.subscription.current_period_end }} and will be renewed on this date</h2> 
 <a class="btn btn-warning text-light" href="{% url 'userprofile' %}"> Return to Profile Page</a>
 
 <br><br>

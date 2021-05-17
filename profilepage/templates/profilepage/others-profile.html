@@ -39,30 +39,28 @@
                         <h4 class="col-9 white-important">
                             Hearts Received : {{ userinfo.received_hearts }}
                         </h4>
-                        {% if check_friendship and currentUserInfo.daily_given_hearts == 0 %}
+                        {% if check_friendship and request.user.userprofile.subscription.status == "active" and currentUserInfo.daily_given_hearts <= 4 %}
                             <form action="{% url 'record_hearts_view' userinfo.user.username %}" method="POST">
                                 {% csrf_token %}
                                 <h5 class="col-9 white-important">
                                     Give a heart to {{ userinfo.user.username }}? <button type="submit">Give</button>
                                 </h5>
                             </form>
-                        {% elif check_friendship and currentUserInfo.premium_member == True and currentUserInfo.daily_given_hearts <= 4 %}
-                            <form action="{% url 'record_hearts_view' userinfo.user.username %}" method="POST">
-                                {% csrf_token %}
-                                <h5 class="col-9 white-important">
-                                    Give a heart to {{ userinfo.user.username }}? <button type="submit">Give</button>
-                                </h5>
-                            </form>
-                        {% elif check_friendship and currentUserInfo.premium_member == True and currentUserInfo.daily_given_hearts == 5 %}
+                        {% elif check_friendship and request.user.userprofile.subscription.status == "active" and currentUserInfo.daily_given_hearts == 5 %}
                             <h5 class="col-9 white-important">
                                 You cannot give anymore hearts to friends today.
                             </h5>
-                        {% elif check_friendship and currentUserInfo.premium_member == False and currentUserInfo.daily_given_hearts == 1 %}
+                        {% elif check_friendship and currentUserInfo.daily_given_hearts == 1 and request.user.userprofile.subscription is None or request.user.userprofile.subscription.status == "cancelled" %}
                             <h5 class="col-9 white-important">
                                 You cannot give anymore hearts to friends today.
                             </h5>
                         {% else %}
-                        
+                        <form action="{% url 'record_hearts_view' userinfo.user.username %}" method="POST">
+                            {% csrf_token %}
+                            <h5 class="col-9 white-important">
+                                Give a heart to {{ userinfo.user.username }}? <button type="submit">Give</button>
+                            </h5>
+                            </form>
                         {% endif %}
                     <form method="POST">
                         {% csrf_token %}
@@ -120,7 +118,7 @@
 
             <div class="col-lg-6 col-md-12">
 
-                {% if check_friendship or currentUserInfo.premium_member == True %}
+                {% if check_friendship or request.user.userprofile.subscription.status == "active" %}
                 <div class="card profileInfoCard profile-section align-items-center" style="margin: 10px">
                     <h3 class="white-important p-2">
                         Posts

@@ -9,8 +9,8 @@
 <br><br>
 
 <div class="container text-center card profileCard"> 
-<h1> You're Subscribed. </h1>
-
+<h1> You currently have a subscription.</h1>
+<h2>Your subscrition ends {{ request.user.userprofile.subscription.current_period_end }} but will not be renewed on this date and your account will go back to being a standard account.</h2> 
 <a class="btn btn-warning text-light" href="{% url 'userprofile' %}"> Return to Profile Page</a>
 
 <br><br>

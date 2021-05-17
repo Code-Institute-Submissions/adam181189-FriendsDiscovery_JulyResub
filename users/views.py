@@ -70,14 +70,14 @@ def checkout(request):
         #print(request.user.userprofile)
         #print("USER.userprofile.subscription")
         #print(request.user.userprofile.subscription)
-
-        if request.user.userprofile.subscription.cancel_at_period_end:
-            return redirect(cancelledSubscription)
-        elif request.user.userprofile.subscription is None:
+        if request.user.userprofile.subscription is None:
             products = Product.objects.all()
 
             context = {"products": products}
             return render(request, "payment_method/checkout.html", context)        
+        elif request.user.userprofile.subscription.cancel_at_period_end == True:
+            return redirect(cancelledSubscription)
+        
         else:
 
             return redirect(complete)
