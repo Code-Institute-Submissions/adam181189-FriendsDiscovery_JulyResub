@@ -1,0 +1,1 @@
+web: gunicorn friends-discovery.wsgi:application
