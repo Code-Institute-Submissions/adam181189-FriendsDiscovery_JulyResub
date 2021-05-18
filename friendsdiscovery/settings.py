@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'profilepage',
     'crispy_forms',
     'friendship',
-    'django_celery_beat',
     'djstripe',
     ]
 
