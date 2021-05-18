@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='userdetails',
             name='nationality',
-            field=django_countries.fields.CountryField(default='Where are you from?', max_length=2),
+            field=django_countries.fields.CountryField(default='Where are you from?', max_length=150),
         ),
         migrations.AlterField(
             model_name='userdetails',

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -117,11 +118,15 @@ WSGI_APPLICATION = 'friendsdiscovery.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+#DATABASES = {
+#        'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+   'default': dj_database_url.parse('postgres://vnrmhheespzqdy:45032b87ff7ceace39b7ba4a768ca3faae09415a676c93c9a463486d20990961@ec2-54-74-35-87.eu-west-1.compute.amazonaws.com:5432/d2d8t96at6nd86')
 }
 
 
