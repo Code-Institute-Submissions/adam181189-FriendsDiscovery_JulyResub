@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'friendship',
     'djstripe',
-    'storage',
+    'storages',
     ]
 
 STRIPE_TEST_PUBLIC_KEY = config('STRIPE_PUBLISHABLE_KEY')
