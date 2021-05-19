@@ -1,0 +1,319 @@
+html {
+    height: 100%;
+}
+
+body {
+    background: url('/media/shadow.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    height: calc(100vh - 164px);
+}
+
+/* Home Page */
+
+.home-welcome {  
+  position: relative;
+  right:250px;
+}
+
+.subtitle {  
+    font-size:40px;  
+    color: #F2FA22;
+    text-shadow: 2px 2px black;
+    font-weight:bold;
+}
+
+.better-you-button {
+    background-color: #F2FA22;
+    color:black;
+}
+
+/* Registration */
+.registrationCard {
+    font-size:1rem;
+    top: 6rem;
+    font: black;
+    padding:20px;
+    margin:10px;
+    background: rgb(235, 226, 99); /* Fallback for older browsers without RGBA-support */
+    background: rgba(155, 152, 152, 0.5);
+}
+
+/* users profile pages */ 
+.profileCard {
+    background-color:rgb(43, 96, 156);
+    color: rgb(165, 160, 160);
+    min-height: 94vh; 
+}
+.profileTitle{
+    margin:10px;
+}
+.profileInfoCard {
+    background-color:rgb(88, 129, 175);
+    color:white;
+    min-height:70vh;
+    margin:10px 0px 10px 10px;
+    padding:10px;
+}
+
+.profileImage {
+    width: 190px; 
+    height: 190px;
+}
+
+.heartsReceived {
+    margin-left:5px;
+    width: 90px; 
+    height: 70px;
+}
+
+.newpostButton{
+    position:absolute;
+    right:5px;
+    top:5px;
+}
+
+.updateButton {
+    position:absolute;
+    bottom:5px;
+}
+
+/* List of profiles */
+.profileListCards {
+    margin-top:10px;
+    width:70%;
+}
+
+/* Stripe Payments */
+
+.StripeElement {
+    box-sizing: border-box;
+
+    height: 40px;
+
+    padding: 10px 12px;
+
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: white;
+
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+  }
+
+  .StripeElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+  }
+
+  .StripeElement--invalid {
+    border-color: #fa755a;
+  }
+
+  .StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+  }
+  .hidden {
+      display: none;
+  }
+
+
+  #submit:hover {
+    filter: contrast(120%);
+  }
+
+  #submit {
+    font-feature-settings: "pnum";
+    --body-color: #f7fafc;
+    --button-color: #556cd6;
+    --accent-color: #556cd6;
+    --gray-border: #e3e8ee;
+    --link-color: #fff;
+    --font-color: #697386;
+    --body-font-family: -apple-system,BlinkMacSystemFont,sans-serif;
+    --radius: 4px;
+    --form-width: 400px;
+    -webkit-box-direction: normal;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    font: inherit;
+    overflow: visible;
+    -webkit-appearance: button;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+    font-size: 16px;
+    padding: 0 12px;
+    line-height: 32px;
+    outline: none;
+    text-decoration: none;
+    text-transform: none;
+    margin-right: 8px;
+    height: 36px;
+    border-radius: var(--radius);
+    color: #fff;
+    border: 0;
+    margin-top: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s ease;
+    display: block;
+    box-shadow: 0 4px 5.5px 0 rgba(0,0,0,.07);
+    width: 100%;
+    background: var(--button-color);
+  }
+
+
+/* Media Queries */
+
+@media (max-width: 1024px) {
+    
+  .home-welcome {
+  right:40px;
+  top:510px;
+}
+
+.subtitle {  
+    font-size:30px; 
+}
+
+.profileImage {
+    width: 120px; 
+    height: 120px;
+}
+
+.heartsReceived {
+    margin-left:5px;
+    width: 60px; 
+    height: 40px;
+}
+
+.profileListCards {
+    margin-top:10px;
+    width:100%;
+}
+
+}
+
+@media (max-width: 768px) {
+  .home-welcome {
+  right:30px;
+  top:410px;
+}
+
+.subtitle {  
+    font-size:25px; 
+}
+
+}
+
+@media (max-width: 548px) {
+
+  .home-welcome {
+  right:10px;
+  top:280px;
+}
+
+.subtitle {  
+    font-size:15px; 
+}
+
+.better-you-button {
+    font-size:10px;
+}
+
+}
+
+@media (max-width: 414px) {
+      .home-welcome {
+  right:0px;
+  height:10px;
+  width:300px;
+  top:208px;
+}
+
+.subtitle {  
+    font-size:15px; 
+}
+
+.better-you-button {
+    font-size:10px;
+
+}
+
+@media (max-width: 411px) {
+      .home-welcome {
+  right:0px;
+  height:10px;
+  top:268px;
+}
+
+.subtitle {  
+    font-size:15px; 
+}
+
+.better-you-button {
+    font-size:10px;
+    position: fixed;
+    bottom:40px;
+}
+
+}
+
+@media (max-width: 375px) {
+      .home-welcome {
+  right:0px;
+  height:0px;
+  top:200px;
+}
+
+.subtitle {  
+    font-size:13px; 
+}
+
+.better-you-button {
+    font-size:10px;
+    position: relative;
+    bottom:40px;
+}
+
+}
+
+@media (max-width: 320px) {
+      .home-welcome {
+  right:0px;
+  height:0px;
+  top:160px;
+}
+
+.subtitle {  
+    font-size:15px; 
+}
+
+.better-you-button {
+    font-size:8px;
+    position: relative;
+    bottom:40px;
+}
+
+}
+@media (max-width: 280px) {
+      .home-welcome {
+  right:0px;
+  height:0px;
+  top:200px;
+}
+
+.subtitle {  
+    font-size:13px; 
+}
+
+.better-you-button {
+    font-size:10px;
+    position: relative;
+    bottom:40px;
+}
+
+}
+
+
