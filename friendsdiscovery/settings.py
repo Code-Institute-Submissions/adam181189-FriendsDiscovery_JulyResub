@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY')
 #DEBUG = config("DEBUG")
 DEBUG = 'DEVELOPMENT' in os.environ
 
-ALLOWED_HOSTS = ['friendsdiscovery.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['friends-discovery.herokuapp.com', 'localhost']
 
 # Application definition
 
