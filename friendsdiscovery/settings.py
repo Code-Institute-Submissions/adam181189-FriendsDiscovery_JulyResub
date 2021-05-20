@@ -21,15 +21,12 @@ from os.path import dirname, abspath
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG')
-
+#DEBUG = config("DEBUG")
+DEBUG = 'DEVELOPMENT' in os.environ
 
 ALLOWED_HOSTS = ['friendsdiscovery.herokuapp.com', 'localhost']
 
@@ -54,13 +51,6 @@ INSTALLED_APPS = [
     'storages',
     'djstripe',
     ]
-
-STRIPE_TEST_PUBLIC_KEY = config('STRIPE_PUBLISHABLE_KEY')
-STRIPE_TEST_SECRET_KEY = config('STRIPE_SECRET_KEY')
-STRIPE_LIVE_MODE = False  # Change to True in production
-DJSTRIPE_WEBHOOK_SECRET = "whsec_xxx"
-DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -191,14 +181,15 @@ USE_TZ = True
 #PROJECT_ROOT = BASE_DIR
 #PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-#STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
-#MEDIA_URL = '/media/'
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 if 'USE_AWS' in os.environ:
-    #Bucket config
+
+     # Bucket Config
     AWS_STORAGE_BUCKET_NAME = 'friendsdiscovery'
     AWS_S3_REGION_NAME = 'eu-west-2'
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -206,14 +197,18 @@ if 'USE_AWS' in os.environ:
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
     # Static and media files
+    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
     STATICFILES_LOCATION = 'static'
-    #STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
+    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
     MEDIAFILES_LOCATION = 'media'
-    #DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
     # Override static and media URLs in production
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
+
+# Stripe config
+STRIPE_TEST_PUBLIC_KEY = config('STRIPE_PUBLISHABLE_KEY')
+STRIPE_TEST_SECRET_KEY = config('STRIPE_SECRET_KEY')
+STRIPE_LIVE_MODE = False  # Change to True in production
+DJSTRIPE_WEBHOOK_SECRET = "whsec_xxx"
+DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"

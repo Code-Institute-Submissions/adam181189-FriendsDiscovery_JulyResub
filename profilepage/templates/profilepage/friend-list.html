@@ -10,7 +10,7 @@
     <h2 class="d-flex align-items-center">Your Friends and Friend Requests</h2><br>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-9" style="overflow:scroll; overflow-x: hidden;">
                 <div class="card profileInfoCard profile-section align-items-center">
                     <h3 class="white-important p-2 profileTitle">
                         Friends
@@ -39,9 +39,9 @@
                                 <a href="{% url 'others_profile' friendship_request.from_user %}">
                                     <br>
                                     <img class="rounded-circle mr-2 " style="width: 50px; height: 50px;"
-                                            src="{{ friendship_request.from_user.userdetails.profile_pic.url }}"></a>
+                                            src="{{ friendship_request.from_user.userprofile.profile_pic.url }}"></a>
                                             <br>{{ friendship_request.from_user }} 
-                                    <br><a href="{% url 'received_friend_requests' friendship_request.id %}" type="button"> view request</a>
+                                    <br><a href="{% url 'friendship_accept' friendship_request.id %}" type="button"> view request</a>
                             {% empty %}
                         </ul>
                         <div>No new Friend Requests</div>
@@ -58,10 +58,10 @@
                         
                         <ul>
                             {% for sent in request_sent %}
-                                <a href="">
+                                <a href="{% url 'others_profile' sent.to_user %}">
                                     <br>
                                     <img class="rounded-circle mr-2 " style="width: 50px; height: 50px;"
-                                            src="{{ sent.to_user.userdetails.profile_pic.url }}"></a>
+                                            src="{{ sent.to_user.userprofile.profile_pic.url }}"></a>
                                             <br>{{ sent.to_user }} 
                                     <br><a href="{% url 'request_cancel' sent.to_user.id %}" type="button"> cancel request</a>
                                     <br>

@@ -242,16 +242,16 @@ def remove_friend(request, to_username, template_name="profilepage/remove_friend
 
 
 @login_required
-def request_cancel(request, friendship_request_id, template_name="profilepage/request_cancel.html"):
+def request_cancel(request, to_user_id, template_name="profilepage/request_cancel.html"):
     """ Cancel a previously created friendship_request_id """
-    
+
     if request.method == "POST":
         f_request = get_object_or_404(
-            request.user.friendship_requests_sent, id=friendship_request_id
+            request.user.friendship_requests_sent, id=to_user_id
         )
-        print(f_request.id)
+        print(f_request)
         f_request.cancel()
-        return redirect("friend_list", {f_request:"f_request"})
+        return redirect("friend_list", {f_request: "f_request"})
 
     return render(request, template_name)
 
@@ -261,8 +261,6 @@ def received_friend_requests(
     request, friendship_request_id, template_name="profilepage/received_friendship_requests.html"):
 
     f_request = get_object_or_404(FriendshipRequest,id =friendship_request_id)
-    print("!!!!!!!!!!!!!!")
-    print(f_request)
 
     return render(request, template_name, {"friendship_request": f_request})
 
@@ -275,7 +273,7 @@ def friendship_accept(request, to_username, template_name="profilepage/received_
             request.user.friendship_requests_received, id=to_username
         )
         f_request.accept()
-        return redirect("friend_list", username=request.user.username)
+        return redirect("/friend_list")
 
 
 @login_required
@@ -283,7 +281,12 @@ def friendship_reject(request, friendship_request_id, template_name="profilepage
     """ Reject a friendship request """
     if request.method == "POST":
         f_request = get_object_or_404(
-            request.user.friendship_requests_received, friendship_request_id=id
+            request.user.friendship_requests_received, id=to_username
         )
-        f_request.reject()
-        return redirect("friend_list")
+        friend_request.reject()
+        return redirect("friendship_request_list")
+    
+    return redirect(
+        "friendship_requests_detail", friendship_request_id=friendship_request_id
+    )
+
