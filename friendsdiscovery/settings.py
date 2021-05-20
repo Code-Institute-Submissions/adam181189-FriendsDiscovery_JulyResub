@@ -178,14 +178,16 @@ USE_TZ = True
 #STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-STATIC_ROOT = "/var/www/friends-discovery.com/static/"
+
+if not DEBUG:
+    STATIC_ROOT = 'https://s3.console.aws.amazon.com/s3/buckets/friendsdiscovery?prefix=static/'
+
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static/'),
+    ]
 
 #PROJECT_ROOT = BASE_DIR
 #PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
