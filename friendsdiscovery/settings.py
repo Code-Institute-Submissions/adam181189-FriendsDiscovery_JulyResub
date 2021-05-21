@@ -185,7 +185,7 @@ if not DEBUG:
     STATIC_ROOT = 'https://s3.console.aws.amazon.com/s3/buckets/friendsdiscovery?prefix=static/'
 
     STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static/css'),
+        os.path.join(BASE_DIR, 'static'),
     ]
 
 #PROJECT_ROOT = BASE_DIR
