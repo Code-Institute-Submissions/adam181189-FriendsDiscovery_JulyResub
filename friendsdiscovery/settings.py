@@ -48,8 +48,10 @@ INSTALLED_APPS = [
     'profilepage',
     'crispy_forms',
     'friendship',
+    'celery',
     'storages',
     'djstripe',
+    'boto3',
     ]
 
 MIDDLEWARE = [
@@ -183,7 +185,7 @@ if not DEBUG:
     STATIC_ROOT = 'https://s3.console.aws.amazon.com/s3/buckets/friendsdiscovery?prefix=static/'
 
     STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static/'),
+        os.path.join(BASE_DIR, 'static/css'),
     ]
 
 #PROJECT_ROOT = BASE_DIR
