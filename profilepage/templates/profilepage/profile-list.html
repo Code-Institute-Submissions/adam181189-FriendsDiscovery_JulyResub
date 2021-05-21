@@ -15,9 +15,9 @@
         
 
     {% for profiles in page_obj %}
-    <article class="card row profileListCards">
-            <div class="col-3 d-flex align-items-center">
-                <div class="row-3">
+    <article class="card profileListCards row">
+            <div class="d-flex align-items-center">
+                <div class="col-lg-3 col-sm-12">
                     <img class="rounded-circle mr-2" style="width: 150px; height: 150px;"
                         src="{{ profiles.user.userprofile.profile_pic.url }}">
                     &nbsp;
@@ -32,7 +32,7 @@
                     {% endif %}
 
                 </div>
-                <div class="col-9">
+                <div class="col-lg-9 col-sm-12">
                     <p class="white-important" style="width:75%;">
                         {{ profiles.bio }}
                     </p>

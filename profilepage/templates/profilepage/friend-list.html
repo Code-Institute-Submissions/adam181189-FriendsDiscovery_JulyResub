@@ -5,75 +5,92 @@
 
 {% block content %}
 
-<div class="card profileCard align-items-center">
+<div class="card profileCard d-flex align-items-center">
     <br>
     <h2 class="d-flex align-items-center">Your Friends and Friend Requests</h2><br>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-9" style="overflow:scroll; overflow-x: hidden;">
-                <div class="card profileInfoCard profile-section align-items-center">
+
+
+            <div class="col-lg-3">
+                <div class="row profile-section">
+                    <div class="card profileRequestsCard profile-section align-items-center "
+                        style="overflow:scroll; overflow-x: hidden; margin-bottom:10px;">
+                        <h3 class="white-important p-2 profileTitle">
+                            Friend Requests Received
+                        </h3>
+                        <article class="content-section" style="height: 140px; width: 100%; margin:10px;">
+
+                            <ul>
+                                {% for friendship_request in requests %}
+                                You have received a friend request from
+                                <a href="{% url 'others_profile' friendship_request.from_user %}">
+                                    <br>
+                                    <img class="rounded-circle mr-2 " style="width: 50px; height: 50px;"
+                                        src="{{ friendship_request.from_user.userprofile.profile_pic.url }}"></a>
+                                <br>{{ friendship_request.from_user }}
+                                <br><a href="{% url 'friendship_accept' friendship_request.id %}" type="button"> view
+                                    request</a>
+                                {% empty %}
+                            </ul>
+                            <div>No new Friend Requests</div>
+                            {% endfor %}
+                        </article>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="card profileRequestsCard profile-section profile-section align-items-center "
+                        style="overflow:scroll; overflow-x: hidden;">
+                        <h3 class="white-important p-2 profileTitle">
+                            Friend Requests Sent <br>
+                            and awaiting reply
+                        </h3>
+                        <article class="content-section" style="height: 140px; width: 100%; margin:10px;">
+
+                            <ul>
+                                {% for sent in request_sent %}
+                                <a href="{% url 'others_profile' sent.to_user %}">
+                                    <br>
+                                    <img class="rounded-circle mr-2 " style="width: 50px; height: 50px;"
+                                        src="{{ sent.to_user.userprofile.profile_pic.url }}"></a>
+                                <br>{{ sent.to_user }}
+                                <br><a href="{% url 'request_cancel' sent.to_user.id %}" type="button"> cancel
+                                    request</a>
+                                <br>
+                                <br>
+                                {% empty %}
+                            </ul>
+                            <div>No Friend Requests Sent</div>
+                            {% endfor %}
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-sm-12">
+                <div class="card profileInfoCard profile-section align-items-center"
+                    style="overflow:scroll; overflow-x: hidden;">
                     <h3 class="white-important p-2 profileTitle">
                         Friends
                     </h3>
                     <article class="content-section align-items-center" style="height: 140px; width: 100%">
-                        {% for friend in friends %}                      
+                        <div class="row">
+
+                            {% for friend in friends %}
+                            <div class="col-lg-4" style="padding:10px; ">
                                 <a href="{% url 'others_profile' friend.username %}">
-                                <img class="rounded-circle mr-2" style="width: 150px; height: 150px;"
-                                src="{{ friend.userprofile.profile_pic.url }}"></a> 
-                                <br>{{ friend.username }}<br>                             
-                        {% endfor %} 
+                                    <img class="rounded-circle mr-2" style="width: 150px; height: 150px;"
+                                        src="{{ friend.userprofile.profile_pic.url }}"></a>
+                                <br>{{ friend.username }}<br>
+                            </div>
+                            {% endfor %}
+
+                        </div>
                     </article>
                 </div>
             </div>
 
-            <div class="col-lg-3">
-                <div class="row card profileInfoCard profile-section align-items-center " style="overflow:scroll; overflow-x: hidden;">
-                    <h3 class="white-important p-2 profileTitle">
-                        Friend Requests Received
-                    </h3>
-                    <article class="content-section" style="height: 140px; width: 100%">
-                        
-                        <ul>
-                            {% for friendship_request in requests %}
-                             You have received a friend request from 
-                                <a href="{% url 'others_profile' friendship_request.from_user %}">
-                                    <br>
-                                    <img class="rounded-circle mr-2 " style="width: 50px; height: 50px;"
-                                            src="{{ friendship_request.from_user.userprofile.profile_pic.url }}"></a>
-                                            <br>{{ friendship_request.from_user }} 
-                                    <br><a href="{% url 'friendship_accept' friendship_request.id %}" type="button"> view request</a>
-                            {% empty %}
-                        </ul>
-                        <div>No new Friend Requests</div>
-                            {% endfor %}
-                    </article>
-                    
-                </div>
-                <div class="row card profileInfoCard profile-section align-items-center " style="overflow:scroll; overflow-x: hidden;">
-                    <h3 class="white-important p-2 profileTitle">
-                        Friend Requests Sent <br>
-                        and awaiting reply
-                    </h3>
-                    <article class="content-section" style="height: 140px; width: 100%">
-                        
-                        <ul>
-                            {% for sent in request_sent %}
-                                <a href="{% url 'others_profile' sent.to_user %}">
-                                    <br>
-                                    <img class="rounded-circle mr-2 " style="width: 50px; height: 50px;"
-                                            src="{{ sent.to_user.userprofile.profile_pic.url }}"></a>
-                                            <br>{{ sent.to_user }} 
-                                    <br><a href="{% url 'request_cancel' sent.to_user.id %}" type="button"> cancel request</a>
-                                    <br>
-                                    <br>
-                            {% empty %}
-                        </ul>
-                        <div>No Friend Requests Sent</div>
-                            {% endfor %}
-                    </article>
-                    
-                </div>
-            </div>
         </div>
 
         {% endblock %}
