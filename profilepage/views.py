@@ -10,6 +10,7 @@ from friendship.models import Friend, Follow, Block, FriendshipRequest
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django import template
+import datetime
 
 try:
     from django.contrib.auth import get_user_model
@@ -40,20 +41,15 @@ def userprofile(request):
 
     friends = Friend.objects.friends(user)
 
-    #for friend in friends:
-        #print(friend)
-
-    friendship = [user.id]
-
-    #print(friendship)
-    #data = Post.objects.all().order_by('date_posted').reverse()
-
     data = []
     for post in Post.objects.all().order_by('date_posted').reverse():
-        if post.user in friends:
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print(post.user)
+        print(request.user.username)
+        print(str(post.user) == str(request.user.username))
+        if post.user in friends or str(post.user) == str(request.user.username):
             data.append(post)
 
-    #data = Post.objects.all().order_by('date_posted').reverse()
     paginator = Paginator(data, 3)
 
     page_number = request.GET.get('page')
@@ -200,13 +196,12 @@ def others_profile(request, username):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-
     context = {
         'userinfo': userinfo,  'currentUserInfo': currentUserInfo,
         'request_sent': request_sent,
         'check_friendship': check_friendship, 'data': data,
         'requests': friendship_requests, 'friends': friends,
-        'page_obj': page_obj}
+        'page_obj': page_obj, }
     return render(request, "profilepage/others-profile.html", context)
 
 

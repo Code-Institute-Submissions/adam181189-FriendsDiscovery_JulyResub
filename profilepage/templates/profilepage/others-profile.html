@@ -18,7 +18,7 @@
                     <h3 class="white-important p-2 profileTitle">
                         Profile
                     </h3>
-                    <article class="content-section" style="height: 140px; width: 100%">
+                    <article class="content-section" style="height: 140px; width: 100%;">
                         <div class="mt-2 d-flex full-width align-items-center">
                             <img class="rounded-circle mr-3 profileImage"
                                 src="{{ userinfo.profile_pic.url }}">
@@ -46,6 +46,10 @@
                                     Give a heart to {{ userinfo.user.username }}? <button type="submit">Give</button>
                                 </h5>
                             </form>
+                        {% elif not check_friendship %}
+                            <h5 class="col-9 white-important">
+                                You cannot give anymore hearts to this user as you aren't friends.
+                            </h5>
                         {% elif check_friendship and request.user.userprofile.subscription.status == "active" and currentUserInfo.daily_given_hearts == 5 %}
                             <h5 class="col-9 white-important">
                                 You cannot give anymore hearts to friends today.
@@ -107,7 +111,7 @@
                             <div class="align-items-center stats">
                                 <h4> Stats: </h4>
                                 <h6>
-                                    Age: <br>
+                                    Age:  <br>
                                     Gender: {{ userinfo.gender}} <br>
                                     Height: <br>
                                     Hair: <br>
