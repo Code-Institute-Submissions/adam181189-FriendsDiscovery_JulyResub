@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post, Heart
 from users.models import UserDetails
 from django.contrib.auth.models import User
 
@@ -27,7 +27,7 @@ class updateprofileimage(forms.ModelForm):
 
 # form for adding a heart to the user
 
-class addheartForm(forms.ModelForm):
+class HeartForm(forms.ModelForm):
     class Meta:
-        model = UserDetails
-        fields = ("received_hearts",)
+        model = Heart
+        fields = ('from_user', 'to_user', 'date_posted',)

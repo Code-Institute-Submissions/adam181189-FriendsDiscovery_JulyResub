@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from .forms import PostForm, updateprofileinfo, updateprofileimage, addheartForm
+from .forms import PostForm, updateprofileinfo, updateprofileimage, HeartForm
 from django.contrib.auth import authenticate
-from .models import Post, updateInfo
+from .models import Post, updateInfo, Heart
 from users.models import UserDetails
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
@@ -10,7 +10,7 @@ from friendship.models import Friend, Follow, Block, FriendshipRequest
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django import template
-import datetime
+from datetime import datetime, date
 
 try:
     from django.contrib.auth import get_user_model
@@ -43,10 +43,6 @@ def userprofile(request):
 
     data = []
     for post in Post.objects.all().order_by('date_posted').reverse():
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        print(post.user)
-        print(request.user.username)
-        print(str(post.user) == str(request.user.username))
         if post.user in friends or str(post.user) == str(request.user.username):
             data.append(post)
 
@@ -170,7 +166,20 @@ register = template.Library()
 
 
 def others_profile(request, username):
+
     """ A view to return other users profile page """
+
+    def hearts_sent_today():
+        heartsToday = Heart.objects.filter(from_user=request.user, date_posted__date=date.today()).count()
+        print(f'Hearts sent today for {request.user}: {heartsToday}.')
+
+        return heartsToday
+
+    def hearts_received(user):        
+        heartsReceived = Heart.objects.filter(to_user=user).count()
+        print(f'Hearts received for {user}: {heartsReceived}.')
+
+        return heartsReceived
 
     userinfo = UserDetails.objects.get(user=User.objects.get(
         username=username))
@@ -201,22 +210,10 @@ def others_profile(request, username):
         'request_sent': request_sent,
         'check_friendship': check_friendship, 'data': data,
         'requests': friendship_requests, 'friends': friends,
-        'page_obj': page_obj, }
+        'page_obj': page_obj,
+        'hearts_sent_today': hearts_sent_today(),
+        'hearts_received': hearts_received(userinfo.user), }
     return render(request, "profilepage/others-profile.html", context)
-
-
-def record_hearts_view(request, to_username):
-    if request.method == 'POST':
-        user_hearts = UserDetails.objects.get(user=User.objects.get(
-            username=to_username))
-        given_hearts = UserDetails.objects.get(user=User.objects.get(
-            username=request.user.username))
-        user_hearts.received_hearts += 1
-        given_hearts.daily_given_hearts += 1
-        user_hearts.save()
-        given_hearts.save()
-    context = {'user_hearts': user_hearts}
-    return redirect("/friend_list", context)
 
 
 @login_required
@@ -303,3 +300,33 @@ def friendship_reject(request, friendship_request_id, template_name="profilepage
         "friendship_requests_detail", friendship_request_id=friendship_request_id
     )
 
+
+@login_required
+def record_hearts_view(request, to_username):
+    if request.method == 'POST':
+
+        #user_hearts = UserDetails.objects.get(user=User.objects.get(username=to_username))
+        #given_hearts = UserDetails.objects.get(user=User.objects.get(username=request.user.username))
+        #user_hearts.received_hearts += 1
+        #given_hearts.daily_given_hearts += 1
+        #user_hearts.save()
+        #given_hearts.save()
+        #context = {'user_hearts': user_hearts}
+
+        ## from_user, to_user
+        ## PostHeart
+
+        print(f'from: {UserDetails.objects.get(user=User.objects.get(username=request.user.username))}')
+        print(f'to: {UserDetails.objects.get(user=User.objects.get(username=to_username))}')
+        print(f'from: {User.objects.get(username=request.user.username)}')
+        print(f'to: {User.objects.get(username=to_username)}')
+
+        heart = Heart.objects.create(
+            from_user = User.objects.get(username=request.user.username), 
+            to_user = User.objects.get(username=to_username), 
+            date_posted = datetime.now())
+        #heart.save(commit=True)
+
+        return redirect('userprofile')
+
+        #return redirect("/friend_list", context)

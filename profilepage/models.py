@@ -17,6 +17,24 @@ class Post(models.Model):
         return self.new_post[:10]
 
 
+class Heart(models.Model):
+    #fields here
+    from_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="heart_sent",
+    )
+    to_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="heart_received",
+    )
+    date_posted = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f'{self.from_user} sent a Heart to {self.to_user} on {self.date_posted}.'
+
+
 class updateInfo(models.Model):
     userdetails = UserDetails
     GENDER_CHOICES = (
