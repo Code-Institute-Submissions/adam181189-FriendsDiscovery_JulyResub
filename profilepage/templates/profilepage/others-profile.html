@@ -65,12 +65,21 @@
                     <form method="POST">
                         {% csrf_token %}
                         <div class="form-group">
-                                                        
+                                
+                            <div class="alert alert-danger">
+                                <div>Friends: {{ friends }}</div>                            
+                                <div>User: {{ userinfo }}</div>     
+                                <div>Current User: {{ currentUserInfo }}</div>     
+                                <div>Request Send: {{ request_sent }}</div>     
+                                <div>Requests: {{ friendship_requests }}</div>     
+                                <div>Check Friendship?: {{ check_friendship }}</div>     
+                            </div>
+
                                 {% if check_friendship %}
                                     <a  href="{% url 'remove_friend' userinfo.user.username %}" style="margin-left: 18px" class="btn btn-sm btn-primary"
                                             type="submit">You are already friends with {{userinfo.user}}. Remove as Friend.   
                                     </a> 
-                                {% elif request_sent %}
+                                {% elif request_sent and not check_friendship %}
                                     <a href="{% url 'request_cancel' userinfo.user.id %}" style="margin-left: 18px" class="btn btn-sm btn-warning"
                                             type="button">You are waiting for {{userinfo.user}}'s response to your friend request. Click to cancel request.    
                                     </a> 

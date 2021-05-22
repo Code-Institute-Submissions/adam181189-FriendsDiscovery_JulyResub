@@ -236,7 +236,7 @@ def remove_friend(request, to_username, template_name="profilepage/remove_friend
         from_user = request.user
 
         Friend.objects.remove_friend(from_user, to_user)
-        return redirect("friend_list", username=to_user.username)
+        return redirect("friend_list")
 
     return render(request, template_name, ctx)
 
