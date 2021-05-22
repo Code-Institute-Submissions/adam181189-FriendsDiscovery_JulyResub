@@ -17,22 +17,25 @@
     {% for profiles in page_obj %}
     <article class="card profileListCards row">
             <div class="d-flex align-items-center">
-                <div class="col-lg-3 col-sm-12">
-                    <img class="rounded-circle mr-2" style="width: 150px; height: 150px;"
-                        src="{{ profiles.user.userprofile.profile_pic.url }}">
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                    
                     &nbsp;
                     {% if user == profiles.user %}
                     <a class="white-important" href="{% url 'userprofile' %}">
-                        {{ profiles.user }}
+                    <img class="rounded-circle mr-2" style="width: 150px; height: 150px;"
+                        src="{{ profiles.user.userprofile.profile_pic.url }}"> 
                     </a>
+                        {{ profiles.user }}
                     {% else %}
                     <a class="white-important" href="{% url 'others_profile' profiles.user.username %}">
+                        <img class="rounded-circle mr-2" style="width: 150px; height: 150px;"
+                            src="{{ profiles.user.userprofile.profile_pic.url }}"> 
+                        </a>
                         {{ profiles.user }}
-                    </a>
                     {% endif %}
 
                 </div>
-                <div class="col-lg-9 col-sm-12">
+                <div class="col-lg-9 col-md-9 col-sm-12">
                     <p class="white-important" style="width:75%;">
                         {{ profiles.bio }}
                     </p>
