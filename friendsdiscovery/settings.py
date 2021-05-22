@@ -68,6 +68,8 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 
     'allauth.account.auth_backends.AuthenticationBackend',
+
+    'storages.backends.s3boto3.S3Boto3Storage',
 ]
 
 AUTH_PROFILE_MODULE = 'users.UserProfile'
