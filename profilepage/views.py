@@ -36,7 +36,24 @@ def userprofile(request):
     userinfo = UserDetails.objects.get(user=User.objects.get(
         username=request.user.username))
 
-    data = Post.objects.all().order_by('date_posted').reverse()
+    user = get_object_or_404(user_model, username=request.user.username)
+
+    friends = Friend.objects.friends(user)
+
+    #for friend in friends:
+        #print(friend)
+
+    friendship = [user.id]
+
+    #print(friendship)
+    #data = Post.objects.all().order_by('date_posted').reverse()
+
+    data = []
+    for post in Post.objects.all().order_by('date_posted').reverse():
+        if post.user in friends:
+            data.append(post)
+
+    #data = Post.objects.all().order_by('date_posted').reverse()
     paginator = Paginator(data, 3)
 
     page_number = request.GET.get('page')
@@ -208,8 +225,7 @@ def record_hearts_view(request, to_username):
 
 
 @login_required
-def add_friend(request, to_username,  template_name="profilepage/friend_request.html"
-               ):
+def add_friend(request, to_username,  template_name="profilepage/friend_request.html"):
     """ Create a FriendshipRequest """
     ctx = {"to_username": to_username}
 
@@ -228,6 +244,7 @@ def add_friend(request, to_username,  template_name="profilepage/friend_request.
 
 @login_required
 def remove_friend(request, to_username, template_name="profilepage/remove_friend.html"):
+    """ A view to remove a friend """
 
     ctx = {"to_username": to_username}
 
@@ -244,14 +261,13 @@ def remove_friend(request, to_username, template_name="profilepage/remove_friend
 @login_required
 def request_cancel(request, to_user_id, template_name="profilepage/request_cancel.html"):
     """ Cancel a previously created friendship_request_id """
-
     if request.method == "POST":
         f_request = get_object_or_404(
-            request.user.friendship_requests_sent, id=to_user_id
+             request.user.friendship_requests_sent, id = to_user_id
         )
         print(f_request)
         f_request.cancel()
-        return redirect("friend_list", {f_request: "f_request"})
+        return redirect("friend_list", {"friendship_request": f_request})
 
     return render(request, template_name)
 
@@ -259,6 +275,7 @@ def request_cancel(request, to_user_id, template_name="profilepage/request_cance
 @login_required
 def received_friend_requests(
     request, friendship_request_id, template_name="profilepage/received_friendship_requests.html"):
+    """ A view to decide whether friend request is accepted or not """
 
     f_request = get_object_or_404(FriendshipRequest,id =friendship_request_id)
 
@@ -283,7 +300,8 @@ def friendship_reject(request, friendship_request_id, template_name="profilepage
         f_request = get_object_or_404(
             request.user.friendship_requests_received, id=to_username
         )
-        friend_request.reject()
+        f_request.reject()
+        f_request.remove()
         return redirect("friendship_request_list")
     
     return redirect(

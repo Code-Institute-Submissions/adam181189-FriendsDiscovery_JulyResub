@@ -7,9 +7,9 @@
 
 <form method="post">
     {% csrf_token %}
-        <h1> Are you sure you wish to cancel your friend request to {{ f_request.id.user.username }}</h1>
-        <input type="hidden" name="to_username" value="{{ f_request.user }}" />
-        <input type="submit" value="Yes cancel friend request to {{ f_request }}"/>
+        <h1> Are you sure you wish to cancel your friend request to {{ friendship_request }}</h1>
+        <input type="hidden" name="to_username" value="{{ friendship_request.userNAME }}" />
+        <input type="submit" value="Yes cancel friend request to {{ friendship_request }}"/>
     </form>
 
 </div>
