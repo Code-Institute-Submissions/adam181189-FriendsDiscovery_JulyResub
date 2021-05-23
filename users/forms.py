@@ -4,7 +4,6 @@ from django import forms
 from .models import UserDetails
 
 
-
 class SignupForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
@@ -56,5 +55,4 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserDetails
         fields = ('gender', 'date_of_birth')
-
 

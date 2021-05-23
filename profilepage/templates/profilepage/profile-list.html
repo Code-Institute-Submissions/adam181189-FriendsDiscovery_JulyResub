@@ -4,46 +4,55 @@
 {% block content %}
 
 <div class="card profileCard align-items-center" style="padding: 10px">
-   
+
     <h3 class="white-important p-2">
         Users
-    </h3>                    
+    </h3>
     <h6 class="white-important mb-3">
         {{ page_obj.start_index }} - {{ page_obj.end_index }} of
         {{ data.count }}
     </h6>
-        
+
 
     {% for profiles in page_obj %}
     <article class="card profileListCards row">
-            <div class="d-flex align-items-center">
-                <div class="col-lg-3 col-md-3 col-sm-12">
-                    
-                    &nbsp;
-                    {% if user == profiles.user %}
-                    <a class="white-important" href="{% url 'userprofile' %}">
-                    <img class="rounded-circle mr-2" style="width: 150px; height: 150px;"
-                        src="{{ profiles.user.userprofile.profile_pic.url }}"> 
-                    </a>
-                        {{ profiles.user }}
-                    {% else %}
-                    <a class="white-important" href="{% url 'others_profile' profiles.user.username %}">
-                        <img class="rounded-circle mr-2" style="width: 150px; height: 150px;"
-                            src="{{ profiles.user.userprofile.profile_pic.url }}"> 
-                        </a>
-                        {{ profiles.user }}
-                    {% endif %}
+        <div class="d-flex align-items-center">
 
-                </div>
-                <div class="col-lg-9 col-md-9 col-sm-12">
-                    <p class="white-important" style="width:75%;">
-                        {{ profiles.bio }}
-                    </p>
-                </div>
+
+            &nbsp;
+            {% if user == profiles.user %}
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                <a class="white-important" href="{% url 'userprofile' %}">
+                    <img class="rounded-circle mr-2" style="width: 150px; height: 150px;"
+                        src="{{ profiles.user.userprofile.profile_pic.url }}">
+                </a>
             </div>
-        </article>
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                {{ profiles.user }}
+            </div>
+            {% else %}
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                <a class="white-important" href="{% url 'others_profile' profiles.user.username %}">
+                    <img class="rounded-circle mr-2" style="width: 150px; height: 150px;"
+                        src="{{ profiles.user.userprofile.profile_pic.url }}">
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                {{ profiles.user }}
+            </div>
+            {% endif %}
+
+
+            <div class="col-lg-6 col-md-6 col-sm-12" id="fl_biography">
+                <p class="white-important" style="width:75%;">
+                    {{ profiles.bio }}
+                </p>
+            </div>
+        </div>
+    </article>
     {% endfor %}
-    
+    &nbsp;
+
     <div class="pagination">
         <span class="step-links">
             {% if page_obj.has_previous %}

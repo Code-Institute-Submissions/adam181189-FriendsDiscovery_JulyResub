@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django_countries.fields import CountryField
 from djstripe.models import Customer, Subscription
-from users.forms import FtInField
 
 # https://www.youtube.com/watch?v=Tja4I_rgspI
 # (used to understand how to change allauth as extended user)

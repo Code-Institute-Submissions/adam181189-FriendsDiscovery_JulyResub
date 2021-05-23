@@ -3,7 +3,6 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.conf import settings
 from users.models import UserDetails
-from users.forms import FtInField
 
 
 class Post(models.Model):

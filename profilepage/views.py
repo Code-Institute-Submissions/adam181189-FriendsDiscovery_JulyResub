@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import PostForm, updateprofileinfo, updateprofileimage, HeartForm
 from django.contrib.auth import authenticate
+from django.db.models import Q
 from .models import Post, updateInfo, Heart
 from users.models import UserDetails
 from django.contrib.auth.models import User
@@ -126,18 +127,22 @@ def newpost(request):
 
 
 def profile_list(request):
+
+    print("profile_list()")
+
     """ A view to return a list of all user profile pages """
 
     userinfo = UserDetails.objects.get(user=User.objects.get(
         username=request.user.username))
 
     data = UserDetails.objects.all()
-    paginator = Paginator(data, 3)
+    paginator = Paginator(data, 4)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    context = {'userinfo': userinfo, 'data': data, 'page_obj': page_obj}
+    context = {
+        'userinfo': userinfo, 'data': data, 'page_obj': page_obj}
     return render(request, 'profilepage/profile-list.html', context)
 
 
@@ -330,3 +335,8 @@ def record_hearts_view(request, to_username):
         return redirect('userprofile')
 
         #return redirect("/friend_list", context)
+
+@login_required
+def membership_info(request):
+
+    return redirect(request, "templates/membership_info.html", context)
