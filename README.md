@@ -309,9 +309,6 @@ I have used GridFS in order to have images,music and pdfs saved to MongoDB. [Gri
 - Django
     
 
-- Celery
-
-
 - Allauth
 
 
