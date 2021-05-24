@@ -127,6 +127,8 @@ def newpost(request):
 
 
 def editPost(request, post_id):
+    """ A view to edit a blog post  """
+
     if request.method == 'POST':
         post = Post.objects.get(id = post_id)
         update_post = PostForm(
@@ -142,6 +144,12 @@ def editPost(request, post_id):
 
     context = {"update_post": update_post, "update_image": update_image, "post": post,}
     return render(request, 'profilepage/update_post.html', context)
+
+def delete_post(request, post_id):
+    post = Post.objects.get(id = post_id)
+    post.delete()
+
+    return redirect("userprofile")
 
 
 def profile_list(request):
