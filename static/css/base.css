@@ -104,6 +104,13 @@ body a {
     padding:10px;
 }
 
+.limit-chars {
+    width: 250ch;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 /* Stripe Payments */
 
 .StripeElement {
@@ -188,6 +195,7 @@ body a {
 /* Media Queries */
 
 @media (max-width: 1024px) {
+  
     
   .home-welcome {
   right:40px;
@@ -233,6 +241,10 @@ body a {
 }
 
 @media (max-width: 548px) {
+
+body {
+    font-size:2em;
+} 
 
   .home-welcome {
   right:10px;

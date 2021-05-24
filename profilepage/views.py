@@ -47,7 +47,7 @@ def userprofile(request):
         if post.user in friends or str(post.user) == str(request.user.username):
             data.append(post)
 
-    paginator = Paginator(data, 3)
+    paginator = Paginator(data, 2)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -231,7 +231,7 @@ def others_profile(request, username):
     friends = Friend.objects.friends(user)
 
     data = Post.objects.filter(user=User.objects.get(username=username)).order_by('date_posted').reverse()
-    paginator = Paginator(data, 3)
+    paginator = Paginator(data, 2)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)

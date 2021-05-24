@@ -7,7 +7,7 @@ from users.models import UserDetails
 
 class Post(models.Model):
     #fields here
-    new_post = models.TextField(max_length=1000)
+    new_post = models.TextField(max_length=300)
     date_posted = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

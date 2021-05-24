@@ -9,6 +9,13 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('new_post',)
+        widgets = {
+            'new_post': forms.Textarea(attrs={
+                'rows': '5',
+                'cols': '90',
+                'maxlength': '50',
+            }),
+        }
 
 
 # form for changing personal details on the profile page
