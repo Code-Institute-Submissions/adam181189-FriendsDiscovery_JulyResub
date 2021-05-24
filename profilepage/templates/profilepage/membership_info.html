@@ -8,37 +8,33 @@
 
 <div class="card profileCard align-items-center">
     <br>
-    <h2 class="d-flex align-items-center">{{ user.username }}'s Profile</h2><br>
+    <h2 class="d-flex align-items-center">Membership</h2><br>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-6 col-md-6">
                 <div class="card profileInfoCard profile-section align-items-center"
                     style="margin: 10px 0px 10px 10px ">
                     <h3 class="white-important p-2 profileTitle">
-                        Profile
+                        Standard Profile
                     </h3>
                     <article class="content-section" style="height: 140px; width: 100%">
                         <div class="mt-2 d-flex full-width align-items-center">
-                            <img class="rounded-circle mr-3 profileImage"
-                                src="{{ userinfo.profile_pic.url }}">
-                        </div>
-                        <div>
-                            <h4 class="white-important">
-                                {{ user.username }}
-                            </h4>
-                            <h6 class="email-profile">
-                                {{ user.email }}
-                            </h6>
-                            <a href="{% url 'update_image' %}" type="button" id="updateButton" class="updateButton">Update Profile Image</a>
-                        </div>
-                        <div style="height: 50px"></div>
-                        <div class="row ">
-                            <img class="mr-3 col-3 heartsReceived"
-                                src="/media/heart.png">
-                        
-                        <h4 class="col-9 white-important">
-                            Hearts Received : {{ userinfo.received_hearts }}
-                        </h4>
+
+                            <div class="align-items-center stats">
+                                <ul>
+                                    <li>Add a blog post</li>
+                                    <li>Respond to Friend Requests</li>
+                                    <li>Cancel Friend Requests</li>
+                                    <li style="color:red;"><strike>View User's Stats when not a friend</strike></li>
+                                    <li style="color:red;"><strike>View User's Bio when not a friend</strike></li>
+                                    <li style="color:red;"><strike>Send friend requests</strike></li>                                    
+                                    <li style="color:red;"><strike>Be able to view blog posts by users who aren't on your friend list.</strike></li>
+                                    <li style="color:red;"><strike>Give five hearts per day to other users</strike></li>
+                                </ul>
+                                
+
+                            </div>
+                            <a href="{% url 'userprofile' %}" type="button" class="updateButton">Remain as Standard Member</a>
                         </div>
                     </article>
                     
@@ -47,29 +43,26 @@
             <div class="col-lg-6 col-md-6">
                 <div class="card profileInfoCard profile-section align-items-center">
                     <h3 class="white-important p-2">
-                        About Me
+                        Premium Member
                     </h3>
                     <article class="content-section" style="height: 140px; width: 100%">
                         <div class="mt-2 d-flex full-width align-items-center">
 
                             <div class="align-items-center stats">
-                                <h4> Stats: </h4>
-                                <h6>
-                                    Age: <br>
-                                    Gender: {{ userinfo.gender}} <br>
-                                    Height: <br>
-                                    Hair: <br>
-                                    Nationality: {{ userinfo.nationality.name }} <br>
-                                </h6>
-                                <br><br>
-                                <h4> Bio: </h4>
-                                <h6>
-                                    {{ userinfo.bio }}
-                                </h6>
+                                <ul>
+                                    <li>Add a blog post</li>
+                                    <li>Respond to Friend Requests</li>
+                                    <li>Cancel Friend Requests</li>
+                                    <li>View User's Stats when not a friend</li>
+                                    <li>View User's Bio when not a friend</li>
+                                    <li>Send friend requests</li>                                    
+                                    <li>Be able to view blog posts by users who aren't on your friend list.</li>
+                                    <li>Give five hearts per day to other users</li>
+                                </ul>
+                                
 
                             </div>
-                            <a href="{% url 'update_info' %}" type="button" class="updateButton">Change person
-                                Information</a>
+                            <a href="{% url 'checkout' %}" type="button" class="updateButton">Get Premium Subscription</a>
                         </div>
                     </article>
                 </div>

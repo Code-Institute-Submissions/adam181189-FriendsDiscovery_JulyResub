@@ -126,6 +126,24 @@ def newpost(request):
     return render(request, 'profilepage/newpost.html', context)
 
 
+def editPost(request, post_id):
+    if request.method == 'POST':
+        post = Post.objects.get(id = post_id)
+        update_post = PostForm(
+            request.POST, request.FILES, instance=post)
+
+        if update_post.is_valid():
+            update_post.instance.user = request.user
+            update_post.save(commit=True)
+            return redirect('userprofile')
+    else:
+        post = Post.objects.get(id = post_id)
+        update_post = PostForm(instance=post)
+
+    context = {"update_post": update_post, "update_image": update_image, "post": post,}
+    return render(request, 'profilepage/update_post.html', context)
+
+
 def profile_list(request):
 
     print("profile_list()")
@@ -339,4 +357,4 @@ def record_hearts_view(request, to_username):
 @login_required
 def membership_info(request):
 
-    return redirect(request, "templates/membership_info.html", context)
+    return render(request, "profilepage/membership_info.html")
