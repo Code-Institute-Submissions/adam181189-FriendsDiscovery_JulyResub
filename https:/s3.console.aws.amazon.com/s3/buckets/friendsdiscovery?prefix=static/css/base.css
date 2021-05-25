@@ -9,6 +9,10 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+body a {
+    color:#5AAF5D;
+}
+
 /* Home Page */
 
 .home-welcome {  
@@ -18,13 +22,13 @@ body {
 
 .subtitle {  
     font-size:40px;  
-    color: #F2FA22;
+    color: #302B82;
     text-shadow: 2px 2px black;
     font-weight:bold;
 }
 
 .better-you-button {
-    background-color: #F2FA22;
+    background-color: white;
     color:black;
 }
 
@@ -35,21 +39,26 @@ body {
     font: black;
     padding:20px;
     margin:10px;
-    background: rgb(235, 226, 99); /* Fallback for older browsers without RGBA-support */
+    background: white; /* Fallback for older browsers without RGBA-support */
     background: rgba(155, 152, 152, 0.5);
 }
 
 /* users profile pages */ 
 .profileCard {
     background-color:rgb(43, 96, 156);
-    color: rgb(165, 160, 160);
+    color:rgb(228, 228, 228);
+    font-weight: bold;
     min-height: 94vh; 
+}
+.profileCard a {
+    color:rgb(196, 196, 196);
 }
 .profileTitle{
     margin:10px;
 }
 .profileInfoCard {
     background-color:rgb(88, 129, 175);
+    font-weight: bold;
     color:white;
     min-height:70vh;
     margin:10px 0px 10px 10px;
@@ -93,6 +102,13 @@ body {
     margin-top:10px;
     margin-bottom:10px;
     padding:10px;
+}
+
+.limit-chars {
+    width: 250ch;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 /* Stripe Payments */
@@ -179,6 +195,7 @@ body {
 /* Media Queries */
 
 @media (max-width: 1024px) {
+  
     
   .home-welcome {
   right:40px;
@@ -216,10 +233,18 @@ body {
 .subtitle {  
     font-size:25px; 
 }
+    #fl_biography {
+        display: none;
+    }
+}
 
 }
 
 @media (max-width: 548px) {
+
+body {
+    font-size:2em;
+} 
 
   .home-welcome {
   right:10px;

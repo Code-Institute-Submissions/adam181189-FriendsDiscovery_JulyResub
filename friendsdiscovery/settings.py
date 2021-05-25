@@ -65,13 +65,10 @@ MIDDLEWARE = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',   
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-STATICFILES_STORAGE = [
-    'storages.backends.s3boto3.S3Boto3Storage',
 
-]
 
 AUTH_PROFILE_MODULE = 'users.UserProfile'
 
@@ -182,23 +179,27 @@ USE_TZ = True
 #STATIC_URL = '/static/'
 #STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
-STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static')
-    ]
+#STATICFILES_DIRS = [
+#        os.path.join(BASE_DIR, 'static'),
+#]
+#STATIC_URL = '/static/'
+
+
 STATIC_URL = '/static/'
-
-if not DEBUG:
-    STATIC_ROOT = 'https://s3.console.aws.amazon.com/s3/buckets/friendsdiscovery?prefix=static/'
-
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 if 'USE_AWS' in os.environ:
 
+    AWS_S3_OBJECT_PARAMETERS = {
+        'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+        'CacheControl': 'max-age=94608000',
+    }
      # Bucket Config
     AWS_STORAGE_BUCKET_NAME = 'friendsdiscovery'
-    AWS_S3_REGION_NAME = 'eu-west-2'
+    AWS_S3_REGION_NAME = 'us-east-1'
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
@@ -214,8 +215,8 @@ if 'USE_AWS' in os.environ:
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 
 # Stripe config
-STRIPE_TEST_PUBLIC_KEY = config('STRIPE_PUBLISHABLE_KEY')
-STRIPE_TEST_SECRET_KEY = config('STRIPE_SECRET_KEY')
+STRIPE_TEST_PUBLIC_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
+STRIPE_TEST_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 STRIPE_LIVE_MODE = False  # Change to True in production
 DJSTRIPE_WEBHOOK_SECRET = "whsec_xxx"
 DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
