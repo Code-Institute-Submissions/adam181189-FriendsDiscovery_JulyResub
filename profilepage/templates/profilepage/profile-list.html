@@ -21,8 +21,8 @@
 
             &nbsp;
             {% if user == profiles.user %}
-            <div class="col-lg-3 col-md-3 col-sm-12">
-                <a class="white-important" href="{% url 'userprofile' %}">
+            <div class="col-lg-3 col-md-3 col-sm-12" style="padding:10px;">
+                <a class="white-important" href="{% url 'userprofile' %}" >
                     <img class="rounded-circle mr-2" style="width: 150px; height: 150px;"
                         src="{{ profiles.user.userprofile.profile_pic.url }}">
                 </a>
