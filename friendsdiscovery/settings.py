@@ -68,7 +68,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',   
 ]
 
-STATICFILES_sTORAGE = [
+STATICFILES_STORAGE = [
     'storages.backends.s3boto3.S3Boto3Storage',
 
 ]
