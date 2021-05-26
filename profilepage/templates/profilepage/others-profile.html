@@ -44,22 +44,23 @@
                                     </h4>
                                     <h5> You have given {{ hearts_sent_today }} heart(s) today</h5>
 
-                                    {% elif check_friendship and request.user.userprofile.subscription.status == none
+                                {% elif check_friendship and request.user.userprofile.subscription.status == none
                                     and hearts_sent_today < 1 %} <h4 class="col-9 white-important">
                                         Give a heart to {{ userinfo.user.username }}? <button
                                             type="submit">Give</button>
                                         </h4>
                                         <h5> You have given {{ hearts_sent_today }} heart(s) today</h5>
-                                        {% elif not check_friendship %}
+                                {% elif not check_friendship %}
                                         <h4 class="col-9 white-important">
                                             You cannot give any hearts to this user as you aren't friends.
                                         </h4>
-                                        {% else %}
+                                {% else %}
                                         <h4 class="col-9 white-important">
                                             You have no hearts left to give away today.
                                         </h4>
+                            
+                                {% endif %}
                             </form>
-                            {% endif %}
                             <form method="POST">
                                 {% csrf_token %}
                                 <div class="form-group">
