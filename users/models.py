@@ -38,7 +38,7 @@ class UserDetails(models.Model):
         max_length=13, choices=GENDER_CHOICES, default='male')
     bio = models.TextField(blank=True, default='Let others know about you...', max_length=900)
     nationality = CountryField(
-        blank_label='(select country)', default="Where are you from?")
+        blank_label='(select country)', default="US")
     profile_pic = models.ImageField(
         upload_to="profile-image/", default='default.png', blank=True)
     received_hearts = models.IntegerField(default=0)

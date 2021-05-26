@@ -14,7 +14,7 @@ class SignupForm(UserCreationForm):
                 self.fields[fieldname].help_text = None
 
     email = forms.EmailField(required=True)
-    first_name = forms.CharField(max_length=30)
+    first_name = forms.CharField(max_length=150)
     last_name = forms.CharField(max_length=150)
 
     class Meta:

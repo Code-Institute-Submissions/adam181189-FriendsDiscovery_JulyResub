@@ -37,6 +37,11 @@ def extendedSignup(request):
         form = SignupForm(request.POST)
         profile_form = UserProfileForm(request.POST)
 
+        print("################### SignupForm")
+        print(dir(form))
+        print("################### UserProfileForm")
+        print(dir(profile_form))
+
         if form.is_valid() and profile_form.is_valid():
             user = form.save()
 
