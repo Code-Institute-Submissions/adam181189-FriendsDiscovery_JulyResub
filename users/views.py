@@ -11,6 +11,14 @@ from .forms import SignupForm, UserProfileForm
 from django.http import HttpResponse
 from pprint import pprint
 from profilepage.views import userprofile
+from decouple import config
+from django.http.response import JsonResponse, HttpResponse
+from django.utils.decorators import method_decorator
+
+from django.views.decorators.csrf import csrf_exempt
+
+from djstripe import webhooks
+from django.utils.encoding import smart_str
 
 # https://www.youtube.com/watch?v=Tja4I_rgspI
 # (Followed this tutorial to make a custom signup sheet work)
@@ -24,6 +32,47 @@ def index(request):
 
     context = {'username': username}
     return render(request, 'home/templates/home/index.html', context)
+
+
+@webhooks.handler("customer")
+def my_handler(event, **kwargs):
+    print("We should probably notify the user at this point")
+
+
+# @method_decorator(csrf_exempt, name="dispatch")
+# class WebHook(View):
+#     """A view used to handle webhooks."""
+
+#     def post(self, request, *args, **kwargs):
+#         """
+#         Create an Event object based on request data.
+#         Creates an EventProcessingException if the webhook Event is a duplicate.
+#         """
+#         body = smart_str(request.body)
+#         data = json.loads(body)
+
+#         # if data['id'] == TEST_EVENT_ID:
+#         #     logger.info("Test webhook received: {}".format(data['type']))
+#         #     return HttpResponse()
+
+#         if Event.stripe_objects.exists_by_json(data):
+#             EventProcessingException.objects.create(
+#                 data=data,
+#                 message="Duplicate event record",
+#                 traceback=""
+#             )
+#         else:
+#             event = Event._create_from_stripe_object(data, save=False)
+#             event.validate()
+
+#             cf = get_callback_function("DJSTRIPE_WEBHOOK_EVENT_CALLBACK")
+
+#             if djstripe_settings.WEBHOOK_EVENT_CALLBACK:
+#                 djstripe_settings.WEBHOOK_EVENT_CALLBACK(event)
+#             else:
+#                 event.process()
+
+#         return HttpResponse()
 
 
 @login_required
@@ -152,6 +201,7 @@ def create_sub(request):
 
 def complete(request):
     return render(request, "payment_method/complete.html")
+
 
 def cancelledSubscription(request):
     return render(request, "payment_method/resubscribe.html")

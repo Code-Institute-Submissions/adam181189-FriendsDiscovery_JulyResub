@@ -1,6 +1,9 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from . import views
+#from djstripe import webhooks
+#from .webhooks import webhook
+
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -12,4 +15,5 @@ urlpatterns = [
     path('cancel', views.cancel, name='cancel'),
     path('cancelledSubscription', views.cancelledSubscription, name='cancelledSubscription'),
     path('resubscribe', views.resubscribe, name='resubscribe'),
+    #path('wh/', webhook, name='webhook'),
 ]
