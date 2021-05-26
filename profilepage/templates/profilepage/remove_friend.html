@@ -5,12 +5,15 @@
 
 <div class="card profileCard align-items-center">
 
+{% if request_sent and not check_friendship %}
 <form method="post">
     {% csrf_token %}
-        <input type="hidden" name="to_username" value="{{ to_username }}" />
-        <input type="submit" value="remove {{ to_username }} as a friend"/>
-    </form>
-
+    <input type="hidden" name="to_username" value="{{ to_username }}" />
+    <input type="submit" value="remove {{ to_username }} as a friend"/>
+</form>
+{% else %}
+    <h1>"You aren't a premium member. You cannot remove a friend"</h1>
+{% endif %}
 </div>
 
 {% endblock %}

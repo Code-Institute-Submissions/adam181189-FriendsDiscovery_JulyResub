@@ -20,8 +20,7 @@
                     </h3>
                     <article class="content-section" style="height: 140px; width: 100%;">
                         <div class="mt-2 d-flex full-width align-items-center">
-                            <img class="rounded-circle mr-3 profileImage"
-                                src="{{ userinfo.profile_pic.url }}">
+                            <img class="rounded-circle mr-3 profileImage" src="{{ userinfo.profile_pic.url }}">
                         </div>
                         <div>
                             <h4 class="white-important">
@@ -33,64 +32,66 @@
                         </div>
                         <div style="height: 50px"></div>
                         <div class="row ">
-                            <img class="mr-3 col-3 heartsReceived"
-                                src="/media/heart.png">
-                        
-                        <h4 class="col-9 white-important">
-                            Hearts Received : {{ hearts_received }}
-                        </h4><form action="{% url 'record_hearts_view' userinfo.user.username %}" method="POST"
-                        >
-                        {% if check_friendship and request.user.userprofile.subscription.status == "active" and hearts_sent_today < 5 %}
-                        
-                            {% csrf_token %}
+                            <img class="mr-3 col-3 heartsReceived" src="/media/heart.png">
+
                             <h4 class="col-9 white-important">
-                                Give a heart to {{ userinfo.user.username }}? <button type="submit">Give</button>
+                                Hearts Received : {{ hearts_received }}
                             </h4>
-                            <h5> You have given {{ hearts_sent_today }} heart(s) today</h5>
-                        
-                        {% elif check_friendship and request.user.userprofile.subscription.status == none and hearts_sent_today < 1 %}
-                            <h4 class="col-9 white-important">
-                                Give a heart to {{ userinfo.user.username }}? <button type="submit">Give</button>
-                            </h4>
-                            <h5> You have given {{ hearts_sent_today }} heart(s) today</h5>
-                        {% elif not check_friendship %}
-                            <h4 class="col-9 white-important">
-                                You cannot give any hearts to this user as you aren't friends.
-                            </h4>
-                        {% else %}
-                        <h4 class="col-9 white-important">
-                            You have no hearts left to give away today.
-                        </h4>
-                        </form>
-                    {% endif %}
-                    <form method="POST">
-                        {% csrf_token %}
-                        <div class="form-group">
-                                
-                                
-                                {% if request.user.userprofile.subscription.status == "active" %}
+                            <form action="{% url 'record_hearts_view' userinfo.user.username %}" method="POST">
+                                {% if check_friendship and request.user.userprofile.subscription.status == "active" and
+                                hearts_sent_today < 5 %} {% csrf_token %} <h4 class="col-9 white-important">
+                                    Give a heart to {{ userinfo.user.username }}? <button type="submit">Give</button>
+                                    </h4>
+                                    <h5> You have given {{ hearts_sent_today }} heart(s) today</h5>
+
+                                    {% elif check_friendship and request.user.userprofile.subscription.status == none
+                                    and hearts_sent_today < 1 %} <h4 class="col-9 white-important">
+                                        Give a heart to {{ userinfo.user.username }}? <button
+                                            type="submit">Give</button>
+                                        </h4>
+                                        <h5> You have given {{ hearts_sent_today }} heart(s) today</h5>
+                                        {% elif not check_friendship %}
+                                        <h4 class="col-9 white-important">
+                                            You cannot give any hearts to this user as you aren't friends.
+                                        </h4>
+                                        {% else %}
+                                        <h4 class="col-9 white-important">
+                                            You have no hearts left to give away today.
+                                        </h4>
+                            </form>
+                            {% endif %}
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+
+
                                     {% if check_friendship %}
-                                        <a  href="{% url 'remove_friend' userinfo.user.username %}" style="margin-left: 18px" class="btn btn-sm btn-primary"
-                                                type="submit">You are already friends with {{userinfo.user}}. Remove as Friend.   
-                                        </a> 
+                                    <a href="{% url 'remove_friend' userinfo.user.username and request.user.userprofile.subscription.status == 'active' %}"
+                                        style="margin-left: 18px" class="btn btn-sm btn-primary" type="submit">You are
+                                        already friends with {{userinfo.user}}. Remove as Friend.
+                                    </a>
                                     {% elif request_sent and not check_friendship %}
-                                        <a href="{% url 'request_cancel' userinfo.user.id %}" style="margin-left: 18px" class="btn btn-sm btn-warning"
-                                                type="button">You are waiting for {{userinfo.user}}'s response to your friend request. Click to cancel request.    
-                                        </a> 
+                                    <a href="{% url 'request_cancel' userinfo.user.id %}" style="margin-left: 18px"
+                                        class="btn btn-sm btn-warning" type="button">You are waiting for
+                                        {{userinfo.user}}'s response to your friend request. Click to cancel request.
+                                    </a>
                                     {% elif not check_friendship and not request_sent %}
-                                        <a href="{% url 'add_friend' userinfo.user.username %}" style="margin-left: 18px" class="btn btn-sm btn-outline-primary"
-                                                name="{% if friend %}removeFriend{% else %}addFriend{% endif %}"
-                                                type="submit">Send {{userinfo.user}} a friend request.    
-                                        </a>                                                             
+                                    <a href="{% url 'add_friend' userinfo.user.username %}" style="margin-left: 18px"
+                                        class="btn btn-sm btn-outline-primary"
+                                        name="{% if friend %}removeFriend{% else %}addFriend{% endif %}"
+                                        type="submit">Send {{userinfo.user}} a friend request.
+                                    </a>
                                     {% endif %}
-                                {% else %}
-                                        <a href="{% url 'membership_info' %}" style="margin-left: 18px" class="btn btn-sm btn-outline-primary">Become a Premium Member to send a friend request</a>
-                                {%endif%}
-                                    </div>
-                    </form>
+                                    {% else %}
+                                    <a href="{% url 'membership_info' %}" style="margin-left: 18px"
+                                        class="btn btn-sm btn-outline-primary">Become a Premium Member to send a friend
+                                        request</a>
+                                    {%endif%}
+                                </div>
+                            </form>
                         </div>
                     </article>
-                    
+
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
@@ -104,7 +105,7 @@
                             <div class="align-items-center stats">
                                 <h4> Stats: </h4>
                                 <h6>
-                                    Age:  <br>
+                                    Age: <br>
                                     Gender: {{ userinfo.gender}} <br>
                                     Height: <br>
                                     Hair: <br>
@@ -128,35 +129,36 @@
                 <div class="card profileInfoCard profile-section align-items-center" style="margin: 10px">
                     <h3 class="white-important p-2">
                         Posts
-                    </h3>                    
+                    </h3>
                     <h6 class="white-important mb-3">
                         {{ page_obj.start_index }} - {{ page_obj.end_index }} of
                         {{ data.count }}
                     </h6>
-                                       
-                        
-                        {% for post in page_obj %}                       
-                            <article class="card" style="background-color: rgb(43, 96, 156); width: 80%; margin-bottom: 10px; padding:10px">
-                                <div class="pb-2 row m-0" style="width: 100%; margin-right: 0 !important;">
-                                    <div style="padding-left: 0px !important;"
-                                        class="col-8 no-padding d-flex align-items-center">
-                                        <img class="rounded-circle mr-2" style="width: 20px; height: 20px;"
-                                            src="{{ post.user.userprofile.profile_pic.url }}">
-                                        &nbsp;
-                                            <a class="white-important" href="{% url 'others_profile' post.user.username %}">
-                                                {{ post.user }}
-                                            </a>
-                                    </div>
-                                </div>
-                                <div class="mb-2" style="width: 100%; height: 1px; background-color: rgba(255, 255, 255, 0.1)">
-                                </div>
-                                <p class="mb-4">
-                                    {{ post.new_post }}
-                                </p>
-                                <p class="mb-2">
-                                    {{ post.date_posted }}
-                                </p>
-                            </article>
+
+
+                    {% for post in page_obj %}
+                    <article class="card"
+                        style="background-color: rgb(43, 96, 156); width: 80%; margin-bottom: 10px; padding:10px">
+                        <div class="pb-2 row m-0" style="width: 100%; margin-right: 0 !important;">
+                            <div style="padding-left: 0px !important;"
+                                class="col-8 no-padding d-flex align-items-center">
+                                <img class="rounded-circle mr-2" style="width: 20px; height: 20px;"
+                                    src="{{ post.user.userprofile.profile_pic.url }}">
+                                &nbsp;
+                                <a class="white-important" href="{% url 'others_profile' post.user.username %}">
+                                    {{ post.user }}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mb-2" style="width: 100%; height: 1px; background-color: rgba(255, 255, 255, 0.1)">
+                        </div>
+                        <p class="mb-4">
+                            {{ post.new_post }}
+                        </p>
+                        <p class="mb-2">
+                            {{ post.date_posted }}
+                        </p>
+                    </article>
                     {% endfor %}
 
                     <div class="pagination">
@@ -176,7 +178,7 @@
                             {% endif %}
                         </span>
                     </div>
-                    {% else %} 
+                    {% else %}
                     <div class="card profileInfoCard profile-section align-items-center" style="margin: 10px">
                         <h3 class="white-important p-2">
                             Posts
