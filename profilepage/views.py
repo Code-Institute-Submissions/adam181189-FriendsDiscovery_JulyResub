@@ -221,7 +221,7 @@ def others_profile(request, username):
     print(currentUserInfo.premium_member)
 
     check_friendship = Friend.objects.are_friends(
-        userinfo.user, currentUserInfo.user) == True
+        userinfo.user, currentUserInfo.user) is True
 
     request_sent = Friend.objects.requests(userinfo.user)
     print(request_sent)
