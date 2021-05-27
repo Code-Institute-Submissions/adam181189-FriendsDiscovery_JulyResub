@@ -10,6 +10,9 @@
 <div class="card registrationCard text-center">
     <h1>Register</h1>
 
+    <br>
+    <br>
+
     <p>Already have an account? Then please <a href="{% url 'account_login' %}">sign in</a>.
     </p>
 
@@ -25,8 +28,11 @@
         {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
+        
         <br>
-        <button type="submit">{% trans "Sign Up" %}&raquo;</button>
+        <br>
+        
+        <button type="submit" class="btn btn-primary">{% trans "Sign Up" %}&raquo;</button>
     </form>
 </div>
 {% endblock %}
