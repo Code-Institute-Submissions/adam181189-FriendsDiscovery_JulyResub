@@ -136,15 +136,16 @@ Click here to see the project [Wireframes](wireframes.md) (added to seperate fil
 
 The project mostly follows the wireframe, however, there is a variation from the wireframe. There is no longer a messenging service, as the deadline is no longer allowing it. This will be a future feature that will be added shortly after. 
 
+I also changed the nav bar so the links were all together, as profile and friends looked out of place by themselves. Once Messages have been added, they will all go to the middle.
+
 ### Surface Plane
 
 #### *Typography*
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-The font Arvo was used as it is a serif font. Serif fonts are known for their roman types. 
-[As music is associated with latin](https://www.fonts.com/content/learning/fontology/level-1/type-anatomy/type-classifications) (as shown with terminology for dynamics), a serif font was appropriate for this project.
+The font Roboto was used as it is a sans type font. Sans are useful for simplcity and for a modern look.  
 
 1 [Google Font](https://fonts.google.com/) was used throughout this website:
-- ["Arvo", serif;](https://fonts.google.com/specimen/Arvo)
+- ["Arvo", serif;](https://fonts.google.com/specimen/Roboto)
 
 #### *Colors*
 
@@ -153,27 +154,24 @@ These were used as the main colours. A simple calming effect is what I wanted th
 
 - "white": "white"
 - "black": "black"
-- "gray": #707070,
-- "gray-dark": #3f3f3f,
+- "dark blue (Main)": rgb(43, 96, 156)
+- "light blue (Accents)": rgb(88, 129, 175)
 
 #### *Accent colours* 
 
 
-<img src="g">
+<img src="dark-blue">
+
+<img src="light-blue">
 
 
-
-<img src="static/images/tetradic.png"> 
-
-
-
-   #421319   433D14   14433D   141A43
+  
 
 #### *Icons*
 
 [Font Awesome 5.13.1](https://fontawesome.com/)
 
-
+Font awesome icons have been used throughout. There is on attached to every link in the navbar, and there are user + or user - icons for accepting requests or cancelling friend requests. 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 #### *Image modifications*
@@ -209,15 +207,15 @@ I used SQLITE to store the data that the website uses.
 - Subscription Options 
 
   - Able to sign up for a premium subscription
-  - Able to search through all users
-  - Able to view everybodys blog posts/ not just friends
   - Able to Send extra hearts per day to other users
-  - Able to sort through the blog posts so you can see just the users/friends/everybodys posts.
+  - Able to remove friend requests
+  - Will be able to send messages to users. Non subscribed will be able to reply.
 
 - Share blog posts
 
    - Write a blog post
    - Delete a blog post
+   - Update a blog post
     
 
 - Profile Page
@@ -238,7 +236,13 @@ I used SQLITE to store the data that the website uses.
 
 #### Features to Implement
 
--  
+-  Messaging Service
+  - Users will be able to send messages to one another
+  - Users will be able to have a list of all their current messages
+  - Users will receive an email if they have had a message waiting for one week
+  - Users can delete messages from both sides
+
+I was not able to fulfill this as I ran out of time. I intend to add it later on. 
 
 ##### Back to [top](#table-of-contents)
 
@@ -260,13 +264,13 @@ I used SQLITE to store the data that the website uses.
 
 - Python
 
-  - This project uses Python for the main database related features. It ensures that all information shared between MongoDB and the project are accessible and respond to one another.
+  - This project uses Python for the main database related features. I build models, views, urls and forms to build objects which the front end can react and respond to.
   - [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
 
 
 - Javascript
 
-  - This project uses Javascript to create functions, rules and effects in order to make the certain features work. Features include being able to use a music player. Updating and showing dropdown menus for genre/instruments. Shrink the number of words on a review card until read more is clicked if over a certain amount.
+  - This project uses Javascript to create functions, rules and effects in order to make the certain features work. I used this mostly to get stripe to work as a subscription service. 
   - [Javascript](https://en.wikipedia.org/wiki/JavaScript)
 
 #### Frameworks and Libraries Used
@@ -280,15 +284,20 @@ I used SQLITE to store the data that the website uses.
     - [jQuery](https://jquery.com/)
 
 - Django
-    
+    - is a Python-based free and open-source web framework that follows the model–template–views (MTV) architectural pattern.
+    - [Django](https://www.djangoproject.com/)
 
 - Allauth
-
+   - Integrated set of Django applications addressing authentication, registration, account management as well as 3rd party (social) accounts
+   - [Allauth](https://django-allauth.readthedocs.io/en/latest/)
 
 - Stripe
-
+    - Stripe is a payment processing platform
+    - [Stripe](https://stripe.com/docs)
 
 - Friendship
+    - A library built by developers to allow simple implementation of Friend Social requests
+    - [Friendship](https://pypi.org/project/django-friendship/)
  
 ##### Back to [top](#table-of-contents)
 
@@ -298,20 +307,42 @@ I used SQLITE to store the data that the website uses.
 
 ---
 
+### Self testing during development 
+
+- Error: After changing user details, photos weren't showing up next to users. 
+- Expected: Photos should have been next to the users name
+- Fix: the term user details had changed to the name that was given to the model, and userprofile was required instead. 
+
+- Error: Friend Remove wasn't working as it couldnt remove two users.
+- Expected: Able to remove the relationship between two users. 
+- Fix: Found the Friendship github had been updated, but the pip didn't include the new code in the template, so in the created views, I added the new files to it manually.
+
+- Error: Couldnt push to Heroku.
+- Expected: After adding AWS, site would use the static files
+- Needed to permanenetly delete the static files from AWS, then deploy again on Heroku. 
+
+### Testing after deployment
+
+- Error: if statements not working on others profile
+- Expected: if a user was a friend, theyd be able to give a heart to their friend. Rules dependent on subcription too. 
+- Fix: the if statement had moved over onto two lines, meaning it couldn't be read. 
+
+- Error: 
+
 ### Validators
 
 - HTML
 
   - [W3C HTML Validator](https://validator.w3.org/) 
     
-    - Used the deployed website address to check every page throughout website. 
-    - Document checking completed. No errors or warnings to show.
+    - Used the deployed website address.. 
+    - Document checking completed. No errors to show.
 
 - CSS
 
-  - [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) "Congratulations! No Error Found. This document validates as CSS level 3 + SVG !"
-
-  - All warnings relate to the bootstrap code gained from Sass.  
+  - [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) 
+  
+  - "Congratulations! No Error Found. This document validates as CSS level 3 + SVG !"
 
 - Javascript
 
@@ -335,12 +366,64 @@ For information on the testing, follow the link to the document [here](testing.m
 
 ### Remote Deployment
 
+heroku was used for the live deployment of this project, through the master branch of my github repository. The following steps were implemented to deploy this project:
 
+Install gunicorn package to run the application on Heroku.
+sudo pip3 install gunicorn
+Install pycopg2 to connect to PostgreSQL
+sudo pip3 install psycopg2
+Create a requirements.txt file
+sudo pip3 freeze --local > requirements.txt
+Create a new Heroku application
+Sign up to a new account if you do not already have one.
+Create a new application by clicking on new then create new app.
+Set the name of your application and select your region and click on create app to finalize the creation of your app.
+Install PostgreSQL add-on
+heroku addons:create heroku-postgresql:hobby-dev
+Create a Procfile in the root directory
+content: web: gunicorn spacex.wsgi:application
+Set the following config variables as environment variables:
+
+Config Vars	Value
+AWS_ACCESS_KEY_ID	<AWS_ACCESS_KEY_ID>
+AWS_SECRET_ACCESS_KEY	<AWS_SECRET_ACCESS_KEY>
+DATABASE_URL	<DATABASE_URL>
+SECRET_KEY	<SECRET_KEY>
+STRIPE_PUBLISHABLE_KEY	<STRIPE_PUBLISHABLE_KEY>
+STRIPE_SECRET_KEY	<STRIPE_SECRET_KEY>
+STRIPE_WH_SECRET	<STRIPE_WH_SECRET>
+EMAIL HOST USER <EMAIL_HOST_USER>
+EMAIL HOST PASS <EMAIL_HOST_PASS>
+USE_AWS	<TRUE>
+DEVELOPMENT <FALSE>
+
+In the Deploy tab, choose Connect Github as Deployment Method and I had to make sure I had disabled Automatic Deployment from the Github master branch as my AWS rights interfered with it, so I had to delete my static files on every re deployment. However this ensured it worked correctly after deletion and was the only way around the bug I was able to find. 
 
 
 ### Local Deployment
 
+To run the project locally. Install:
 
+Git
+Django
+After installing these you need to:
+
+Download this repository clicking in ‘Clone or Dowload’ on top of this page, then click on ‘Download ZIP’ and extract the files in the folder you will be working on.
+Open the folder where you download the repository in your code editor
+Create a .env file containing the following credentials:
+
+Env Vars	Value
+AWS_ACCESS_KEY_ID	<AWS_ACCESS_KEY_ID>
+AWS_SECRET_ACCESS_KEY	<AWS_SECRET_ACCESS_KEY>
+DATABASE_URL	<DATABASE_URL>
+SECRET_KEY	<SECRET_KEY>
+STRIPE_PUBLIC_KEY	<STRIPE_PUBLIC_KEY>
+STRIPE_SECRET_KEY	<STRIPE_SECRET_KEY>
+STRIPE_WH_SECRET	<STRIPE_WH_SECRET>
+USE_AWS	<TRUE>
+
+Install the required modules using this command: pip -r requirements.txt
+You can run the app by running: python manage.py runserver The project will run at http://127.0.0.1:8000
 
 
 ##### Back to [top](#table-of-contents)
@@ -353,10 +436,8 @@ For information on the testing, follow the link to the document [here](testing.m
 ### Content
 
 - All written content was my own.
-- [Unsplash](https://unsplash.com/photos/sS0-eF5uy_U) - Main home image
-- [pixabay](https://pixabay.com/photos/piano-boy-playing-learning-78492/) - first circle image on home page
-- [pixabay](https://pixabay.com/photos/eyeglasses-music-sheet-music-pen-1209707/) - second circle image on home page
-- [pixabay](https://pixabay.com/photos/guitar-guitarist-music-756326/) - third circle image on home page
+- [Unsplash]() - Main home image
+- 
 
 ### Media
 
