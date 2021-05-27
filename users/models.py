@@ -39,7 +39,7 @@ class UserDetails(models.Model):
     bio = models.TextField(
         blank=True, default='Let others know about you...', max_length=900)
     nationality = CountryField(
-        blank_label='(select country)', default="US")
+        blank_label='(select country)', default="GB")
     profile_pic = models.ImageField(
         upload_to="profile-image/", default='default.png', blank=True)
     received_hearts = models.IntegerField(default=0)

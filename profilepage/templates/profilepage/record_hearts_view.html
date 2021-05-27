@@ -16,9 +16,9 @@
             <div class="col-lg-3 col-md-6">
                 <div class="card profileInfoCard profile-section align-items-center"
                     style="margin: 10px 0px 10px 10px ">
-                    <h3 class="white-important p-2 profileTitle">
+                    <h4 class="white-important p-2 profileTitle">
                         Profile
-                    </h3>
+                    </h4>
                     <article class="content-section" style="height: 140px; width: 100%">
                         <div class="mt-2 d-flex full-width align-items-center">
                             <img class="rounded-circle mr-3 profileImage"
@@ -37,9 +37,9 @@
                             <img class="mr-3 col-3 heartsReceived"
                                 src="/media/heart.png">
                         
-                        <h4 class="col-9 white-important">
+                        <h5 class="col-9 white-important">
                             Hearts Received : {{ userinfo.received_hearts }}
-                        </h4>
+                        </h5>
                         {% if check_friendship %}
                         <form action="{% url 'record_hearts_view' userinfo.user.username %}" method="POST">
                             {% csrf_token %}
@@ -75,9 +75,9 @@
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="card profileInfoCard profile-section align-items-center">
-                    <h3 class="white-important p-2">
+                    <h4 class="white-important p-2">
                         About Me
-                    </h3>
+                    </h4>
                     <article class="content-section" style="height: 140px; width: 100%">
                         <div class="mt-2 d-flex full-width align-items-center">
 
@@ -106,9 +106,9 @@
 
                 {% if check_friendship or currentUserInfo.premium_member == True %}
                 <div class="card profileInfoCard profile-section align-items-center" style="margin: 10px">
-                    <h3 class="white-important p-2">
+                    <h4 class="white-important p-2">
                         Posts
-                    </h3>                    
+                    </h4>                    
                     <h6 class="white-important mb-3">
                         {{ page_obj.start_index }} - {{ page_obj.end_index }} of
                         {{ data.count }}
@@ -158,12 +158,12 @@
                     </div>
                     {% else %} 
                     <div class="card profileInfoCard profile-section align-items-center" style="margin: 10px">
-                        <h3 class="white-important p-2">
-                            Posts
-                        </h3>
                         <h4 class="white-important p-2">
-                            You cannot see this users posts as you are not friends.
+                            Posts
                         </h4>
+                        <h5 class="white-important p-2">
+                            You cannot see this users posts as you are not friends.
+                        </h5>
                     </div>
                     {% endif %}
                 </div>

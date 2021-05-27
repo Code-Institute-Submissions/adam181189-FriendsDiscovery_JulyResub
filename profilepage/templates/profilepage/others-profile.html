@@ -15,9 +15,9 @@
             <div class="col-lg-3 col-md-6">
                 <div class="card profileInfoCard profile-section align-items-center"
                     style="margin: 10px 0px 10px 10px ">
-                    <h3 class="white-important p-2 profileTitle">
+                    <h4 class="white-important p-2 profileTitle">
                         Profile
-                    </h3>
+                    </h4>
                     <article class="content-section" style="height: 140px; width: 100%;">
                         <div class="mt-2 d-flex full-width align-items-center">
                             <img class="rounded-circle mr-3 profileImage" src="{{ userinfo.profile_pic.url }}">
@@ -27,42 +27,39 @@
                                 {{ userinfo.user.username }}
                             </h4>
                         </div>
-                        <div style="height: 50px"></div>
-                        <div class="row ">
-                            <img class="mr-3 col-3 heartsReceived" src="url('/media/heart.png')">
+                        <div class="row" style="margin-top: 25px;">
+                            <img class="mr-3 col-3 heartsReceived" src="{% static '/media/heart.png' %}">
 
-                            <h4 class="col-9 white-important">
+                            <h5 class="col-9 white-important">
                                 Hearts Received : {{ hearts_received }}
-                            </h4>
+                            </h5>
                             <form action="{% url 'record_hearts_view' userinfo.user.username %}" method="POST">
                                 {% csrf_token %}
                                 {% if not check_friendship %}
-                                    <h4 class="col-9 white-important">
+                                    <h5 class="col-9 white-important">
                                         You cannot give any hearts to this user as you aren't friends.
-                                    </h4>
+                                    </h5>
                                 {% elif check_friendship and request.user.userprofile.subscription.status == "active" and hearts_sent_today < 5 %} 
-                                 <h4 class="col-9 white-important">
-                                    Give a heart to {{ userinfo.user.username }}? <button type="submit">Give</button>
-                                    </h4>
-                                    <h5> You have given {{ hearts_sent_today }} heart(s) today</h5>                                
+                                    <h5 class="col-9 white-important">
+                                        Give a heart to {{ userinfo.user.username }}? 
+                                        <button class="btn btn-primary" type="submit">Give</button>
+                                    </h5>
+                                    <h6> You have given {{ hearts_sent_today }} heart(s) today</h6>
                                 {% elif check_friendship and request.user.userprofile.subscription.status == none and hearts_sent_today < 1 %} 
-                                    <h4 class="col-9 white-important">
-                                    Give a heart to {{ userinfo.user.username }}? <button
-                                        type="submit">Give</button>
-                                    </h4>
-                                    <h5> You have given {{ hearts_sent_today }} heart(s) today</h5>
-                                
+                                    <h5 class="col-9 white-important">
+                                        Give a heart to {{ userinfo.user.username }}? 
+                                        <button class="btn btn-primary" type="submit">Give</button>
+                                    </h5>
+                                    <h6> You have given {{ hearts_sent_today }} heart(s) today</h6>                                
                                 {% else %}
-                                        <h4 class="col-9 white-important">
-                                            You have no hearts left to give away today.
-                                        </h4>                            
+                                    <h4 class="col-9 white-important">
+                                        You have no hearts left to give away today.
+                                    </h4>                            
                                 {% endif %}
                             </form>
                             <form method="POST">
                                 {% csrf_token %}
                                 <div class="form-group">
-
-
                                     {% if check_friendship and request.user.userprofile.subscription.status == 'active' %}
                                     <a href="{% url 'remove_friend' userinfo.user.username  %}"
                                         style="margin-left: 18px" class="btn btn-sm btn-primary" type="submit">You are
@@ -88,14 +85,13 @@
                             </form>
                         </div>
                     </article>
-
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="card profileInfoCard profile-section align-items-center">
-                    <h3 class="white-important p-2">
+                    <h4 class="white-important p-2">
                         About Me
-                    </h3>
+                    </h4>
                     <article class="content-section" style="height: 140px; width: 100%">
                         <div class="mt-2 d-flex full-width align-items-center">
 
@@ -124,9 +120,9 @@
 
                 {% if check_friendship or request.user.userprofile.subscription.status == "active" %}
                 <div class="card profileInfoCard profile-section align-items-center" style="margin: 10px">
-                    <h3 class="white-important p-2">
+                    <h4 class="white-important p-2">
                         Posts
-                    </h3>
+                    </h4>
                     <h6 class="white-important mb-3">
                         {{ page_obj.start_index }} - {{ page_obj.end_index }} of
                         {{ data.count }}
