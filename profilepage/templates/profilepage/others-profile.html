@@ -28,7 +28,7 @@
                             </h4>
                         </div>
                         <div class="row" style="margin-top: 25px;">
-                            <img class="mr-3 col-3 heartsReceived" src="{% static 'media/heart.png' %}">
+                            <img class="mr-3 col-3 heartsReceived" src="{% get_media_prefix %}/media/heart.png" alt="heart.png" />
 
                             <h5 class="col-9 white-important">
                                 Hearts Received : {{ hearts_received }}
