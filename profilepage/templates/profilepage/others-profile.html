@@ -28,7 +28,7 @@
                             </h4>
                         </div>
                         <div class="row" style="margin-top: 25px;">
-                            <img class="mr-3 col-3 heartsReceived" src="{% get_media_prefix %}/media/heart.png" alt="heart.png" />
+                            <img class="mr-3 col-3 heartsReceived" src="{% get_media_prefix %}heart.png" alt="heart.png" />
 
                             <h5 class="col-9 white-important">
                                 Hearts Received : {{ hearts_received }}
@@ -72,13 +72,13 @@
                                     </a>
                                     {% elif not check_friendship and not request_sent %}
                                     <a href="{% url 'add_friend' userinfo.user.username %}" style="margin-left: 18px"
-                                        class="btn btn-sm btn-outline-primary"
+                                        class="btn btn-sm btn-primary"
                                         name="{% if friend %}removeFriend{% else %}addFriend{% endif %}"
                                         type="submit">Send {{userinfo.user}} a friend request.
                                     </a>
                                     {% else %}
                                     <a href="{% url 'membership_info' %}" style="margin-left: 18px"
-                                        class="btn btn-sm btn-outline-primary">Become a Premium Member to send a friend
+                                        class="btn btn-sm btn-primary">Become a Premium Member to send a friend
                                         request</a>
                                     {%endif%}
                                 </div>
