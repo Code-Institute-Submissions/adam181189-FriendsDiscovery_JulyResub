@@ -251,7 +251,9 @@
                                 <div class="text-center"><i class="far fa-smile-beam"></i>Friends</div>
                             </a>
                         </li>
+                    </ul>
                     {% endif %}
+                    <ul class="navbar-nav ms-auto">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -264,7 +266,7 @@
                                     {% endif %}
                                 </span>
                             </a>
-                            <ul class="dropdown-menu border-0" aria-labelledby="user-options">
+                            <ul class="dropdown-menu border-0" aria-labelledby="navbarDropdown">
                                 {% if request.user.is_authenticated %}
                                 <li><a class="dropdown-item" href="{% url 'userprofile' %}"> Profile Page</a></li>
                                 <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>

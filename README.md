@@ -149,7 +149,7 @@ The font Arvo was used as it is a serif font. Serif fonts are known for their ro
 #### *Colors*
 
 #### *Foundation colours*
-These were used as the main colours. A more monochromic approach 
+These were used as the main colours. A simple calming effect is what I wanted the site to give. 
 
 - "white": "white"
 - "black": "black"
@@ -157,16 +157,11 @@ These were used as the main colours. A more monochromic approach
 - "gray-dark": #3f3f3f,
 
 #### *Accent colours* 
-The red was chosen from a colour picker on the rose itself on the home page image.
-The other colours were chosen to compliment the selected red colour. According to this [website](https://www.canva.com/colors/color-wheel/), they are either tetradic or analogous.
 
- Main accent colour
 
-images created from [here](https://coolors.co/)
+<img src="g">
 
-<img src="static/images/darkSienna.png">
 
-Tetradic - Chosen for boldness but to compliment the red as the primary colour. Red is used for anything larger, with the smaller buttons having the tetradic colours.
 
 <img src="static/images/tetradic.png"> 
 
@@ -178,10 +173,7 @@ Tetradic - Chosen for boldness but to compliment the red as the primary colour. 
 
 [Font Awesome 5.13.1](https://fontawesome.com/)
 
-Used for the play and stop button on the music player
-Used an icon for each item in the navbar to relate to each word. 
-Used icons throughout the entire website for buttons 
-Used a search icon to decorate the search music word on music.
+
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 #### *Image modifications*
@@ -193,28 +185,9 @@ Permissions for editing image ok as a stock image.
 
 #### *Data Structure and Schema*
 
-I used SQLITE to store the data that the website uses. I used the [documentation](https://docs.mongodb.com/manual/) in order to support me with the python coding. 
+I used SQLITE to store the data that the website uses.  
 
-I have cluster set up called mnCluster and inside that cluster I have a group of collections
 
-These two are created when I the python was set up in order to send music/images/pdfs to mongoDB and they are stored within fs.files. This used the mongo.save_File code.
-- fs.chunks
-- fs.files
-
-The rest I created for the databases themselves
-- genres
-- instruments
-- music
-- reviews
-- users
-
-This is a schema ([created with this software](https://dbschema.com/download.html)) to explain how the data responds to each other. 
-
-oid = objectId 
-
-<img src="static/images/mongoDBSchema.png">
-
-I have used GridFS in order to have images,music and pdfs saved to MongoDB. [GridFS](https://docs.mongodb.com/manual/core/gridfs/) is used to allow us to save larger files in MongoDB. These files are saved in newly created folders called fs.chunks and fs.files.
 
 ##### Back to [top](#table-of-contents)
 ---
@@ -296,7 +269,7 @@ I have used GridFS in order to have images,music and pdfs saved to MongoDB. [Gri
   - This project uses Javascript to create functions, rules and effects in order to make the certain features work. Features include being able to use a music player. Updating and showing dropdown menus for genre/instruments. Shrink the number of words on a review card until read more is clicked if over a certain amount.
   - [Javascript](https://en.wikipedia.org/wiki/JavaScript)
 
-#### Frameworks Used
+#### Frameworks and Libraries Used
 
 - Bootstrap
     - Bootstrap is an open source library with access to reusable bits of code for html, css and javascript.
@@ -315,7 +288,7 @@ I have used GridFS in order to have images,music and pdfs saved to MongoDB. [Gri
 - Stripe
 
 
-- 
+- Friendship
  
 ##### Back to [top](#table-of-contents)
 
@@ -387,10 +360,7 @@ For information on the testing, follow the link to the document [here](testing.m
 
 ### Media
 
-- Uploaded piano pieces were performed by myself
-- Alton towers theme(hall of the mountain King) was downloaded from [here](https://www.youtube.com/watch?v=2fGkrHuNS7k)
-- All images used for uploading are found on [google images](www.google.com) by using images/tools/usage rights/commercial and other licenses.
-- For the purpose of this project I have used sheet music that is already written and by others as the time constraints for this project dont allow time for writing my own music. 
+- 
 
 ### Acknowledgements
 
