@@ -5,23 +5,29 @@
 
 {% block content %}
 
-<div class="col-lg-6 col-md-12">
     <div class="card profileInfoCard profile-section align-items-center" style="margin: 10px">
         <h3 class="white-important p-2">
             Update profile information
         </h3>
-
-        <form method="POST" id="updatingInformation">
-            {% csrf_token %}
-            <fieldset class="form-group">                        
-            {{ update_information | crispy }} 
-            <br><br>
-            <button type="submit">Update Information</button>
-            </fieldset>
-            
-        </form>
+    
+            <form method="POST" id="updatingInformation">
+                {% csrf_token %}
+            <div class="row">
+                <div class=" col-lg-6 col-md-12 col-sm-12"> 
+                <fieldset class="form-group updateInfo">   
+                
+                                     
+                {{ update_information | crispy }} 
+                
+                <br><br>
+                <button type="submit">Update Information</button>
+                </fieldset>  
+            </div>
+            </div>            
+            </form>
         
-        <a href="{% url 'userprofile' %}" type="button">Back to Profile</a>
+        
+    <a href="{% url 'userprofile' %}" type="button">Back to Profile</a>
         
     </div>
 </div>

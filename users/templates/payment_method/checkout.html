@@ -13,7 +13,7 @@
 
   <div class="row ">
     {% for p in products %}
-    <div class="col-6">
+    <div class="col-lg-6 col-md-6 col-sm-12">
       <div class="card mx-5 shadow" style="border-radius: 10px; border:none; ">
         <div class="card-body">
           <h5 class="card-title font-weight-bold">{{p.name}}</h5>
@@ -43,11 +43,11 @@
             <h5 class="card-title font-weight-bold">Checkout</h5>
             <p class="text-muted ">Enter card details.  Your subscription will start immediately</p>
             <div class="row">
-              <div class="col-6 text-muted">
+              <div class="col-lg-6 col-md-6 col-sm-12 text-muted planTotalSub">
                 <p>Plan:</p>
                 <p>Total:</p>
               </div>
-              <div class="col-6 text-right">
+              <div class="col-lg-6 col-md-6 col-sm-12 text-right">
                 <p id="plan"></p>
                 <p id="price"></p>
                 <p hidden id="priceId"></p>

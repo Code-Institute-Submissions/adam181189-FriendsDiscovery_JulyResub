@@ -111,6 +111,10 @@ body a {
     text-overflow: ellipsis;
 }
 
+.planTotalSub {
+    display: none !important;
+}
+
 /* Stripe Payments */
 
 .StripeElement {
@@ -236,15 +240,14 @@ body a {
     #fl_biography {
         display: none;
     }
+
+.profileRequestsCard{
+    width:740px;
 }
 
 }
 
 @media (max-width: 548px) {
-
-body {
-    font-size:2em;
-} 
 
   .home-welcome {
   right:10px;
@@ -257,6 +260,14 @@ body {
 
 .better-you-button {
     font-size:10px;
+}
+
+.profileRequestsCard{
+    width:355px;
+}
+
+.updateInfo {
+    font-size:10px
 }
 
 }
@@ -275,6 +286,15 @@ body {
 
 .better-you-button {
     font-size:10px;
+
+}
+.profileRequestsCard{
+    width:380px;
+}
+
+#id_new_post{
+    width:280px
+}
 
 }
 
@@ -314,6 +334,21 @@ body {
     bottom:40px;
 }
 
+.profileInfoCard h4 {
+    font-size:1em;
+} 
+
+.profileRequestsCard{
+    width:350px;
+}
+
+.updateImage{
+    font-size:15px;
+} 
+
+#id_new_post{
+    width:250px
+}
 }
 
 @media (max-width: 320px) {
@@ -333,6 +368,10 @@ body {
     bottom:40px;
 }
 
+.profileRequestsCard{
+    width:300px;
+}
+
 }
 @media (max-width: 280px) {
       .home-welcome {
@@ -345,10 +384,18 @@ body {
     font-size:13px; 
 }
 
+.profileInfoCard h4 {
+    font-size:0.8em;
+} 
+
 .better-you-button {
     font-size:10px;
     position: relative;
     bottom:40px;
+}
+
+.profileRequestsCard{
+    width:260px;
 }
 
 }

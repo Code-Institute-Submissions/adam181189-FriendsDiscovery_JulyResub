@@ -26,7 +26,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = 'DEVELOPMENT' in os.environ
+DEBUG = config('DEBUG') # in os.environ
 
 ALLOWED_HOSTS = ['friends-discovery.herokuapp.com', 'localhost']
 

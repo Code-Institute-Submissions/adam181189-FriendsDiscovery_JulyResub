@@ -44,6 +44,7 @@ urlpatterns = [
     path('membership_info', views.membership_info, name='membership_info'),
     path('post/<int:post_id>/', views.editPost, name='post-update'),
     path('delete_post/<int:post_id>/', views.delete_post, name='delete_post'),
+    
     # friendship-django
     url(regex=r"^users/$", view=all_users, name="friendship_view_users"),
     url(

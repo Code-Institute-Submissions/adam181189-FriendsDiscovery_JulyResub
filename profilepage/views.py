@@ -230,7 +230,9 @@ def others_profile(request, username):
     friendship_requests = Friend.objects.requests(user)
     friends = Friend.objects.friends(user)
 
-    data = Post.objects.filter(user=User.objects.get(username=username)).order_by('date_posted').reverse()
+    data = Post.objects.filter(
+        user=User.objects.get(
+            username=username)).order_by('date_posted').reverse()
     paginator = Paginator(data, 2)
 
     page_number = request.GET.get('page')

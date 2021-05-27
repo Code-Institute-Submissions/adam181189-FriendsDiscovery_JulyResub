@@ -13,7 +13,7 @@
 
         <form method="POST" id="blogPost">
             {% csrf_token %}
-            <fieldset class="form-group">                       
+            <fieldset class="form-group newPost">                       
             {{ BlogPostForm | crispy }} 
             <br><br>
             <button type="submit">Submit Post</button>
