@@ -48,12 +48,12 @@
                                     Give a heart to {{ userinfo.user.username }}? <button type="submit">Give</button>
                                     </h4>
                                     <h5> You have given {{ hearts_sent_today }} heart(s) today</h5>                                
-                                {% elif check_friendship and request.user.userprofile.subscription.status == none
-                                    and hearts_sent_today < 1 %} <h4 class="col-9 white-important">
-                                        Give a heart to {{ userinfo.user.username }}? <button
-                                            type="submit">Give</button>
-                                        </h4>
-                                        <h5> You have given {{ hearts_sent_today }} heart(s) today</h5>
+                                {% elif check_friendship and request.user.userprofile.subscription.status == none and hearts_sent_today < 1 %} 
+                                    <h4 class="col-9 white-important">
+                                    Give a heart to {{ userinfo.user.username }}? <button
+                                        type="submit">Give</button>
+                                    </h4>
+                                    <h5> You have given {{ hearts_sent_today }} heart(s) today</h5>
                                 
                                 {% else %}
                                         <h4 class="col-9 white-important">
