@@ -65,7 +65,7 @@ body a {
     font-weight: bold;
     color:white;
     min-height:70vh;
-    margin:10px 0px 10px 10px;
+    /* margin:10px 0px 10px 10px; */
     padding:10px;
 }
 
@@ -346,6 +346,11 @@ body a {
     font-size:1em;
 } 
 
+.profileInfoCard li {
+    margin-top: 5px;
+    list-style-type: none;
+} 
+
 .profileRequestsCard{
     width:350px;
 }
@@ -360,25 +365,25 @@ body a {
 }
 
 @media (max-width: 320px) {
-      .home-welcome {
-  right:0px;
-  height:0px;
-  top:160px;
-}
+    .home-welcome {
+        right:0px;
+        height:0px;
+        top:160px;
+    }
 
-.subtitle {  
-    font-size:15px; 
-}
+    .subtitle {  
+        font-size:15px; 
+    }
 
-.better-you-button {
-    font-size:8px;
-    position: relative;
-    bottom:40px;
-}
+    .better-you-button {
+        font-size:8px;
+        position: relative;
+        bottom:40px;
+    }
 
-.profileRequestsCard{
-    width:300px;
-}
+    .profileRequestsCard{
+        width:300px;
+    }
 
 }
 @media (max-width: 280px) {

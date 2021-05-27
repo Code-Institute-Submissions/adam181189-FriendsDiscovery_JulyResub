@@ -11,8 +11,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3 col-md-6">
-                <div class="card profileInfoCard profile-section align-items-center"
-                    style="margin: 10px 0px 10px 10px ">
+                <div class="card profileInfoCard profile-section align-items-center">
                     <h4 class="white-important p-2 profileTitle">
                         Profile
                     </h4>
@@ -28,7 +27,7 @@
                                 {{ user.email }}
                             </h6>
                             <a href="{% url 'update_image' %}" type="button" id="updateButton"
-                                class="updateButton">Update Profile Image</a>
+                                class="updateButton">Change Profile Photo</a>
                         </div>
                         <div style="height: 50px"></div>
                         <div class="row">
@@ -65,15 +64,14 @@
                                 </h6>
 
                             </div>
-                            <a href="{% url 'update_info' %}" type="button" class="updateButton">Change person
-                                Information</a>
+                            <a href="{% url 'update_info' %}" type="button" class="updateButton">Change About Me</a>
                         </div>
                     </article>
                 </div>
             </div>
 
             <div class="col-lg-6 col-md-12">
-                <div class="card profileInfoCard profile-section align-items-center" style="margin: 10px">
+                <div class="card profileInfoCard profile-section align-items-center">
                     <a href="{% url 'newpost' %}" type="button" id="blogFormButton" class="newpostButton">Make a new
                         Post</a>
                     <h3 class="white-important p-2">
