@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import PostForm, updateprofileinfo, updateprofileimage, HeartForm
 from django.contrib.auth import authenticate
+from django.contrib import messages
 from django.db.models import Q
 from .models import Post, updateInfo, Heart
 from users.models import UserDetails
@@ -271,13 +272,14 @@ def add_friend(request, to_username,  template_name="profilepage/friend_request.
 def remove_friend(request, to_username, template_name="profilepage/remove_friend.html"):
     """ A view to remove a friend """
 
-    ctx = {"to_username": to_username}
+    ctx = {"to_username": to_username, "messages": messages,}
 
     if request.method == "POST":
         to_user = user_model.objects.get(username=to_username)
         from_user = request.user
+        messages.error(request, "Friendship removed")
 
-        Friend.objects.remove_friend(from_user, to_user)
+        Friend.objects.remove_friend(from_user, to_user)        
         return redirect("friend_list")
 
     return render(request, template_name, ctx)
@@ -292,6 +294,7 @@ def request_cancel(request, to_user_id, template_name="profilepage/request_cance
         )
         print(f_request)
         f_request.cancel()
+
         return redirect("friend_list", {"friendship_request": f_request})
 
     return render(request, template_name)
@@ -360,9 +363,7 @@ def record_hearts_view(request, to_username):
             date_posted = datetime.now())
         #heart.save(commit=True)
 
-        return redirect('userprofile')
-
-        #return redirect("/friend_list", context)
+        return redirect("/friend_list")
 
 @login_required
 def membership_info(request):

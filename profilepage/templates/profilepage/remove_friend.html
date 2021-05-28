@@ -5,7 +5,7 @@
 
 <div class="card profileCard align-items-center">
 
-{% if request_sent and not check_friendship %}
+{% if request.user.userprofile.subscription.status == "active" %}
 <form method="post">
     {% csrf_token %}
     <input type="hidden" name="to_username" value="{{ to_username }}" />

@@ -9,10 +9,6 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-body a {
-    color:#5AAF5D;
-}
-
 .navbar-brand {
     font-weight: 600;
 }
@@ -21,13 +17,14 @@ body a {
 
 .home-welcome {  
   position: relative;
-  right:250px;
+  right:100px;
+  bottom: 150px;
 }
 
 .subtitle {  
     font-size:40px;  
-    color: #302B82;
-    text-shadow: 2px 2px black;
+    color: white;
+    /*text-shadow: 2px 2px white;*/
     font-weight:bold;
 }
 

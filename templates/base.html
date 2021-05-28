@@ -268,6 +268,7 @@
                             <ul class="dropdown-menu border-0" aria-labelledby="navbarDropdown">
                                 {% if request.user.is_authenticated %}
                                     <li><h6><a class="dropdown-item" href="{% url 'userprofile' %}">Profile Page</a></h6></li>
+                                    <li><h6><a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a></h6></li>
                                     <li><h6><a class="dropdown-item" href="{% url 'account_logout' %}"> Logout</a></h6></li>
                                 {% else %}
                                     <li><h6><a class="dropdown-item" href="{% url 'extendedSignup' %}"> Register</a></h6></li>

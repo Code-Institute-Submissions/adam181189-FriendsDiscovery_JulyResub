@@ -5,6 +5,14 @@
 
 <div class="card profileCard align-items-center">
 
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-primary" role="alert">
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
+
 {% if not to_username == request.user.username %}
 {% if errors %}<p>{{ errors|join:", " }}</p>{% endif %}
 <form method="post">

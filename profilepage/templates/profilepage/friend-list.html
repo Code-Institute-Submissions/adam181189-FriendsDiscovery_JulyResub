@@ -8,6 +8,7 @@
 <div class="card profileCard d-flex align-items-center">
     <br>
     <h2 class="d-flex align-items-center">Friends</h2><br>
+    {}
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-4 col-sm-12 col-xs-12">
@@ -23,7 +24,7 @@
                                 You have received a friend request from
                                 <a href="{% url 'others_profile' friendship_request.from_user %}">
                                     <br>
-                                    <img class="rounded-circle mr-2 " style="width: 50px; height: 50px;"
+                                    <img class="rounded-circle mr-2 " style="width: 80px; height: 80px;"
                                         src="{{ friendship_request.from_user.userprofile.profile_pic.url }}"></a>
                                 <br>{{ friendship_request.from_user }}
                                 <br><a href="{% url 'friendship_accept' friendship_request.id %}" type="button"> <i class="fas fa-user-plus"></i> view
@@ -47,7 +48,7 @@
                                 {% for sent in request_sent %}
                                 <a href="{% url 'others_profile' sent.to_user %}">
                                     <br>
-                                    <img class="rounded-circle mr-2 " style="width: 50px; height: 50px;"
+                                    <img class="rounded-circle mr-2 " style="width: 80px; height: 80px;"
                                         src="{{ sent.to_user.userprofile.profile_pic.url }}"></a>
                                 <br>{{ sent.to_user }}
                                 <br><a href="{% url 'request_cancel' sent.to_user.id %}" type="button"><i class="fas fa-user-times"></i> cancel

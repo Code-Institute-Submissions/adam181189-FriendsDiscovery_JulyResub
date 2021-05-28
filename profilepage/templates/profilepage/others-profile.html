@@ -53,7 +53,8 @@
                                 {% else %}
                                     <h4 class="col-9 white-important">
                                         You have no hearts left to give away today.
-                                    </h4>                            
+                                    </h4>   
+                                    <h6> You have given {{ hearts_sent_today }} heart(s) today</h6>                              
                                 {% endif %}
                             </form>
                             <form method="POST">
@@ -61,7 +62,7 @@
                                 <div class="form-group">
                                     {% if check_friendship and request.user.userprofile.subscription.status == 'active' %}
                                     <a href="{% url 'remove_friend' userinfo.user.username  %}"
-                                        style="margin-left: 18px" class="btn btn-sm btn-primary" type="submit">You are
+                                        style="margin-left: 18px" class="btn btn-sm btn-secondary" type="submit">You are
                                         already friends with {{userinfo.user}}. Remove as Friend.
                                     </a>
                                     {% elif request_sent and not check_friendship %}
@@ -77,8 +78,7 @@
                                     </a>
                                     {% else %}
                                     <a href="{% url 'membership_info' %}" style="margin-left: 18px"
-                                        class="btn btn-sm btn-primary">Become a Premium Member to send a friend
-                                        request</a>
+                                        class="btn btn-sm btn-secondary">Become a Premium Member to remove as a friend</a>
                                     {%endif%}
                                 </div>
                             </form>
