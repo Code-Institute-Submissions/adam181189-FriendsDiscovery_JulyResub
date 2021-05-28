@@ -26,7 +26,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = config('DEBUG') #'DEVELOPMENT' in os.environ #
+DEBUG = 'DEVELOPMENT' in os.environ #config('DEBUG') 
 
 ALLOWED_HOSTS = ['friends-discovery.herokuapp.com', 'localhost']
 
@@ -216,13 +216,13 @@ if 'USE_AWS' in os.environ:
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 
 # Stripe config
-#STRIPE_TEST_PUBLIC_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY', '')
-STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
-#STRIPE_TEST_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
-STRIPE_TEST_SECRET_KEY = config('STRIPE_SECRET_KEY')
+STRIPE_TEST_PUBLIC_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY', '')
+#STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
+STRIPE_TEST_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
+#STRIPE_TEST_SECRET_KEY = config('STRIPE_SECRET_KEY')
 
 STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET', '')
-STRIPE_LIVE_MODE = False  # Change to True in production
+STRIPE_LIVE_MODE = True  # Change to True in production
 DJSTRIPE_WEBHOOK_SECRET = "whsec_xxx"
 DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
 
