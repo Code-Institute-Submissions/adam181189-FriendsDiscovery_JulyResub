@@ -22,11 +22,11 @@ from os.path import dirname, abspath
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY') #'SECRET_KEY' in os.environ
+SECRET_KEY = 'SECRET_KEY' in os.environ #config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = config('DEBUG')#'DEVELOPMENT' in os.environ 
+DEBUG = 'DEVELOPMENT' in os.environ #config('DEBUG')
 
 ALLOWED_HOSTS = ['friends-discovery.herokuapp.com', 'localhost']
 
@@ -162,30 +162,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-#STATIC_URL = '/static/'
-#STATIC_ROOT = 'static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
-#STATIC_URL = '/static/'
-
-# Extra places for collectstatic to find static files.
-#STATICFILES_DIRS = (
-#    os.path.join(BASE_DIR, 'static'),
-#)
-
-#STATIC_URL = '/static/'
-#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-
-#STATICFILES_DIRS = [
-#        os.path.join(BASE_DIR, 'static'),
-#]
-#STATIC_URL = '/static/'
-
-
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
@@ -216,13 +192,13 @@ if 'USE_AWS' in os.environ:
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 
 # Stripe config
-#STRIPE_TEST_PUBLIC_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY', '')
-STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
-#STRIPE_TEST_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
-STRIPE_TEST_SECRET_KEY = config('STRIPE_SECRET_KEY')
+STRIPE_TEST_PUBLIC_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY', '')
+#STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
+STRIPE_TEST_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
+#STRIPE_TEST_SECRET_KEY = config('STRIPE_SECRET_KEY')
 
-STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET', '')
-STRIPE_LIVE_MODE = False  # Change to True in production
+STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET')
+STRIPE_LIVE_MODE = True  # Change to True in production
 DJSTRIPE_WEBHOOK_SECRET = "whsec_xxx"
 DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
 
