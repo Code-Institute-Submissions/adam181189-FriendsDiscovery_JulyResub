@@ -73,17 +73,18 @@
                                         style="margin-left: 18px" class="btn btn-sm btn-secondary" type="submit">You are
                                         already friends with {{userinfo.user}}. Remove as Friend.
                                     </a>
-                                    {% elif request_sent and not check_friendship %}
-                                    <a href="{% url 'request_cancel' userinfo.user.id %}" style="margin-left: 18px; color:black;"
-                                        class="btn btn-sm btn-warning" type="button">You are waiting for
-                                        {{userinfo.user}}'s response to your friend request. Click to cancel request.
-                                    </a>
                                     {% elif not check_friendship and not request_sent %}
                                     <a href="{% url 'add_friend' userinfo.user.username %}" style="margin-left: 18px"
                                         class="btn btn-sm btn-primary"
                                         name="{% if friend %}removeFriend{% else %}addFriend{% endif %}"
                                         type="submit">Send {{userinfo.user}} a friend request.
                                     </a>
+                                    {% elif request_sent and not check_friendship %}
+                                    <a href="{% url 'request_cancel' userinfo.user.id %}" style="margin-left: 18px; color:black;"
+                                        class="btn btn-sm btn-warning" type="button">You are waiting for
+                                        {{userinfo.user}}'s response to your friend request. Click to cancel request.
+                                    </a>
+                                    
                                     {% else %}
                                     <a href="{% url 'membership_info' %}" style="margin-left: 18px"
                                         class="btn btn-sm btn-secondary">Become a Premium Member to remove as a friend</a>
