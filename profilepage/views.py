@@ -223,19 +223,19 @@ def others_profile(request, username):
 
     def hearts_sent_today():
         heartsToday = Heart.objects.filter(from_user=request.user, date_posted__date=date.today()).count()
-        print(f'Hearts sent today for {request.user}: {heartsToday}.')
+        #print(f'Hearts sent today for {request.user}: {heartsToday}.')
 
         return heartsToday
 
     def hearts_received(user):        
         heartsReceived = Heart.objects.filter(to_user=user).count()
-        print(f'Hearts received for {user}: {heartsReceived}.')
+        #print(f'Hearts received for {user}: {heartsReceived}.')
 
         return heartsReceived
 
     userinfo = UserDetails.objects.get(user=User.objects.get(
         username=username))
-    print(userinfo.user.id)
+    #print(userinfo.user.id)
 
     currentUserInfo = UserDetails.objects.get(user=User.objects.get(
         username=request.user.username))
@@ -251,13 +251,17 @@ def others_profile(request, username):
         return age
 
     myage = calculateAge(date_of_birth)
-    print(myage)
 
     check_friendship = Friend.objects.are_friends(
         userinfo.user, currentUserInfo.user) is True
 
-    request_sent = Friend.objects.requests(userinfo.user)
-    print(request_sent)
+    request_sent = Friend.objects.requests(
+        userinfo.user)
+
+    request_sent_value = False
+    for r in request_sent:
+        if str(r) == str(currentUserInfo.user.id):
+            request_sent_value = True
 
     user = get_object_or_404(user_model, username=request.user.username)
     friendship_requests = Friend.objects.requests(user)
@@ -273,7 +277,7 @@ def others_profile(request, username):
 
     context = {
         'userinfo': userinfo,  'currentUserInfo': currentUserInfo,
-        'request_sent': request_sent,
+        'request_sent': request_sent_value,
         'check_friendship': check_friendship, 'data': data,
         'requests': friendship_requests, 'friends': friends,
         'page_obj': page_obj,

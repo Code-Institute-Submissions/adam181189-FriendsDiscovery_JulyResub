@@ -67,6 +67,8 @@
                             </form>
                             <form method="POST">
                                 {% csrf_token %}
+                                <div>Check Friendship:  {% if check_friendship %}true{% else %}false{% endif %}</div>
+                                
                                 <div class="form-group">
                                     {% if check_friendship and request.user.userprofile.subscription.status == 'active' %}
                                     <a href="{% url 'remove_friend' userinfo.user.username  %}"
