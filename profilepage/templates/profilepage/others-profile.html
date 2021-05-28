@@ -8,6 +8,14 @@
 {% block content %}
 
 <div class="card profileCard align-items-center">
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-primary" role="alert">
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
     <br>
     <h2 class="d-flex align-items-center">{{ userinfo.user.username }}'s Profile</h2><br>
     <div class="container-fluid">

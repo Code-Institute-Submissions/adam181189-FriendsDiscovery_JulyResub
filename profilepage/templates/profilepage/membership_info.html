@@ -5,6 +5,13 @@
 
 {% block content %}
 
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-primary" role="alert">
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
 
 <div class="card profileCard align-items-center">
     <br>

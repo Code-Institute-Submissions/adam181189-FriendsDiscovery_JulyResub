@@ -72,6 +72,8 @@ def update_info(request):
 
             profile.save()
 
+            messages.error(request, "Profile Information Updated")
+
             return redirect('userprofile')
 
     else:
@@ -98,6 +100,7 @@ def update_image(request):
 
             profile_picture.save()
 
+            messages.error(request, "Profile Image Updated")
             return redirect('userprofile')
 
     else:
@@ -118,6 +121,7 @@ def newpost(request):
         if BlogPostForm.is_valid():
             BlogPostForm.instance.user = request.user
             BlogPostForm.save(commit=True)
+            messages.error(request, "Added new post")
             return redirect('userprofile')
 
     else:
@@ -138,6 +142,8 @@ def editPost(request, post_id):
         if update_post.is_valid():
             update_post.instance.user = request.user
             update_post.save(commit=True)
+
+            messages.error(request, "Post updated")
             return redirect('userprofile')
     else:
         post = Post.objects.get(id = post_id)
@@ -148,6 +154,7 @@ def editPost(request, post_id):
 
 def delete_post(request, post_id):
     post = Post.objects.get(id = post_id)
+    messages.error(request, "Post Deleted")
     post.delete()
 
     return redirect("userprofile")
@@ -263,6 +270,7 @@ def add_friend(request, to_username,  template_name="profilepage/friend_request.
         except AlreadyExistsError as e:
             ctx["errors"] = ["%s" % e]
         else:
+            messages.error(request, "Request Sent")
             return redirect("friend_list")
 
     return render(request, template_name, ctx)

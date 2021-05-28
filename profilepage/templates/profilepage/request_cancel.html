@@ -5,6 +5,14 @@
 
 <div class="card profileCard align-items-center">
 
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-primary" role="alert">
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
+
 <form method="post">
     {% csrf_token %}
         <h1> Are you sure you wish to cancel your friend request to {{ friendship_request }}</h1>

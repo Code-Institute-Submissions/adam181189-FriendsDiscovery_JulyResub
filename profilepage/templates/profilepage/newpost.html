@@ -11,6 +11,14 @@
             Posts
         </h3>
 
+        {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-primary" role="alert">
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
+
         <form method="POST" id="blogPost">
             {% csrf_token %}
             <fieldset class="form-group newPost">                       

@@ -5,6 +5,14 @@
 
 <div class="card profileCard align-items-center" style="padding: 10px">
 
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-primary" role="alert">
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
+
     <h3 class="white-important p-2">
         Users
     </h3>
