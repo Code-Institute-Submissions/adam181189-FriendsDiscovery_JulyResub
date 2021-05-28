@@ -14,6 +14,8 @@ from profilepage.views import userprofile
 from decouple import config
 from django.http.response import JsonResponse, HttpResponse
 from django.utils.decorators import method_decorator
+from allauth.account.utils import complete_signup
+from allauth.account import app_settings
 
 from django.views.decorators.csrf import csrf_exempt
 
@@ -102,9 +104,9 @@ def extendedSignup(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
-            login(request, user)
+            complete_signup(request, user,app_settings.EMAIL_VERIFICATION, "/")
 
-            return redirect('account_login')
+            return redirect('index')
     else:
         form = SignupForm()
         profile_form = UserProfileForm()
