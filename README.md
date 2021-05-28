@@ -145,7 +145,7 @@ I also changed the nav bar so the links were all together, as profile and friend
 The font Roboto was used as it is a sans type font. Sans are useful for simplcity and for a modern look.  
 
 1 [Google Font](https://fonts.google.com/) was used throughout this website:
-- ["Arvo", serif;](https://fonts.google.com/specimen/Roboto)
+- ["Josefin+Sans";](https://fonts.google.com/specimen/Josefin+Sans)
 
 #### *Colors*
 
@@ -176,7 +176,7 @@ Font awesome icons have been used throughout. There is on attached to every link
 
 #### *Image modifications*
 
-- [GIMP](https://www.gimp.org/) was used to tweak the main page image so the top was plain black so title could be added without conflicting with the words on the piano. 
+- [GIMP](https://www.gimp.org/) was used to remove the white from the heart image to make it transparent background. 
 Permissions for editing image ok as a stock image.  
 
 ### Information Architecture
@@ -327,7 +327,9 @@ I was not able to fulfill this as I ran out of time. I intend to add it later on
 - Expected: if a user was a friend, theyd be able to give a heart to their friend. Rules dependent on subcription too. 
 - Fix: the if statement had moved over onto two lines, meaning it couldn't be read. 
 
-- Error: 
+- Error: Users couldn't send a certain user a friend request if another user had sent that person a request already.
+- Expected: To be able to send friend requests to every other user at the same time as another user
+- Fix: Added a for loop to the request_sent value which checks if the current user is in the list of friend requests relating to the profile page user. 
 
 ### Validators
 
