@@ -39,6 +39,19 @@ def userprofile(request):
     userinfo = UserDetails.objects.get(user=User.objects.get(
         username=request.user.username))
 
+    date_of_birth = userinfo.date_of_birth
+
+    def calculateAge(date_of_birth):
+         
+        today = date.today()
+        age = today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
+  
+        return age
+
+    myage = calculateAge(date_of_birth)
+    print(myage)
+
+
     user = get_object_or_404(user_model, username=request.user.username)
 
     friends = Friend.objects.friends(user)
@@ -54,7 +67,7 @@ def userprofile(request):
     page_obj = paginator.get_page(page_number)
 
     context = {
-        'userinfo': userinfo, 'data': data, 'page_obj': page_obj}
+        'userinfo': userinfo, 'data': data, 'page_obj': page_obj, 'myage': myage }
     return render(request, "profilepage/userprofile.html", context)
 
 
@@ -228,6 +241,18 @@ def others_profile(request, username):
         username=request.user.username))
     print(currentUserInfo.premium_member)
 
+    date_of_birth = userinfo.date_of_birth
+
+    def calculateAge(date_of_birth):
+         
+        today = date.today()
+        age = today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
+  
+        return age
+
+    myage = calculateAge(date_of_birth)
+    print(myage)
+
     check_friendship = Friend.objects.are_friends(
         userinfo.user, currentUserInfo.user) is True
 
@@ -253,7 +278,7 @@ def others_profile(request, username):
         'requests': friendship_requests, 'friends': friends,
         'page_obj': page_obj,
         'hearts_sent_today': hearts_sent_today(),
-        'hearts_received': hearts_received(userinfo.user), }
+        'hearts_received': hearts_received(userinfo.user), 'myage': myage}
     return render(request, "profilepage/others-profile.html", context)
 
 

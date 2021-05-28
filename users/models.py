@@ -37,7 +37,7 @@ class UserDetails(models.Model):
     gender = models.CharField(
         max_length=13, choices=GENDER_CHOICES, default='male')
     bio = models.TextField(
-        blank=True, default='Let others know about you...', max_length=900)
+        blank=True, default='Let others know about you...', max_length=700)
     nationality = CountryField(
         blank_label='(select country)', default="GB")
     profile_pic = models.ImageField(
