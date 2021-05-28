@@ -2,18 +2,27 @@
 {% load static %}
 
 {% block content %}
-    <div class="container h-100">
-        <div class="row h-100">
-            <div class="col-5 col-md-6 col-sm-3 text-center flex my-auto home-welcome">
-                <h1 class="subtitle display-6 font-weight-bold">
-                    Develop new relationships <br>
-                    Share any exciting news<br>
-                    Have new experiences
-                </h1>
-                <div class="my-5">
-                    <a href="{% url 'extendedSignup' %}" class="better-you-button btn btn-lg rounded-1 text-uppercase py-3">Register Here!</a>
-                </div>
+<div class="container h-100">
+
+    <div class="row h-100">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-primary" role="alert">
+            {{message}}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="col-5 col-md-6 col-sm-3 text-center flex my-auto home-welcome">
+            <h1 class="subtitle display-6 font-weight-bold">
+                Develop new relationships <br>
+                Share any exciting news<br>
+                Have new experiences
+            </h1>
+            <div class="my-5">
+                <a href="{% url 'extendedSignup' %}"
+                    class="better-you-button btn btn-lg rounded-1 text-uppercase py-3">Register Here!</a>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

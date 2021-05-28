@@ -222,12 +222,12 @@ STRIPE_TEST_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
 #STRIPE_TEST_SECRET_KEY = config('STRIPE_SECRET_KEY')
 
 STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET', '')
-STRIPE_LIVE_MODE = False  # Change to True in production
+STRIPE_LIVE_MODE = True  # Change to True in production
 DJSTRIPE_WEBHOOK_SECRET = "whsec_xxx"
 DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
 
 # Emails
-if 'DEVELOPMENT' in os.environ:
+if 'DEVELOPMENT' in os.environ == True:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = 'FriendsDiscovery@example.com'
 else:

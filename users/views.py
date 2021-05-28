@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 import djstripe
 from django.contrib.auth import authenticate, login
 from .models import UserDetails
+from django.contrib import messages
 import stripe
 import json
 from django.http import JsonResponse
@@ -105,6 +106,8 @@ def extendedSignup(request):
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
             complete_signup(request, user,app_settings.EMAIL_VERIFICATION, "/")
+
+            messages.error(request, "Check Email to verify")
 
             return redirect('index')
     else:
