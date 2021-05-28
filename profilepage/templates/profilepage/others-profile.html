@@ -74,7 +74,7 @@
                                         already friends with {{userinfo.user}}. Remove as Friend.
                                     </a>
                                     {% elif request_sent and not check_friendship %}
-                                    <a href="{% url 'request_cancel' userinfo.user.id %}" style="margin-left: 18px"
+                                    <a href="{% url 'request_cancel' userinfo.user.id %}" style="margin-left: 18px; color:black;"
                                         class="btn btn-sm btn-warning" type="button">You are waiting for
                                         {{userinfo.user}}'s response to your friend request. Click to cancel request.
                                     </a>
