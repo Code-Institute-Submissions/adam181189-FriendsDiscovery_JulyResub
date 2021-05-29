@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function(event) {
+/*document.addEventListener("DOMContentLoaded", function(event) {
 
 
   document.getElementById("submit").disabled = true;
@@ -164,3 +164,11 @@ function planSelect(name, price, priceId) {
   pid.innerHTML = priceId;
   document.getElementById("submit").disabled = false;
 }
+
+*/
+
+$(function () {
+    $('.datetime-input').datetimepicker({
+        format:'YYYY-MM-DD'
+    });
+});

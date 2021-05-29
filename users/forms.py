@@ -55,4 +55,6 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserDetails
         fields = ('gender', 'date_of_birth')
-
+        widgets = {
+            'date_of_birth': forms.DateTimeInput(attrs={'class':'datetime-input'}),
+        }
