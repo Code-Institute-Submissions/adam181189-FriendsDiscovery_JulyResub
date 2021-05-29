@@ -10,23 +10,13 @@
         <div class="row">
             <div class="col-md-12">
 <div>You have received a friend request from {{ friendship_request.from_user }}</div>
+<p> Add {{ friendship_request.from_user }} as a friend?</p>
 
 <form method="post" action="{% url 'friendship_accept' friendship_request.pk %}">
     {% csrf_token %}
     <input type="submit" value="accept" />
 </form>
 
-<form method="POST" action="{% url 'friendship_reject' friendship_request.pk %}">
-    {% csrf_token %}
-    <input type="submit" value="reject" />
-</form>
-
-<form action="{% url 'reject_friendship' from_user.id %}" method="POST">
-    {% csrf_token %}
-    <h5 class="col-9 white-important">
-        <button class="btn btn-primary" type="submit">Reject Friendship</button>
-    </h5>
-</form>
 </div>
 </div>
 </div>

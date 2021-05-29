@@ -8,13 +8,16 @@
 
 <br><br>
 
-<div class="container text-center card profileCard"> 
+<div class="align-items-center h-100">
+    <div class="card profileInfoCard profile-section align-items-center" style=height:97%;>
+        <h3 class="white-important p-2">
 <h1> You're Subscribed. </h1>
-<h2>Your subscrition ends {{ request.user.userprofile.subscription.current_period_end }} and will be renewed on this date</h2> 
-<a class="btn btn-primary text-light" href="{% url 'userprofile' %}"> Return to Profile Page</a>
+<h2 style="width:50%;">Your subscription ends {{ request.user.userprofile.subscription.current_period_end }} and will be renewed on this date</h2> 
+<br><br>
+<a href="{% url 'userprofile' %}" type="button" class="btn btn-primary text-light">Return to Profile Page</a>
 
 <br><br>
-<a class="btn btn-danger text-light" href="{% url 'cancel' %}">Cancel Subscription</a>
+<a href="{% url 'cancel' %}" type="button" class="btn btn-danger text-light">Cancel Subscription</a>
 </div>
 
 {% endblock %}

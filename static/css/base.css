@@ -14,20 +14,20 @@ body {
 }
 
 /* footer */
-#footer {
+footer {
     background-image: linear-gradient(to right, black, #010168);
     color:white;
     text-align: center;
-    padding: 1em;
-    width: 100%;
-    top: 100%;
+    bottom:0;
+    width:100%;
+    margin-top:2px;
+}
+
+.footer_space {
+    height:60px;
     position: absolute;
+    bottom:0px;
 }
-
-.footer-gap{
-    padding-bottom: 100px;
-}
-
 
 /* Home Page */
 
@@ -103,6 +103,12 @@ body {
     top:5px;
 }
 
+.mypostsButton{
+    position:absolute;
+    left:5px;
+    top:5px;
+}
+
 .updateButton {
     position:absolute;
     bottom:5px;
@@ -134,6 +140,12 @@ body {
 
 .planTotalSub {
     display: none !important;
+}
+
+/* Friend Requests */
+.friend_requests{
+    position:relative;
+    bottom:9px;
 }
 
 /* Stripe Payments */
@@ -270,6 +282,14 @@ body {
 
 @media (max-width: 548px) {
 
+    h6{
+        font-size:75%;
+    }
+
+    .postfont {
+        font-size:75%;
+    }
+
   .home-welcome {
   right:10px;
   top:280px;
@@ -339,6 +359,22 @@ body {
 }
 
 @media (max-width: 375px) {
+
+    h5{
+        font-size:60%;
+    }
+    .friend-button{
+        font-size:60%;
+        position:relative;
+        bottom:10px;
+    }
+    h6{
+        font-size:60%;
+    }
+
+    .postfont {
+        font-size:50%;
+    }
       .home-welcome {
   right:0px;
   height:0px;

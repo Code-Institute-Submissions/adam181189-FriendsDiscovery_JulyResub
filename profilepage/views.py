@@ -70,6 +70,42 @@ def userprofile(request):
         'userinfo': userinfo, 'data': data, 'page_obj': page_obj, 'myage': myage }
     return render(request, "profilepage/userprofile.html", context)
 
+def mypostprofile(request):
+    """ A view to return the users profile page """
+
+    userinfo = UserDetails.objects.get(user=User.objects.get(
+        username=request.user.username))
+
+    date_of_birth = userinfo.date_of_birth
+
+    def calculateAge(date_of_birth):
+         
+        today = date.today()
+        age = today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
+  
+        return age
+
+    myage = calculateAge(date_of_birth)
+    print(myage)
+
+
+    user = get_object_or_404(user_model, username=request.user.username)
+
+    friends = Friend.objects.friends(user)
+
+
+
+    data = Post.objects.filter(user=User.objects.get(username=request.user.username)).order_by('date_posted').reverse()
+
+    paginator = Paginator(data, 2)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'userinfo': userinfo, 'data': data, 'page_obj': page_obj, 'myage': myage }
+    return render(request, "profilepage/mypostprofile.html", context)
+
 
 def update_info(request):
     """ A view to be able to change user info on the profile page """

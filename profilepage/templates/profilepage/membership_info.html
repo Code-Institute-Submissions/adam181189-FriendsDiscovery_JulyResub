@@ -6,12 +6,12 @@
 {% block content %}
 
 {% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-primary" role="alert">
-        {{message}}
-    </div>
-    {% endfor %}
-    {% endif %}
+{% for message in messages %}
+<div class="alert alert-primary" role="alert">
+    {{message}}
+</div>
+{% endfor %}
+{% endif %}
 
 <div class="card profileCard align-items-center">
     <br>
@@ -31,19 +31,25 @@
                                     <li><i class="fas fa-check-circle"> Add a blog post</i></li>
                                     <li><i class="fas fa-check-circle"> Respond to Friend Requests</i></li>
                                     <li><i class="fas fa-check-circle"> Cancel Friend Requests</i></li>
-                                    <li style="color:red;"><i class="fas fa-times-circle"> <strike>View User's Stats when not a friend</strike></i></li>
-                                    <li style="color:red;"><i class="fas fa-times-circle"> <strike>View User's Bio when not a friend</strike></i></li>
-                                    <li style="color:red;"><i class="fas fa-times-circle"> <strike>Cancel a friendship</strike></i></li>                                    
-                                    <li style="color:red;"><i class="fas fa-times-circle"> <strike>Be able to view blog posts by users who aren't on your friend list.</strike></i></li>
-                                    <li style="color:red;"><i class="fas fa-times-circle"> <strike>Give five hearts per day to other users</strike></i></li>
+                                    <li style="color:red;"><i class="fas fa-times-circle"> <strike>View User's Stats
+                                                when not a friend</strike></i></li>
+                                    <li style="color:red;"><i class="fas fa-times-circle"> <strike>View User's Bio when
+                                                not a friend</strike></i></li>
+                                    <li style="color:red;"><i class="fas fa-times-circle"> <strike>Cancel a
+                                                friendship</strike></i></li>
+                                    <li style="color:red;"><i class="fas fa-times-circle"> <strike>Be able to view blog
+                                                posts by users who aren't on your friend list.</strike></i></li>
+                                    <li style="color:red;"><i class="fas fa-times-circle"> <strike>Give five hearts per
+                                                day to other users</strike></i></li>
                                 </ul>
-                                
+
 
                             </div>
-                            <a href="{% url 'userprofile' %}" type="button" class="updateButton btn btn-primary">Go to Profile Page</a>
+                            <a href="{% url 'userprofile' %}" type="button" class="updateButton btn btn-primary">Go to
+                                Profile Page</a>
                         </div>
                     </article>
-                    
+
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
@@ -61,17 +67,21 @@
                                     <li><i class="fas fa-check-circle"> Cancel Friend Requests</i></li>
                                     <li><i class="fas fa-check-circle"> View User's Stats when not a friend</i></li>
                                     <li><i class="fas fa-check-circle"> View User's Bio when not a friend</i></li>
-                                    <li><i class="fas fa-check-circle"> Send friend requests</i></li>                                    
-                                    <li><i class="fas fa-check-circle"> Be able to view blog posts by users who aren't on your friend list</i></li>
+                                    <li><i class="fas fa-check-circle"> Send friend requests</i></li>
+                                    <li><i class="fas fa-check-circle"> Be able to view blog posts by users who aren't
+                                            on your friend list</i></li>
                                     <li><i class="fas fa-check-circle"> Give five hearts per day to other users</i></li>
                                 </ul>
-                                
+
 
                             </div>
-                            <a href="{% url 'checkout' %}" type="button" class="updateButton btn btn-primary">Get Premium Subscription</a>
+                            <a href="{% url 'checkout' %}" type="button" class="updateButton btn btn-primary">Get
+                                Premium Subscription</a>
                         </div>
                     </article>
                 </div>
             </div>
-
+        </div>
+    </div>
+</div>
 {% endblock %}

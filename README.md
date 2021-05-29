@@ -331,6 +331,12 @@ I was not able to fulfill this as I ran out of time. I intend to add it later on
 - Expected: To be able to send friend requests to every other user at the same time as another user
 - Fix: Added a for loop to the request_sent value which checks if the current user is in the list of friend requests relating to the profile page user. 
 
+### Ongoing bugs
+
+- Error: Accept Friend request page
+- Expected: Should bring up a normal page
+- Why it remains: Brings up a page with a banner I currently dont have the remaining time to remove, page is unnecessary but using django friendship doesnt have an easy way to get through it.  
+
 ### Validators
 
 - HTML

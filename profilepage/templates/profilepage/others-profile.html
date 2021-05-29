@@ -49,13 +49,13 @@
                                 {% elif check_friendship and request.user.userprofile.subscription.status == "active" and hearts_sent_today < 5 %} 
                                     <h5 class="col-9 white-important">
                                         Give a heart to {{ userinfo.user.username }}? 
-                                        <button class="btn btn-primary" type="submit">Give</button>
+                                        <button class="btn btn-primary btn-sm" type="submit">Give</button>
                                     </h5>
                                     <h6> You have given {{ hearts_sent_today }} heart(s) today</h6>
                                 {% elif check_friendship and request.user.userprofile.subscription.status == none and hearts_sent_today < 1 %} 
                                     <h5 class="col-9 white-important">
                                         Give a heart to {{ userinfo.user.username }}? 
-                                        <button class="btn btn-primary" type="submit">Give</button>
+                                        <button class="btn btn-primary btn-sm" type="submit">Give</button>
                                     </h5>
                                     <h6> You have given {{ hearts_sent_today }} heart(s) today</h6>                                
                                 {% else %}
@@ -67,23 +67,22 @@
                             </form>
                             <form method="POST">
                                 {% csrf_token %}
-                                <div>Check Friendship:  {% if check_friendship %}true{% else %}false{% endif %}</div>
-                                
+                                <br>                                
                                 <div class="form-group">
                                     {% if check_friendship and request.user.userprofile.subscription.status == 'active' %}
                                     <a href="{% url 'remove_friend' userinfo.user.username  %}"
-                                        style="margin-left: 18px" class="btn btn-sm btn-secondary" type="submit">You are
+                                        style="margin-left: 18px" class="btn btn-sm btn-secondary friend-button" type="submit">You are
                                         already friends with {{userinfo.user}}. Remove as Friend.
                                     </a>
                                     {% elif not check_friendship and not request_sent %}
                                     <a href="{% url 'add_friend' userinfo.user.username %}" style="margin-left: 18px"
-                                        class="btn btn-sm btn-primary"
+                                        class="btn btn-sm btn-primary friend-button"
                                         name="{% if friend %}removeFriend{% else %}addFriend{% endif %}"
                                         type="submit">Send {{userinfo.user}} a friend request.
                                     </a>
                                     {% elif request_sent and not check_friendship %}
                                     <a href="{% url 'request_cancel' userinfo.user.id %}" style="margin-left: 18px; color:black;"
-                                        class="btn btn-sm btn-warning" type="button">You are waiting for
+                                        class="btn btn-sm btn-warning friend-button" type="button">You are waiting for
                                         {{userinfo.user}}'s response to your friend request. Click to cancel request.
                                     </a>
                                     
@@ -138,7 +137,7 @@
 
 
                     {% for post in page_obj %}
-                    <article class="card"
+                    <article class="card postfont"
                         style="background-color: rgb(43, 96, 156); width: 80%; margin-bottom: 10px; padding:10px">
                         <div class="pb-2 row m-0" style="width: 100%; margin-right: 0 !important;">
                             <div style="padding-left: 0px !important;"

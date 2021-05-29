@@ -52,7 +52,7 @@
                     <h3 class="white-important p-2">
                         About Me
                     </h3>
-                    <article class="content-section" style="height: 140px; width: 100%;">
+                    <article class="content-section" style="height: 140px; width: 100%">
                         <div class="mt-2 d-flex full-width align-items-center">
 
                             <div class="align-items-center stats">
@@ -79,8 +79,9 @@
                 <div class="card profileInfoCard profile-section align-items-center">
                     <a href="{% url 'newpost' %}" type="button" class="newpostButton">Make a new
                         Post</a>
-                    
-                    <a href="{% url 'mypostprofile' %}" type="button" class="mypostsButton">My posts only</a>
+                    {% if request.user.userprofile.subscription.status == "active" %}
+                    <a href="{% url 'userprofile' %}" type="button" class="mypostsButton">Include Friends Posts</a>
+                    {% endif %}
                     <br>
                     <h3 class="white-important p-2">
                         Posts
@@ -126,7 +127,7 @@
                         <p class="mb-4">
                             {{ post.new_post }}
                         </p>
-                        <p class="mb-2 ">
+                        <p class="mb-2">
                             {{ post.date_posted }}
                         </p>
                     </article>
