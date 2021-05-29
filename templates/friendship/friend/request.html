@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="card profileInfoCard profile-section align-items-center">
+        <div class="row">
+            <div class="col-md-12">
+<div>You have received a friend request from {{ friendship_request.from_user }}</div>
+
+<form method="post" action="{% url 'friendship_accept' friendship_request.pk %}">
+{% csrf_token %}
+<input type="submit" value="accept" />
+</form>
+
+<form method="post" action="{% url 'friendship_reject' friendship_request.pk %}">
+{% csrf_token %}
+<input type="submit" value="reject" />
+</form>
+</div>
+</div>
+</div>
+</div>        
+    
+{% endblock %}
