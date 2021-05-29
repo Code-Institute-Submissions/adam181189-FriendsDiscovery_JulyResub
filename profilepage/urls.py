@@ -43,6 +43,7 @@ urlpatterns = [
     path('others-profile/<str:username>/', views.others_profile, name='others_profile'),
     path('membership_info', views.membership_info, name='membership_info'),
     path('post/<int:post_id>/', views.editPost, name='post-update'),
+    path('reject_friendship/<int:friendship_request_id>', views.reject_friendship, name='reject_friendship'),
     path('delete_post/<int:post_id>/', views.delete_post, name='delete_post'),
     
     # friendship-django

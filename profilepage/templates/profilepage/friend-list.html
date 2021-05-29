@@ -35,8 +35,8 @@
                                     <img class="rounded-circle mr-2 " style="width: 80px; height: 80px;"
                                         src="{{ friendship_request.from_user.userprofile.profile_pic.url }}"></a>
                                 <br>{{ friendship_request.from_user }}
-                                <br><a href="{% url 'friendship_accept' friendship_request.id %}" type="button"> <i class="fas fa-user-plus"></i> view
-                                    request</a>
+                                <br><a href="{% url 'friendship_accept' friendship_request.id %}" type="button"> <i class="fas fa-user-plus"></i> Accept request</a>
+                                <br><a href="{% url 'reject_friendship' friendship_request %}" type="button"> <i class="fas fa-user-plus"></i> Reject request</a>
                                 {% empty %}
                             </ul>
                             <div>No new Friend Requests</div>

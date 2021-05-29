@@ -348,16 +348,12 @@ I was not able to fulfill this as I ran out of time. I intend to add it later on
 
 - Javascript
 
-  - [JSHint javascript Validator](https://jshint.com/) There are no critical errors, but there are warnings for $ used in jquery.
-    It also said there were unused variables, but its due to them being on-clicks.
+  - [JSHint javascript Validator](https://jshint.com/) 
+  There are no critical errors.
 
 - Python
   - [PEP8 online](http://pep8online.com/) "All right"
     No errors found.
-
-### Testing Methods
-
-For information on the testing, follow the link to the document [here](testing.md)
 
 ##### Back to [top](#table-of-contents)
 ---

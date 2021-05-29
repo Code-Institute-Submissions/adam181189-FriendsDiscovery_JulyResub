@@ -8,7 +8,7 @@ from users.models import UserDetails
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.views.generic import DetailView
-from friendship.models import Friend, Follow, Block, FriendshipRequest
+from friendship.models import Friend, Follow, Block, FriendshipRequest, bust_cache
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django import template
@@ -309,7 +309,7 @@ def add_friend(request, to_username,  template_name="profilepage/friend_request.
 def remove_friend(request, to_username, template_name="profilepage/remove_friend.html"):
     """ A view to remove a friend """
 
-    ctx = {"to_username": to_username, "messages": messages,}
+    ctx = {"to_username": to_username}
 
     if request.method == "POST":
         to_user = user_model.objects.get(username=to_username)
@@ -325,16 +325,30 @@ def remove_friend(request, to_username, template_name="profilepage/remove_friend
 @login_required
 def request_cancel(request, to_user_id, template_name="profilepage/request_cancel.html"):
     """ Cancel a previously created friendship_request_id """
+    
+    getuserinfo = UserDetails.objects.get(user=User.objects.get(id= to_user_id))
+        
+    userinfo = getuserinfo.user.id
+
+    getcurrentUserInfo = UserDetails.objects.get(user=User.objects.get(
+    username=request.user.username))
+
+    currentUserInfo = getcurrentUserInfo.user.id
+
     if request.method == "POST":
-        f_request = get_object_or_404(
-             request.user.friendship_requests_sent, id = to_user_id
-        )
-        print(f_request)
-        f_request.cancel()
+        FriendshipRequest.objects.filter(from_user = currentUserInfo, to_user = userinfo).delete()
+        bust_cache('requests', userinfo)
+        bust_cache('sent_requests', userinfo)
+        
+        # Bust reverse requests cache - reverse request might be deleted
+        bust_cache('requests', currentUserInfo)
+        bust_cache('sent_requests', currentUserInfo)
 
-        return redirect("friend_list", {"friendship_request": f_request})
+        return redirect('friend_list')
 
-    return render(request, template_name)
+    return render(request, template_name, {"userinfo": userinfo, 
+            "currentUserInfo": currentUserInfo, "getuserinfo": getuserinfo,
+             "getcurrentUserInfo": getcurrentUserInfo})
 
 
 @login_required
@@ -359,19 +373,35 @@ def friendship_accept(request, to_username, template_name="profilepage/received_
 
 
 @login_required
-def friendship_reject(request, friendship_request_id, template_name="profilepage/received_friendship_requests.html"):
+def reject_friendship(request, friendship_request_id, template_name="profilepage/reject_friendship.html"):
     """ Reject a friendship request """
-    if request.method == "POST":
-        f_request = get_object_or_404(
-            request.user.friendship_requests_received, id=to_username
-        )
-        f_request.reject()
-        f_request.remove()
-        return redirect("friendship_request_list")
+
+    print(friendship_request_id)
     
-    return redirect(
-        "friendship_requests_detail", friendship_request_id=friendship_request_id
-    )
+    getuserinfo = UserDetails.objects.get(user=User.objects.get(id = friendship_request_id ))
+        
+    userinfo = getuserinfo.user.id
+
+    getcurrentUserInfo = UserDetails.objects.get(user=User.objects.get(
+    username=request.user.username))
+
+    currentUserInfo = getcurrentUserInfo.user.id
+
+    if request.method == "POST":
+        
+        FriendshipRequest.objects.filter(to_user = currentUserInfo, from_user = userinfo).delete()
+        bust_cache('requests', userinfo)
+        bust_cache('sent_requests', userinfo)
+        
+        # Bust reverse requests cache - reverse request might be deleted
+        bust_cache('requests', currentUserInfo)
+        bust_cache('sent_requests', currentUserInfo)
+
+        return redirect("friend_list")
+    
+    return render(request, template_name, {"userinfo": userinfo, 
+            "currentUserInfo": currentUserInfo, "getuserinfo": getuserinfo,
+             "getcurrentUserInfo": getcurrentUserInfo})
 
 
 @login_required
