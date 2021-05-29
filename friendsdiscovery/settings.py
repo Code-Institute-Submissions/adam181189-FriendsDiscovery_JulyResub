@@ -197,14 +197,14 @@ if 'USE_AWS' in os.environ:
 #STRIPE_TEST_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
 #STRIPE_TEST_SECRET_KEY = config('STRIPE_SECRET_KEY')
 
-STRIPE_LIVE_PUBLIC_KEY = os.environ.get('STRIPE_SECRET_KEY', default=None)
-STRIPE_LIVE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', default=None)
-STRIPE_TEST_PUBLIC_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY', '')
-STRIPE_TEST_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
+STRIPE_LIVE_PUBLIC_KEY = os.environ.get('STRIPE_LIVE_PUBLISHABLE_KEY', default=None)
+STRIPE_LIVE_SECRET_KEY = os.environ.get('STRIPE_LIVE_SECRET_KEY', default=None)
+STRIPE_TEST_PUBLIC_KEY = os.environ.get('STRIPE_TEST_PUBLISHABLE_KEY', '')
+STRIPE_TEST_SECRET_KEY = os.environ.get('STRIPE_TEST_SECRET_KEY', '')
 STRIPE_LIVE_MODE = os.environ.get('STRIPE_LIVE_MODE')  # Change to True in production
 STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET')
 
-DJSTRIPE_WEBHOOK_SECRET = "whsec_xxx"
+DJSTRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WH_SECRET')
 DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
 
 # Emails
