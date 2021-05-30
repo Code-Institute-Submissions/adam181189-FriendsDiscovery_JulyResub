@@ -218,7 +218,7 @@ def profile_list(request):
     userinfo = UserDetails.objects.get(user=User.objects.get(
         username=request.user.username))
 
-    data = UserDetails.objects.all()
+    data = UserDetails.objects.exclude(user=request.user.is_staff).all()
     paginator = Paginator(data, 4)
 
     page_number = request.GET.get('page')
