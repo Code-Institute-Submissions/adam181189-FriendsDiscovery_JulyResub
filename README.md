@@ -1,6 +1,6 @@
 # FriendsDiscovery
 
-<img src="responsive.png">
+<img src="readme-images/responsive.png" width="600">
 
 FriendsDiscovery is a website that allows users to create blog posts, build new friendships, and chat with others.
 
@@ -187,9 +187,9 @@ These were used as the main colours. A simple calming effect is what I wanted th
 #### *Accent colours* 
 
 
-<img src="dark-blue.png">
+<img src="readme-images/dark-blue.png">
 
-<img src="light-blue.png">
+<img src="readme-images/light-blue.png">
 
 
   
