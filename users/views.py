@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 import djstripe
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .models import UserDetails
 from django.contrib import messages
 import stripe
@@ -18,6 +18,7 @@ from django.utils.decorators import method_decorator
 from allauth.account.utils import complete_signup
 from allauth.account import app_settings
 from datetime import datetime
+from django.contrib.auth.models import User
 
 from django.views.decorators.csrf import csrf_exempt
 
@@ -29,6 +30,7 @@ from django.utils.encoding import smart_str
 
 
 def index(request):
+    # index home screen
     if request.user.is_authenticated:
         username = request.user.username
     else:
@@ -43,49 +45,13 @@ def my_handler(event, **kwargs):
     print("We should probably notify the user at this point")
 
 
-# @method_decorator(csrf_exempt, name="dispatch")
-# class WebHook(View):
-#     """A view used to handle webhooks."""
-
-#     def post(self, request, *args, **kwargs):
-#         """
-#         Create an Event object based on request data.
-#         Creates an EventProcessingException if the webhook Event is a duplicate.
-#         """
-#         body = smart_str(request.body)
-#         data = json.loads(body)
-
-#         # if data['id'] == TEST_EVENT_ID:
-#         #     logger.info("Test webhook received: {}".format(data['type']))
-#         #     return HttpResponse()
-
-#         if Event.stripe_objects.exists_by_json(data):
-#             EventProcessingException.objects.create(
-#                 data=data,
-#                 message="Duplicate event record",
-#                 traceback=""
-#             )
-#         else:
-#             event = Event._create_from_stripe_object(data, save=False)
-#             event.validate()
-
-#             cf = get_callback_function("DJSTRIPE_WEBHOOK_EVENT_CALLBACK")
-
-#             if djstripe_settings.WEBHOOK_EVENT_CALLBACK:
-#                 djstripe_settings.WEBHOOK_EVENT_CALLBACK(event)
-#             else:
-#                 event.process()
-
-#         return HttpResponse()
-
-
 @login_required
 def profile(request):
     return render(request, "profilepage/blog.html")
 
 
 def extendedSignup(request):
-
+    # signup form Registration
     if request.method == 'POST':
         form = SignupForm(request.POST)
         profile_form = UserProfileForm(request.POST)
@@ -106,7 +72,8 @@ def extendedSignup(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
-            complete_signup(request, user,app_settings.EMAIL_VERIFICATION, "/")
+            complete_signup(
+                request, user, app_settings.EMAIL_VERIFICATION, "/")
 
             messages.error(request, "Check Email to verify")
 
@@ -118,13 +85,15 @@ def extendedSignup(request):
     context = {'form': form, 'profile_form': profile_form}
     return render(request, 'account/signup.html', context)
 
-# https://www.ordinarycoders.com/blog/article/django-stripe-monthly-subscription used to get subscription with stripe
+# https://www.ordinarycoders.com/blog/article/django-stripe-monthly-subscription\
+# used to get subscription with stripe
+
 
 @login_required
 def checkout(request):
-
-        
-    end_of_sub_date = int(request.user.userprofile.subscription.current_period_end.strftime('%Y%m%d%H%M%S'))
+    end_of_sub_date = int(
+        request.user.userprofile.subscription.current_period_end.strftime(
+            '%Y%m%d%H%M%S'))
     time_now = int(datetime.now().strftime('%Y%m%d%H%M%S'))
 
     print(end_of_sub_date)
@@ -135,19 +104,16 @@ def checkout(request):
     print(sub_ended)
 
     if request.method == 'GET':
-        #print("USER")
-        #print(request.user)
-        #print("USER.userprofile")
-        #print(request.user.userprofile)
-        #print("USER.userprofile.subscription")
-        #print(request.user.userprofile.subscription)
-        if request.user.userprofile.subscription is None or end_of_sub_date <= time_now and request.user.userprofile.subscription.cancel_at_period_end == True:
-            products = Product.objects.all()
-            
+        if (request.user.userprofile.subscription is None or
+            end_of_sub_date <= time_now and
+                request.user.userprofile.subscription.cancel_at_period_end
+                is True):
+                products = Product.objects.all()
 
-            context = {"products": products}
-            return render(request, "payment_method/checkout.html", context)        
-        elif request.user.userprofile.subscription.cancel_at_period_end == True:
+                context = {"products": products}
+                return render(request, "payment_method/checkout.html", context)
+        elif request.user.userprofile.subscription.cancel_at_period_end \
+                is True:
             return redirect(cancelledSubscription)
         else:
 
@@ -156,7 +122,7 @@ def checkout(request):
 
 @login_required
 def create_sub(request):
-
+    # view to show the subscription
     if request.method == 'POST':
         print("CREATE_SUB POST")
         # Reads application/json and returns a response
@@ -174,7 +140,7 @@ def create_sub(request):
                 payment_method=payment_method,
                 email=request.user.email,
                 invoice_settings={
-                    'default_payment_method': payment_method
+                    'default_': payment_method
                 }
             )
 
@@ -196,12 +162,9 @@ def create_sub(request):
                 expand=["latest_invoice.payment_intent"]
             )
 
-            djstripe_subscription = djstripe.models.Subscription.sync_from_stripe_data(
-                subscription
-            )
-
-            #print("########## djstripe_subscription")
-            #pprint(vars(djstripe_subscription))
+            djstripe_subscription = \
+                djstripe.models.Subscription.sync_from_stripe_data(
+                    subscription)
 
             request.user.userprofile.subscription = djstripe_subscription
             request.user.userprofile.save()
@@ -217,14 +180,17 @@ def create_sub(request):
 
 
 def complete(request):
+    # A view to lead to a subscribed user
     return render(request, "payment_method/complete.html")
 
 
 def cancelledSubscription(request):
+    # A view that leads to a subscribed user but with a non renewable sub
     return render(request, "payment_method/resubscribe.html")
 
 
 def cancel(request):
+    # A view to cancel the subscription on the next renewal date
     if request.user.is_authenticated:
 
         stripe.api_key = djstripe.settings.STRIPE_SECRET_KEY
@@ -232,25 +198,19 @@ def cancel(request):
         print(sub_num.cancel_at_period_end)
 
         try:
-            sub_num.update(cancel_at_period_end = True)
+            sub_num.update(cancel_at_period_end=True)
             sub_num.save
 
         except Exception as e:
             print("ERROR")
             print(e.args[0])
-            return JsonResponse({'error': (e.args[0])}, status =403)
-
-       #     if request.user.is_authenticated:
-        #stripe.api_key = djstripe.settings.STRIPE_SECRET_KEY
-
-       # stripe_subscription = stripe.Subscription.retrieve(request.user.userprofile.subscription.id)
-        #stripe_subscription.id.cancel_at_period_end = True
-       # stripe_subscription.save()
+            return JsonResponse({'error': (e.args[0])}, status=403)
 
     return redirect("userprofile")
 
 
 def resubscribe(request):
+    # a view to allow the user to resubscibe with a cancelled sub
     if request.user.is_authenticated:
 
         stripe.api_key = djstripe.settings.STRIPE_SECRET_KEY
@@ -258,14 +218,12 @@ def resubscribe(request):
         print(sub_num.cancel_at_period_end)
 
         try:
-            sub_num.update(cancel_at_period_end = False)
+            sub_num.update(cancel_at_period_end=False)
             sub_num.save
-
-
 
         except Exception as e:
             print("ERROR")
             print(e.args[0])
-            return JsonResponse({'error': (e.args[0])}, status =403)
+            return JsonResponse({'error': (e.args[0])}, status=403)
 
     return redirect("userprofile")

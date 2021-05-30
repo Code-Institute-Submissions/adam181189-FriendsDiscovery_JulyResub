@@ -36,16 +36,46 @@ urlpatterns = [
     path('friend_list', views.friend_list, name='friend_list'),
     path('add_friend/<str:to_username>/', views.add_friend, name='add_friend'),
     path('add_friend/<str:to_username>/', views.add_friend, name='add_friend'),
-    path('received_friend_requests/<int:friendship_request_id>', views.received_friend_requests, name='received_friend_requests'),
-    path('friendship_accept/<str:to_username>', views.friendship_accept, name='friendship_accept'),
-    path('remove_friend/<str:to_username>', views.remove_friend, name='remove_friend'),
-    path('request_cancel/<int:to_user_id>/', views.request_cancel, name='request_cancel'),
-    path('record_hearts_view/<str:to_username>/', views.record_hearts_view, name='record_hearts_view'),
-    path('others-profile/<str:username>/', views.others_profile, name='others_profile'),
-    path('membership_info', views.membership_info, name='membership_info'),
-    path('post/<int:post_id>/', views.editPost, name='post-update'),
-    path('reject_friendship/<int:friendship_request_id>', views.reject_friendship, name='reject_friendship'),
-    path('delete_post/<int:post_id>/', views.delete_post, name='delete_post'),
+    path(
+        'received_friend_requests/<int:friendship_request_id>', 
+        views.received_friend_requests, 
+        name='received_friend_requests'),
+    path(
+        'friendship_accept/<str:to_username>', 
+        views.friendship_accept, 
+        name='friendship_accept'),
+    path(
+        'remove_friend/<str:to_username>', 
+        views.remove_friend, 
+        name='remove_friend'),
+    path(
+        'request_cancel/<int:to_user_id>/', 
+        views.request_cancel, 
+        name='request_cancel'),
+    path(
+        'record_hearts_view/<str:to_username>/', 
+        views.record_hearts_view, 
+        name='record_hearts_view'),
+    path(
+        'others-profile/<str:username>/', 
+        views.others_profile, 
+        name='others_profile'),
+    path(
+        'membership_info', 
+        views.membership_info, 
+        name='membership_info'),
+    path(
+        'post/<int:post_id>/', 
+        views.editPost, 
+        name='post-update'),
+    path(
+        'reject_friendship/<int:friendship_request_id>', 
+        views.reject_friendship, 
+        name='reject_friendship'),
+    path(
+        'delete_post/<int:post_id>/', 
+        views.delete_post, 
+        name='delete_post'),
     
     # friendship-django
     url(regex=r"^users/$", view=all_users, name="friendship_view_users"),

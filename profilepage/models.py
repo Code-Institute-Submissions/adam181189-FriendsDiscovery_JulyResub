@@ -6,7 +6,7 @@ from users.models import UserDetails
 
 
 class Post(models.Model):
-    #fields here
+    # fields here
     new_post = models.TextField(max_length=300)
     date_posted = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(
@@ -18,7 +18,7 @@ class Post(models.Model):
 
 
 class Heart(models.Model):
-    #fields here
+    # fields here
     from_user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -32,7 +32,8 @@ class Heart(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return f'{self.from_user} sent a Heart to {self.to_user} on {self.date_posted}.'
+        return f"{self.from_user} sent a Heart to " \
+            f"{ self.to_user} on {self.date_posted}."
 
 
 class updateInfo(models.Model):
