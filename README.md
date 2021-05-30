@@ -1,10 +1,11 @@
 # FriendsDiscovery
 
-<img src="">
+<img src="responsive.png">
 
 FriendsDiscovery is a website that allows users to create blog posts, build new friendships, and chat with others.
 
-[*Am I Responsive?*](http://ami.responsivedesign.is/#) was used to test how responsive the website is on different devices.
+[*Am I Responsive?*](http://ami.responsivedesign.is/#) cannot be used to check responsiveness due to the login. 
+- "The website that you're trying to view on Am I Responsive has X-Frame Options set to Same Origin or Deny. This isn't great for the tool, but it is a great thing for a more secure web."
 ## Table of Contents
 
 ---
@@ -180,15 +181,15 @@ These were used as the main colours. A simple calming effect is what I wanted th
 
 - "white": "white"
 - "black": "black"
-- "dark blue (Main)": rgb(43, 96, 156)
-- "light blue (Accents)": rgb(88, 129, 175)
+- "dark blue-Sapphire (Main)": rgb(43, 96, 156)
+- "light blue-wedgewood (Accents)": rgb(88, 129, 175)
 
 #### *Accent colours* 
 
 
-<img src="dark-blue">
+<img src="dark-blue.png">
 
-<img src="light-blue">
+<img src="light-blue.png">
 
 
   
@@ -198,7 +199,6 @@ These were used as the main colours. A simple calming effect is what I wanted th
 [Font Awesome 5.13.1](https://fontawesome.com/)
 
 Font awesome icons have been used throughout. There is on attached to every link in the navbar, and there are user + or user - icons for accepting requests or cancelling friend requests. 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 #### *Image modifications*
 
@@ -210,6 +210,7 @@ Permissions for editing image ok as a stock image.
 #### *Data Structure and Schema*
 
 I used SQLITE to store the data that the website uses.  
+
 
 
 
@@ -471,7 +472,7 @@ You can run the app by running: python manage.py runserver The project will run 
 
 - All written content was my own.
 - Images taken from free editing allowed websites
-- 
+- https://zyro.com/ai/content-generator?utm_medium=affiliate&utm_source=aff1646&utm_campaign=aff20&transaction_id=1023f988881b0d4f3fca61ecaaaa1b Used for generic blog post filling. 
 
 ### Media
 
