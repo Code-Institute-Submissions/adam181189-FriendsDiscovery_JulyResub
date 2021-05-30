@@ -1,6 +1,6 @@
 # FriendsDiscovery
 
-<img src="static/images/responsive.png">
+<img src="">
 
 FriendsDiscovery is a website that allows users to create blog posts, build new friendships, and chat with others.
 
@@ -337,6 +337,10 @@ I was not able to fulfill this as I ran out of time. I intend to add it later on
 - Expected: Should bring up a normal page
 - Why it remains: Brings up a page with a banner I currently dont have the remaining time to remove, page is unnecessary but using django friendship doesnt have an easy way to get through it.  
 
+- Error: Cannot remove JavaScript from the base.html
+- Expected: All JavaScript to work from the external JS file
+- Why it remains: If I move into an external, it cannot read some lines. With the deadline so close I am unable to debug the reason why and fix it in time. As it works I have opted to leave it in for the time being, and fix it afterwards. 
+
 ### Validators
 
 - HTML
@@ -440,16 +444,16 @@ You can run the app by running: python manage.py runserver The project will run 
 ### Content
 
 - All written content was my own.
-- [Unsplash]() - Main home image
+- Images taken from free editing allowed websites
 - 
 
 ### Media
 
-- 
+- [Unsplash](https://unsplash.com/photos/x9TZjFdvr0Y) - Main home image
 
 ### Acknowledgements
 
-- I'd like to thank the slack community for their support, particularly the May 2020 cohort group who have given me support and suggestions.
-- I'd also like to thank my friends and family for their support, and their support with testing of the website. 
+- I'd like to thank the slack community for their support, particularly the May 2020 cohort group who have given me ideas and suggestions.
+- I'd also like to thank my friends and family for their support, and with testing of the website. 
 
 ##### Back to [top](#table-of-contents)

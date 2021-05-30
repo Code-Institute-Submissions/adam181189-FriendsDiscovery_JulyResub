@@ -79,8 +79,9 @@
                 <div class="card profileInfoCard profile-section align-items-center">
                     <a href="{% url 'newpost' %}" type="button" class="newpostButton">Make a new
                         Post</a>
-                    
-                    <a href="{% url 'mypostprofile' %}" type="button" class="mypostsButton">My posts only</a>
+                        {% if request.user.userprofile.subscription.status == "active" %}
+                    <a href="{% url 'mypostprofile' %}" type="button" class="mypostsButton">My posts only</a>                    
+                    {% endif %}
                     <br>
                     <h3 class="white-important p-2">
                         Posts
