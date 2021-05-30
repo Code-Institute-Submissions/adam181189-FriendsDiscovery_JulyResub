@@ -106,7 +106,10 @@ top: 100px;
     padding:10px;
 }
 
-
+.profile-rounded-circle {
+    padding:20px;
+    object-fit:cover;
+}
 
 .profileImage {
     width: 190px; 

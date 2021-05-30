@@ -17,6 +17,7 @@ from django.http.response import JsonResponse, HttpResponse
 from django.utils.decorators import method_decorator
 from allauth.account.utils import complete_signup
 from allauth.account import app_settings
+from datetime import datetime
 
 from django.views.decorators.csrf import csrf_exempt
 
@@ -122,6 +123,17 @@ def extendedSignup(request):
 @login_required
 def checkout(request):
 
+        
+    end_of_sub_date = int(request.user.userprofile.subscription.current_period_end.strftime('%Y%m%d%H%M%S'))
+    time_now = int(datetime.now().strftime('%Y%m%d%H%M%S'))
+
+    print(end_of_sub_date)
+    print(time_now)
+
+    sub_ended = end_of_sub_date < time_now
+
+    print(sub_ended)
+
     if request.method == 'GET':
         #print("USER")
         #print(request.user)
@@ -129,14 +141,14 @@ def checkout(request):
         #print(request.user.userprofile)
         #print("USER.userprofile.subscription")
         #print(request.user.userprofile.subscription)
-        if request.user.userprofile.subscription is None:
+        if request.user.userprofile.subscription is None or end_of_sub_date <= time_now and request.user.userprofile.subscription.cancel_at_period_end == True:
             products = Product.objects.all()
+            
 
             context = {"products": products}
             return render(request, "payment_method/checkout.html", context)        
         elif request.user.userprofile.subscription.cancel_at_period_end == True:
             return redirect(cancelledSubscription)
-        
         else:
 
             return redirect(complete)
