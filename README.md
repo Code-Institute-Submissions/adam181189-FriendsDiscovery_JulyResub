@@ -54,17 +54,29 @@ FriendsDiscovery is a website that allows users to create blog posts, build new 
 
  - As the developer, I want to create a website so users can share aspects of their lives with others. 
 
+  - Users can share blog posts
+
  - As the developer, I want the website to be aesthetically pleasing to those who visit the website making good use of HTML, CSS and Bootstrap. 
+
+  - Website is Uses a positive colour scheme and is easily accessible.
 
  - As the developer, I want the website to function in the intended ways using Javascript/JQuery and Python.
 
+  - This website uses aspects of all of the above.
+
  - As the developer, I want everything shared to be stored in a back end data network, in this case I will be using SQLite3, with AWS for static files. 
+
+  - This website uses sqlite and everything necessary is accessible for admin
 
 #### *Site Owner Stories*
 
 - As the site owner, I want users to have a positive experience so that the number of users grows continually. 
 
+  - Website is Uses a positive colour scheme and is easily accessible.
+
 - As the site owner, I want to have premium options to encourage some users to pay for an extra service. 
+
+  - Website has some extra options for a premium member that standard doesnt have. This is easy for a user to see by going to the membership tab
 
 #### *User Stories*
 
@@ -72,19 +84,33 @@ This is created so users can share music they have arranged or composed, sharing
 
 - As a user, I want to be able to share stories and anecdotes with friends.
 
+  - Users can Write, edit, remove blog posts. 
+
 - As a user, I want to be able to add new friends and communicate with them
 
 - As a user, I want to have a way to reward other users I find interesting
 
+  - Users can share heart points per day with their favourite users.
+
 - As a user, I want to share information about myself so other users know more about me
+
+  - Each user has a Bio that they can edit
 
 - As a user, I want to be able to share an image of myself, or of something that I enjoy and want others to see. 
 
+  - Each user can change a profile image for their Profile.
+
 - As a user, I want to see an attractive website that makes me want to use it. 
+
+  - Website is Uses a positive colour scheme and is easily accessible.
 
 - As a user, I want to see other users profile pages, and see what they have shared
 
+  - Profile page tab allows users to see all user profiles and click on them to see limited information. 
+
 - As a user, I want to be able to hide people I don't want to see. 
+
+  - Unfriending option available for premium members
 
 ### Scope Plane
 
@@ -142,7 +168,7 @@ I also changed the nav bar so the links were all together, as profile and friend
 
 #### *Typography*
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-The font Roboto was used as it is a sans type font. Sans are useful for simplcity and for a modern look.  
+The font Josefin+Sans was used as it is a sans type font. Sans are useful for simplcity and for a modern look.  
 
 1 [Google Font](https://fonts.google.com/) was used throughout this website:
 - ["Josefin+Sans";](https://fonts.google.com/specimen/Josefin+Sans)

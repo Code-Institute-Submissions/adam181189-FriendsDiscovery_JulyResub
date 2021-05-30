@@ -7,7 +7,6 @@
 
 {% block content %}
 
-
 <div class="card registrationCard text-center">
     <h1>{% trans "Login" %}</h1>
 
@@ -33,7 +32,7 @@
         {% include "socialaccount/snippets/login_extra.html" %}
     {% else %}
         <p>If you have not created an account yet, then please
-            <a href="{% url 'extendedSignup' %}">sign up</a> first.</p>
+            <a href="{% url 'extendedSignup' %}" style="color:white;">sign up</a> first.</p>
     {% endif %}
 
     <form class="login" method="POST" action="{% url 'account_login' %}">
@@ -42,11 +41,12 @@
         {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
-        <a class="button secondaryAction btn btn-primary" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-        &nbsp;
-        &nbsp;
         <button class="primaryAction btn btn-primary" type="submit">{% trans "Login" %}</button>
+        <br>
+        <br>
+        <a class="button secondaryAction btn btn-secondary btn-sm" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
     </form>
 </div>
+
 
 {% endblock %}

@@ -7,7 +7,7 @@
 
 <div class="card profileCard align-items-center">
     <br>
-    {% if check_friendship and request.user.userprofile.subscription.status == 'active' %}
+    {% if request.user.userprofile.subscription.status == 'active' %}
     <h2 class="d-flex align-items-center">{{ user.username }}'s Profile</h2><br>
     {% if messages %}
     {% for message in messages %}
@@ -80,7 +80,6 @@
                 <div class="card profileInfoCard profile-section align-items-center">
                     <a href="{% url 'newpost' %}" type="button" class="newpostButton">Make a new
                         Post</a>
-
                     <a href="{% url 'userprofile' %}" type="button" class="mypostsButton">Include Friends Posts</a>
                     <br>
                     <h3 class="white-important p-2">
@@ -157,4 +156,5 @@
 {% else %}
 <h2 class="d-flex align-items-center">You need to be suscribed to see this service</h2><br>
 </div>
+{% endif %}
 {% endblock %}

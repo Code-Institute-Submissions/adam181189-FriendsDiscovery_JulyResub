@@ -2,8 +2,13 @@
 {% load static %}
 
 {% block content %}
-
-<div class="card profileCard align-items-center">
+<div class="container-fluid">
+    <div class="card profileInfoCard profile-section align-items-center">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="white-important p-2">
+                    You are intending to send {{ to_username }} a friend request
+                </h3>
 
     {% if messages %}
     {% for message in messages %}
@@ -18,10 +23,14 @@
 <form method="post">
 {% csrf_token %}
 <input type="hidden" name="to_username" value="{{ to_username }}" />
-<input type="submit" value="add {{ to_username }} as a friend" />
+<input type="submit" value="add {{ to_username }} as a friend?" />
 </form>
 {% endif %}
 
 </div>
+</div>
+</div>
+</div>
+
 
 {% endblock %}

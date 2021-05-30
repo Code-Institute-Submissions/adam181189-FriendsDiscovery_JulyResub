@@ -96,8 +96,7 @@
                         <div class="pb-2 row m-0" style="width: 100%; margin-right: 0 !important;">
                             <div style="padding-left: 0px !important;"
                                 class="col-8 no-padding d-flex align-items-center">
-                                <img class="rounded-circle mr-2" style="width: 20px; height: 20px; object-fit: cover;"
-                                    src="{{ post.user.userprofile.profile_pic.url }}">
+                                <img src="{{ post.user.userprofile.profile_pic.url }}" class="rounded-circle mr-2" style="width: 20px; height: 20px; object-fit: cover;">
                                 &nbsp;
                                 {% if user == post.user %}
                                 <a class="white-important" href="{% url 'userprofile' %}">
