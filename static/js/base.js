@@ -1,3 +1,5 @@
+/* !!!!!!!!!!!! Cannot get this code to run in here, but works on base.html !!!!!!!!!!!!!! */
+
 /*document.addEventListener("DOMContentLoaded", function(event) {
 
 
@@ -166,6 +168,9 @@ function planSelect(name, price, priceId) {
 }
 
 */
+
+
+/* Used https://stackoverflow.com/questions/16356289/how-to-show-datepicker-calendar-on-datefield to support with this */
 
 $(function () {
     $('.datetime-input').datetimepicker({

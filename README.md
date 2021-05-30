@@ -438,8 +438,8 @@ I was not able to fulfill this as I ran out of time. I intend to add it later on
   There are no critical errors.
 
 - Python
-  - [PEP8 online](http://pep8online.com/) "All right"
-    No errors found.
+  - [PEP8 online](http://pep8online.com/) "All right" 
+    No errors found. Some warnings still on some pages.
 
 ##### Back to [top](#table-of-contents)
 ---
