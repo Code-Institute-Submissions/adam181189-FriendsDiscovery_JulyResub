@@ -413,6 +413,10 @@ I was not able to fulfill this as I ran out of time. I intend to add it later on
 - Expected: All JavaScript to work from the external JS file
 - Why it remains: If I move into an external, it cannot read some lines. With the deadline so close I am unable to debug the reason why and fix it in time. As it works I have opted to leave it in for the time being, and fix it afterwards. 
 
+- Error: Admin still on profile list
+- Expected: Staff users shouldn't be unpacked
+- Why it remains: Deadline is too close and I won't have chance to sort this bug. Its unusual as gitpod shows that the staff arent viewable in profile list"
+
 ### Validators
 
 - HTML
