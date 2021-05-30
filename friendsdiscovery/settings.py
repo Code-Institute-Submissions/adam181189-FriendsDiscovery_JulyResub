@@ -22,11 +22,11 @@ from os.path import dirname, abspath
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY =   config('SECRET_KEY') # 'SECRET_KEY' in os.environ #
+SECRET_KEY =   'SECRET_KEY' in os.environ # config('SECRET_KEY') #
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = config('DEBUG') #'DEVELOPMENT' in os.environ #
+DEBUG = 'DEVELOPMENT' in os.environ #config('DEBUG') #
 
 ALLOWED_HOSTS = ['friends-discovery.herokuapp.com', 'localhost']
 
@@ -192,14 +192,14 @@ if 'USE_AWS' in os.environ:
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 
 # Stripe config
-STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
-STRIPE_TEST_SECRET_KEY = config('STRIPE_SECRET_KEY')
+#STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
+#STRIPE_TEST_SECRET_KEY = config('STRIPE_SECRET_KEY')
 
-#STRIPE_LIVE_PUBLIC_KEY = os.environ.get('STRIPE_LIVE_PUBLISHABLE_KEY', "<live public key>")
-#STRIPE_TEST_PUBLIC_KEY = os.environ.get('STRIPE_TEST_PUBLISHABLE_KEY', "<test public key>")
+STRIPE_LIVE_PUBLIC_KEY = os.environ.get('STRIPE_LIVE_PUBLISHABLE_KEY', "<live public key>")
+STRIPE_TEST_PUBLIC_KEY = os.environ.get('STRIPE_TEST_PUBLISHABLE_KEY', "<test public key>")
 
-#STRIPE_LIVE_SECRET_KEY = os.environ.get('STRIPE_LIVE_SECRET_KEY', "<live secret key>")
-#STRIPE_TEST_SECRET_KEY = os.environ.get('STRIPE_TEST_SECRET_KEY', "<test secret key>")
+STRIPE_LIVE_SECRET_KEY = os.environ.get('STRIPE_LIVE_SECRET_KEY', "<live secret key>")
+STRIPE_TEST_SECRET_KEY = os.environ.get('STRIPE_TEST_SECRET_KEY', "<test secret key>")
 STRIPE_LIVE_MODE = False   #os.environ.get('STRIPE_LIVE_MODE')  # Change to True in production
 STRIPE_WH_SECRET = config('STRIPE_WH_SECRET')
 
