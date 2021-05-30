@@ -211,6 +211,47 @@ Permissions for editing image ok as a stock image.
 
 I used SQLITE to store the data that the website uses.  
 
+I had the following models
+
+- userdetails: All information about registered users.
+ - user
+ - subscription
+ - Date of birth
+ - Gender
+ - Bio
+ - Nationality
+ - Profile Pic
+ - Received Hearts
+ - Daily hearts given
+
+ - Social accounts are added but not used
+
+ - Sites: Website assigned
+
+ - ProfilePage: All inforamtion added in the profile page app
+  - Hearts - added when a user gives another user a heart
+  - Posts - adds posts users add
+
+- Friendship: built from the pip install
+  - Blocked relationships (unused)
+  - Following Relationship (unused)
+  - Friends - who is on whos friend list
+  - Friendship Requests - Who has sent a request to who
+
+- DJStripe: (lots of unused models) I have used the following. 
+  - Accounts - the user on stripe.com
+  - Api keys - key gained from stripe.com
+  - Customers - users who have subscribed so far
+  - Products - collection grabbed from stripe.com
+  - Subscriptions - subscription for premium membership with extra information. 
+    - cancel at period end is hit, it cancels on "current period end"
+  
+- Authentication
+  - Groups - not used
+  - users - Lists all users and their email address
+
+- Accounts
+  - Email addresses - Lists all emails whether verified or not.
 
 
 
@@ -356,7 +397,11 @@ I was not able to fulfill this as I ran out of time. I intend to add it later on
 
 - Error: Users couldn't send a certain user a friend request if another user had sent that person a request already.
 - Expected: To be able to send friend requests to every other user at the same time as another user
-- Fix: Added a for loop to the request_sent value which checks if the current user is in the list of friend requests relating to the profile page user. 
+- Fix: Added a for loop to the request_sent value which checks if the current user is in the list of friend requests relating to the profile page user.
+
+- Error: Stripe wouldn't cancel
+- Expected: at the end of purchase period, subscription would end and user would be able to re purchase
+- Fix: Check if datetime.now was larger than cancel_at. Had to turn the two dates into integers, which check against each other to find out if the current time is past the time when the accounts cancellation date and time was, and also checked if cancel automatic resubscribe is ticked off as well.  
 
 ### Ongoing bugs
 
