@@ -22,16 +22,6 @@ body {
     font-weight: 600;
 }
 
-/* footer */
-/*footer {
-    background-image: linear-gradient(to right, black, #010168);
-    color:white;
-    text-align: center;
-    position: relative;
-    bottom:0;
-    width:100%;
-    margin-top:2px;
-}*/
 
 #page-container {
     position: relative;
@@ -76,12 +66,15 @@ top: 100px;
 /* Registration */
 .registrationCard {
     font-size:1rem;
-    top: 6rem;
     color: black;
     padding:20px;
     margin:10px;
     background: white; /* Fallback for older browsers without RGBA-support */
     background: rgba(155, 152, 152, 0.5);
+}
+
+.registrationCard a{
+    color:white;
 }
 
 /* users profile pages */ 
@@ -120,10 +113,6 @@ top: 100px;
     margin-left:5px;
     width: 90px; 
     height: 70px;
-}
-
-textarea{
-    width:700px;
 }
 
 .newpostButton{
@@ -329,6 +318,7 @@ textarea{
     }
 
 
+
 .subtitle {  
     font-size:15px; 
 }
@@ -417,6 +407,7 @@ textarea{
     }
 
 
+
 .subtitle {  
     font-size:13px; 
 }
@@ -451,9 +442,7 @@ textarea{
 
 @media (max-width: 320px) {
   
-    .registrationCard{
-        font-size:70%;
-    }
+  
     .home-welcome {  
         left:100px;
     }
