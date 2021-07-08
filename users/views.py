@@ -90,34 +90,30 @@ def extendedSignup(request):
 
 
 @login_required
+@login_required
 def checkout(request):
-    end_of_sub_date = int(
-        request.user.userprofile.subscription.current_period_end.strftime(
-            '%Y%m%d%H%M%S'))
     time_now = int(datetime.now().strftime('%Y%m%d%H%M%S'))
 
-    print(end_of_sub_date)
-    print(time_now)
-
-    sub_ended = end_of_sub_date < time_now
-
-    print(sub_ended)
-
     if request.method == 'GET':
-        if (request.user.userprofile.subscription is None or
-            end_of_sub_date <= time_now and
-                request.user.userprofile.subscription.cancel_at_period_end
-                is True):
+
+        if request.user.userprofile.subscription is None:
+            products = Product.objects.all()
+
+            context = {"products": products}
+            return render(request, "payment_method/checkout.html", context)
+        else:
+            end_of_sub_date = int(request.user.userprofile.subscription.current_period_end.strftime('%Y%m%d%H%M%S'))
+
+            if end_of_sub_date <= time_now and request.user.userprofile.subscription.cancel_at_period_end is True:
                 products = Product.objects.all()
 
                 context = {"products": products}
-                return render(request, "payment_method/checkout.html", context)
-        elif request.user.userprofile.subscription.cancel_at_period_end \
+                return render(request, "payment_method/checkout.html", context)            
+            elif request.user.userprofile.subscription.cancel_at_period_end \
                 is True:
-            return redirect(cancelledSubscription)
-        else:
-
-            return redirect(complete)
+                return redirect(cancelledSubscription)
+            else:
+                return redirect(complete)
 
 
 @login_required
