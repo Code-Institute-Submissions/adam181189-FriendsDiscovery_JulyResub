@@ -136,7 +136,7 @@ def create_sub(request):
                 payment_method=payment_method,
                 email=request.user.email,
                 invoice_settings={
-                    'default_': payment_method
+                    'default_payment_method': payment_method
                 }
             )
 
