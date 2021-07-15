@@ -25,7 +25,7 @@
                     </h4>
                     <article class="content-section" style="height: 140px; width: 100%">
                         <div class="mt-2 d-flex full-width align-items-center">
-                            <img class="rounded-circle mr-3 profileImage" src="{{ userinfo.profile_pic.url }}">
+                            <img class="rounded-circle mr-3 profile-rounded-circle profileImage" src="{{ userinfo.profile_pic.url }}">
                         </div>
                         <div>
                             <h4 class="white-important">
@@ -94,9 +94,8 @@
                         style="background-color: rgb(43, 96, 156); width: 80%; margin-bottom: 10px; padding: 10px;">
                         <div class="pb-2 row m-0" style="width: 100%; margin-right: 0 !important;">
                             <div style="padding-left: 0px !important;"
-                                class="col-8 no-padding d-flex align-items-center">
-                                <img class="rounded-circle profile-rounded-circle mr-2"  style="width: 30px; height: 30px; object-fit: cover;"
-                                    src="{{ post.user.userprofile.profile_pic.url }}">
+                            class="col-8 no-padding d-flex align-items-center">
+                            <img src="{{ post.user.userprofile.profile_pic.url }}" class="rounded-circle mr-2" style="width: 30px; height: 30px; object-fit: cover;">
                                 &nbsp;
                                 {% if user == post.user %}
                                 <a class="white-important" href="{% url 'userprofile' %}">
