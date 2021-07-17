@@ -403,6 +403,8 @@ I was not able to fulfill this as I ran out of time. I intend to add it later on
 - Expected: at the end of purchase period, subscription would end and user would be able to re purchase
 - Fix: Check if datetime.now was larger than cancel_at. Had to turn the two dates into integers, which check against each other to find out if the current time is past the time when the accounts cancellation date and time was, and also checked if cancel automatic resubscribe is ticked off as well.  
 
+
+
 ### Ongoing bugs
 
 - Error: Accept Friend request page
@@ -416,6 +418,11 @@ I was not able to fulfill this as I ran out of time. I intend to add it later on
 - Error: Admin still on profile list
 - Expected: Staff users shouldn't be unpacked
 - Why it remains: Deadline is too close and I won't have chance to sort this bug. Its unusual as gitpod shows that the staff arent viewable in profile list"
+
+- Error: Stripe emails don't send
+- Expected: Customer receives an email when subscribed
+- Why it remains: Stripe wants me to set up a business account to activate, and therefore gain live keys. As this is an assessment piece, this is unneccessary, so I'm 
+keeping it as test mode to show the fundamentals of it working. I am able to send an email to customers manually on the stripe website which emulates the purchase of a subscription.
 
 ### Validators
 
