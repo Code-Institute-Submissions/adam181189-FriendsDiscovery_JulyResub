@@ -403,7 +403,9 @@ I was not able to fulfill this as I ran out of time. I intend to add it later on
 - Expected: at the end of purchase period, subscription would end and user would be able to re purchase
 - Fix: Check if datetime.now was larger than cancel_at. Had to turn the two dates into integers, which check against each other to find out if the current time is past the time when the accounts cancellation date and time was, and also checked if cancel automatic resubscribe is ticked off as well.  
 
-
+- Error: Cannot remove JavaScript from the base.html
+- Expected: All JavaScript to work from the external JS file
+- Fix: Created a new input type into the body of base.html which finds the username and csrf token. During the internal js it is now able to find these and is able to make it work. 
 
 ### Ongoing bugs
 
@@ -411,9 +413,7 @@ I was not able to fulfill this as I ran out of time. I intend to add it later on
 - Expected: Should bring up a normal page
 - Why it remains: Brings up a page with a banner I currently dont have the remaining time to remove, page is unnecessary but using django friendship doesnt have an easy way to get through it.  
 
-- Error: Cannot remove JavaScript from the base.html
-- Expected: All JavaScript to work from the external JS file
-- Why it remains: If I move into an external, it cannot read some lines. With the deadline so close I am unable to debug the reason why and fix it in time. As it works I have opted to leave it in for the time being, and fix it afterwards. 
+
 
 - Error: Admin still on profile list
 - Expected: Staff users shouldn't be unpacked
