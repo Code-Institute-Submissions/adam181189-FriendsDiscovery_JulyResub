@@ -173,9 +173,8 @@
 
                                     window.location.href = '/complete';
                                 };
-                            }).catch(function (error) {
-                                displayError(result.error.message);
-
+                            }).catch(function (result) {
+                                displayError(result.error);
                             });
                         }
                     });
@@ -215,7 +214,6 @@
             pid.innerHTML = priceId;
             document.getElementById("submit").disabled = false;
         }
-
 
     </script>
 
