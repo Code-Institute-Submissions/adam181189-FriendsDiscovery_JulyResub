@@ -135,6 +135,7 @@ def create_sub(request):
             customer = stripe.Customer.create(
                 payment_method=payment_method,
                 email=request.user.email,
+                receipt_email = request.user.email
                 invoice_settings={
                     'default_payment_method': payment_method
                 }
