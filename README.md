@@ -209,7 +209,7 @@ Permissions for editing image ok as a stock image.
 
 #### *Data Structure and Schema*
 
-I used SQLITE to store the data that the website uses.  
+I used SQLITE to store the data that the website uses. [Schema](schema.md) 
 
 I had the following models
 
