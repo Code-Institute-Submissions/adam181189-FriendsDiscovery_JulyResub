@@ -42,189 +42,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
         integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
         crossorigin="anonymous"></script>
-        <link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-        <script src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
-        <script src="//cdn.bootcss.com/moment.js/2.17.1/moment.min.js"></script>
-        <script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/js/bootstrap-datetimepicker.min.js"></script>
+    <link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <script src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/moment.js/2.17.1/moment.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/js/bootstrap-datetimepicker.min.js"></script>
         
     <script type="text/javascript" src="{% static 'js/base.js' %}"></script> 
 
-    <script type="text/javascript">
-
-        document.addEventListener("DOMContentLoaded", function (event) {
-
-
-            document.getElementById("submit").disabled = true;
-
-            stripeElements();
-
-            function stripeElements() {
-                stripe = Stripe('pk_test_51IrJGOBBQ6etgiwPGrLa5gj7zQEPEezFLzgkZRK1VLQu4ggGbrx2YvsMRPaC3vmIy5aq9v8oCdxk4w9hf0agv5U6002oRBFZ7J');
-
-                if (document.getElementById('card-element')) {
-                    let elements = stripe.elements();
-
-                    // Card Element styles
-                    let style = {
-                        base: {
-                            color: "#32325d",
-                            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-                            fontSmoothing: "antialiased",
-                            fontSize: "16px",
-                            "::placeholder": {
-                                color: "#aab7c4"
-                            }
-                        },
-                        invalid: {
-                            color: "#fa755a",
-                            iconColor: "#fa755a"
-                        }
-                    };
-
-
-                    card = elements.create('card', {hidePostalCode : true, style: style });
-
-                    card.mount('#card-element');
-
-                    card.on('focus', function () {
-                        let el = document.getElementById('card-errors');
-                        el.classList.add('focused');
-                    });
-
-                    card.on('blur', function () {
-                        let el = document.getElementById('card-errors');
-                        el.classList.remove('focused');
-                    });
-
-                    card.on('change', function (event) {
-                        displayError(event);
-                    });
-                }
-                //we'll add payment form handling here
-            }
-
-            function displayError(event) {
-
-                let displayError = document.getElementById('card-errors');
-                if (event.error) {
-                    displayError.textContent = event.error;
-                    alert("Your subscription payment was not successful. " + event.error + ". Please re-try your payment.");
-                    window.location.href = '/userprofile';
-                } else {
-                    displayError.textContent = '';
-                }
-            }
-
-
-            //we'll add payment form handling here
-            let paymentForm = document.getElementById('subscription-form');
-            if (paymentForm) {
-
-                paymentForm.addEventListener('submit', function (evt) {
-                    //alert('payment submit');
-                    evt.preventDefault();
-                    changeLoadingState(true);
-
-
-                    // create new payment method & create subscription
-                    createPaymentMethod({ card });
-                });
-            }
-
-            function createPaymentMethod({ card }) {
-
-                //alert("CSRF Token: " + "{{ csrf_token }}");
-
-                // Set up payment method for recurring usage
-                let billingName = '{{user.username}}';
-
-                stripe
-                    .createPaymentMethod({
-                        type: 'card',
-                        card: card,
-                        billing_details: {
-                            name: billingName,
-                        },
-                    })
-                    .then((result) => {
-                        if (result.error) {
-                            displayError(result);
-                        } else {
-                            const paymentParams = {
-                                price_id: document.getElementById("priceId").innerHTML,
-                                payment_method: result.paymentMethod.id,
-                            };
-                            fetch("/create_sub", {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRFToken': '{{ csrf_token }}',
-                                },
-                                credentials: 'same-origin',
-                                body: JSON.stringify(paymentParams),
-                            }).then((response) => {
-                                return response.json();
-                            }).then((result) => {
-                                if (result.error) {
-                                    // The card had an error when trying to attach it to a customer
-                                    throw result;
-                                }
-                                return result;
-                            }).then((result) => {
-                                if (result && result.status === 'active') {
-
-                                    window.location.href = '/complete';
-                                };
-                            }).catch(function (result) {
-                                displayError(result);
-                            });
-                        }
-                    });
-            }
-
-
-            var changeLoadingState = function (isLoading) {
-                if (isLoading) {
-                    document.getElementById("submit").disabled = true;
-                    document.querySelector("#spinner").classList.remove("hidden");
-                    document.querySelector("#button-text").classList.add("hidden");
-                } else {
-                    document.getElementById("submit").disabled = false;
-                    document.querySelector("#spinner").classList.add("hidden");
-                    document.querySelector("#button-text").classList.remove("hidden");
-                }
-            };
-
-        });
-
-        function planSelect(name, price, priceId) {
-            var inputs = document.getElementsByTagName('input');
-
-            for (var i = 0; i < inputs.length; i++) {
-                inputs[i].checked = false;
-                if (inputs[i].name == name) {
-
-                    inputs[i].checked = true;
-                }
-            }
-
-            var n = document.getElementById('plan');
-            var p = document.getElementById('price');
-            var pid = document.getElementById('priceId');
-            n.innerHTML = name;
-            p.innerHTML = price;
-            pid.innerHTML = priceId;
-            document.getElementById("submit").disabled = false;
-        }
-
-    </script>
-
-
-
-
     {% endblock %}
-
-    
 
     {% block extra_css %}
     {% endblock %}
@@ -237,93 +62,91 @@
 
 <body>
     <div id="page-container">
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <p class="navbar-brand branding-title">FriendsDiscovery</p>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto">
-                        {% if request.user.is_authenticated %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'profile_list' %}">
-                                    <h6><i class="fas fa-users fa-lg fa-fw"></i> Profiles</h6>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <p class="navbar-brand branding-title">FriendsDiscovery</p>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto">
+                            {% if request.user.is_authenticated %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'profile_list' %}">
+                                        <h6><i class="fas fa-users fa-lg fa-fw"></i> Profiles</h6>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'friend_list' %}">
+                                        <h6><i class="far fa-smile-beam fa-lg fa-fw"></i> Friends</h6>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <h6>
+                                        <i class="fas fa-user fa-lg fa-fw"></i>
+                                        {% if request.user.is_authenticated %}
+                                            {{request.user}}
+                                        {% else %}
+                                            My Account
+                                        {% endif %}
+                                    </h6>
                                 </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'friend_list' %}">
-                                    <h6><i class="far fa-smile-beam fa-lg fa-fw"></i> Friends</h6>
-                                </a>
-                            </li>
-                        {% endif %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <h6>
-                                    <i class="fas fa-user fa-lg fa-fw"></i>
+                                <ul class="dropdown-menu border-0" aria-labelledby="navbarDropdown">
                                     {% if request.user.is_authenticated %}
-                                         {{request.user}}
+                                        <li><h6><a class="dropdown-item" href="{% url 'userprofile' %}">Profile Page</a></h6></li>
+                                        <li><h6><a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a></h6></li>                              
+                                        <li><h6><a class="dropdown-item" href="{% url 'account_logout' %}"> Logout</a></h6></li>
                                     {% else %}
-                                         My Account
+                                        <li><h6><a class="dropdown-item" href="{% url 'extendedSignup' %}"> Register</a></h6></li>
+                                        <li><h6><a class="dropdown-item" href="{% url 'account_login' %}"> Login</a></h6></li>
                                     {% endif %}
-                                </h6>
-                            </a>
-                            <ul class="dropdown-menu border-0" aria-labelledby="navbarDropdown">
-                                {% if request.user.is_authenticated %}
-                                    <li><h6><a class="dropdown-item" href="{% url 'userprofile' %}">Profile Page</a></h6></li>
-                                    <li><h6><a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a></h6></li>                              
-                                    <li><h6><a class="dropdown-item" href="{% url 'account_logout' %}"> Logout</a></h6></li>
-                                {% else %}
-                                    <li><h6><a class="dropdown-item" href="{% url 'extendedSignup' %}"> Register</a></h6></li>
-                                    <li><h6><a class="dropdown-item" href="{% url 'account_login' %}"> Login</a></h6></li>
-                                {% endif %}
-                            </ul>
-                        </li>
-                        {% if request.user.is_authenticated %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'membership_info' %}">
-                                    {% if request.user.userprofile.subscription.status == "active" %}
-                                        <h6><i class="fas fa-star fa-lg fa-fw"></i> Membership</h6>
-                                    {% else %}
-                                        <h6><i class="far fa-star fa-lg fa-fw"></i> Membership</h6>
-                                    {% endif %}
-                                </a>
+                                </ul>
                             </li>
-                        {% endif %}
-                    </ul>
+                            {% if request.user.is_authenticated %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'membership_info' %}">
+                                        {% if request.user.userprofile.subscription.status == "active" %}
+                                            <h6><i class="fas fa-star fa-lg fa-fw"></i> Membership</h6>
+                                        {% else %}
+                                            <h6><i class="far fa-star fa-lg fa-fw"></i> Membership</h6>
+                                        {% endif %}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </header>
+            </nav>
+        </header>
 
+        {% if messages %}
+        {% endif %}
+        <div class="message-container"></div>
 
-    {% if messages %}
-    {% endif %}
-    <div class="message-container"></div>
-
-    {% block page_header %}
-    {% endblock %}
-    
-    
-    <div id="content-wrap">
-    {% block content %}
-    {% endblock %}
-      </div>
-    
-    
-    
-    <footer id="footer">
-        <p>© 2021 FriendsDiscovery All rights reserved</p>
-    </footer>
-    
-    {% block postloadjs %}
-    {% endblock %}
-
-</div>
+        {% block page_header %}
+        {% endblock %}
+                
+        <div id="content-wrap">
+        {% block content %}
+        {% endblock %}
+        </div>
+        
+        <input type="hidden" id="username" value="{{user.username}}">
+        <input type="hidden" id="csrftoken" value="{{csrf_token}}">
+        
+        <footer id="footer">
+            <p>© 2021 FriendsDiscovery All rights reserved</p>
+        </footer>
+        
+        {% block postloadjs %}
+        {% endblock %}
+    </div>
 </body>
 
 </html>
