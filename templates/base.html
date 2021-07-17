@@ -107,7 +107,9 @@
 
                 let displayError = document.getElementById('card-errors');
                 if (event.error) {
-                    displayError.textContent = event.error.message;
+                    displayError.textContent = event.error;
+                    alert("Your subscription payment was not successful. " + event.error + ". Please re-try your payment.");
+                    window.location.href = '/userprofile';
                 } else {
                     displayError.textContent = '';
                 }
@@ -174,7 +176,7 @@
                                     window.location.href = '/complete';
                                 };
                             }).catch(function (result) {
-                                displayError(result.error);
+                                displayError(result);
                             });
                         }
                     });
